@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title>ZooKeeper配置和学习笔记 | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">ZooKeeper配置和学习笔记</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/timeline/"><i class="fa fa-hourglass-start"> 时间轴</i></a><a href="/old/"><i class="fa fa-link"> 以前</i></a><a href="/about/"><i class="fa fa-user"> 关于我</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">ZooKeeper配置和学习笔记</h1><div class="post-meta">Jan 2, 2017<span> | </span><span class="category"><a href="/categories/分布式/">分布式</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a href="/2017/01/02/ZooKeeper配置和学习笔记/#comments" class="ds-thread-count cloud-tie-join-count"><span style="font-size: 15px; color: #6E7173;" class="join-count">0</span><span> 条参与</span></a><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper介绍"><span class="toc-number">1.</span> <span class="toc-text">ZooKeeper介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper环境部署和和简单测试"><span class="toc-number">2.</span> <span class="toc-text">ZooKeeper环境部署和和简单测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#特别注意：ZooKeeper是支持Watcher监听的，你可以用它监听某个节点的值是否存在、是否改变、是否被删除等之类的动作，当他触发了相关的动作就会进行回调的，有点是异步编程，也是特别棒的东西。"><span class="toc-number">2.1.</span> <span class="toc-text">特别注意：ZooKeeper是支持Watcher监听的，你可以用它监听某个节点的值是否存在、是否改变、是否被删除等之类的动作，当他触发了相关的动作就会进行回调的，有点是异步编程，也是特别棒的东西。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实战使用"><span class="toc-number">3.</span> <span class="toc-text">实战使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用分布式服务框架和ZooKeeper的依赖讲解"><span class="toc-number">4.</span> <span class="toc-text">常用分布式服务框架和ZooKeeper的依赖讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文档"><span class="toc-number">5.</span> <span class="toc-text">参考文档</span></a></li></ol></div></div><div class="post-content"><h3 id="ZooKeeper介绍"><a href="#ZooKeeper介绍" class="headerlink" title="ZooKeeper介绍"></a>ZooKeeper介绍</h3><ol>
+<li>Zookeeper 分布式服务框架是 Apache Hadoop 的一个子项目，它主要是用来解决分布式应用中经常遇到的一些数据管理问题，如：统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理等。本文将从使用者角度详细介绍 Zookeeper 的安装和配置文件中各个配置项的意义，以及分析 Zookeeper 的典型的应用场景（配置文件的管理、集群管理、同步锁、Leader 选举、队列管理等）。</li>
+<li>简单说下我的理解：<blockquote>
+<ul>
+<li>ZooKeeper有三种工作模式：<blockquote>
+<ul>
+<li><code>Standalone</code>：单点模式，有单点故障问题。</li>
+<li><code>伪分布式</code>：在一台机器同时运行多个ZooKeeper实例，仍然有单点故障问题，当然，其中配置的端口号要错开的，适合实验环境模拟集群使用。</li>
+<li><code>完全分布式</code>：在多台机器上部署ZooKeeper集群，适合线上环境使用。</li>
+</ul>
+</blockquote>
+</li>
+<li>ZooKeeper到底是什么：<blockquote>
+<ul>
+<li><code>三种端口号</code>：这里先说明三个ZooKeeper配置需要的端口号，因为后面的解释中会经常引用，就拉到前面讲啦<blockquote>
+<ul>
+<li><strong>端口X</strong>：客户端连接ZooKeeper集群使用的监听端口号</li>
+<li><strong>端口Y</strong>：leader和follower之间数据同步使用的端口号</li>
+<li><strong>端口Z</strong>：leader选举专用的端口号</li>
+</ul>
+</blockquote>
+</li>
+<li><code>单点分析</code>：在每个ZooKeeper节点当中，ZooKeeper维护了一个类似linux的树状文件系统结构，可以把一些配置信息，数据等存放到ZooKeeper当中，也可以把ZooKeeper当中的一个目录节点当做一个锁的互斥文件来实现并发安全控制，你看到这就先把ZooKeeper理解为一个在操作系统上运行的一个虚拟文件系统，只不过他不是像HDFS那样真的用来存放文件的，他是利用文件系统的节点作为底层实现来提供分布式环境很常用的功能，这在后面的<code>实战使用</code>会具体讲解.</li>
+<li><code>集群分析</code>：ZooKeeper中的每个节点都是上面的<code>单点分析</code>那样工作的，但是集群多节点之间到底如何进行协商和通信呢？<blockquote>
+<ul>
+<li>首先，类似mysql读写分离那样，ZooKeeper的每个节点都存放相同的数据，因此访问ZooKeeper的时候会被分流道各个节点实现高并发，多节点也顺便实现了高可用。</li>
+<li>ZooKeeper的节点之间也有主次关系，集群启动完成之后，ZooKeeper会运行选举程序（端口Z）从集群中选择一个leader节点，而其他的节点就是follower节点，对于ZooKeeper的写操作，会被转发到leader节点，而follower节点和leader节点的数据同步（端口Y）也在后台自动实现，读操作则每个节点都能提供，负载均衡~</li>
+<li><code>容灾机制</code>：follower节点挂了比较不要紧，有leader协调，整个集群还不至于发生致命影响。但是leader节点要是挂了，就群龙无首了，但是其实这个状态和ZooKeeper集群启动前期还没确定leader节点的时候是一样的状态，下面讲解这个状态如何进行leader的 选举。<br>由于每个节点配置文件中都维护了整个ZooKeeper集群的所有节点列表，因此在没确定leader节点或者leader节点挂掉的时候，每个节点向leader的通信必然是失败的，follower节点就是这么发现leader节点挂了的，这个时候他就能启动选举程序进行leader竞选，和其他的所有follower节点进行通信，根据某种算法方案确定leader的节点之后，被选中的节点就启动leader的程序，化身leader重新领导整个集群。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>客户端访问高可用：<blockquote>
+<ul>
+<li><code>读操作</code>：每个节点都能响应</li>
+<li><code>写操作</code>：不管向哪个节点请求都会转发到leader节点执行，再把数据同步到各个follower节点。</li>
+<li><code>访问follower节点宕机</code>：客户端会保存一个地址列表，会自动使用另一个地址进行访问，实在不行还有leader节点分配地址再次访问呢，而且一旦客户端和服务器的连接被断开，客户端就会自动去连接另一个节点的地址进行请求。</li>
+<li><code>访问leader节点宕机</code>：也是使用这个地址列表，如果是读操作，则leader选举出来之前都能访问，但是如果是写操作，就要等leader选举完成之后才能进行操作。</li>
+<li>我之前有疑问的地方就是以为客户端只维护一个节点的地址，这样的话导致了这个节点宕机之后客户端就和ZooKeeper集群断开了且无法重新连接了，但是后来知道了客户端是保存了节点地址列表，那所有问题就很好理解啦。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+<li>好了，说了很多废话你可能有点晕了，但是总说一点，别忘了，现在先把他当成一个树形文件系统~</li>
+</ol>
+<h3 id="ZooKeeper环境部署和和简单测试"><a href="#ZooKeeper环境部署和和简单测试" class="headerlink" title="ZooKeeper环境部署和和简单测试"></a>ZooKeeper环境部署和和简单测试</h3><ol>
+<li>ZooKeeper下载：<a href="http://apache.fayea.com/zookeeper/" target="_blank" rel="external">http://apache.fayea.com/zookeeper/</a></li>
+<li>官网文档：<a href="https://zookeeper.apache.org/doc/r3.4.9/" target="_blank" rel="external">https://zookeeper.apache.org/doc/r3.4.9/</a></li>
+<li>安装准备：<blockquote>
+<ul>
+<li>JDK</li>
+<li>hosts</li>
+<li>防火墙</li>
+<li>SELinux</li>
+<li>ssh免密码登录</li>
+<li>等等这些基本配置前面的Hadoop教程说过了，不再赘述，这些问题我相信都是很容易解决的。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>安装步骤总结：</p>
+<blockquote>
+<p>(1) 创建缓存目录；<br>(2) 配置zookeeper配置文件zoo.cfg，设置缓存目录、监听客户端端口号、server列表配置等<br>(3) bin目录下的zkServer.sh启动即可，还能查看集群中的leader、follower之间的关系</p>
+</blockquote>
+</li>
+<li><p>单机模式：</p>
+<blockquote>
+<ul>
+<li>创建缓存目录;</li>
+<li>解压ZooKeeper安装包，在conf目录下的zoo_sample.cfg文件复制一个副本zoo.cfg，在里面进行ZooKeeper整体配置：<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attr">tickTime</span>=<span class="number">2000</span></div><div class="line"><span class="attr">dataDir</span>=/opt/zookeeper1</div><div class="line"><span class="attr">clientPort</span>=<span class="number">2181</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p><code>tickTime</code>：这个时间是作为 Zookeeper 服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个 tickTime 时间就会发送一个心跳。<br><code>dataDir</code>：顾名思义就是 Zookeeper 保存数据的目录，默认情况下，Zookeeper 将写数据的日志文件也保存在这个目录里。<br><code>clientPort</code>：这个端口就是客户端连接 Zookeeper 服务器的端口，Zookeeper 会监听这个端口，接受客户端的访问请求。</p>
+<ul>
+<li><p>bin目录下的zkServer.sh执行即可启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/zkServer.sh start</div></pre></td></tr></table></figure>
+</li>
+<li><p>可以查看ZooKeeper的执行状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/zkServer.sh status</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ol>
+<li>集群模式：<blockquote>
+<ul>
+<li>创建缓存目录;</li>
+<li>解压ZooKeeper安装包，在conf目录下的zoo_sample.cfg文件复制一个副本zoo.cfg，在里面进行ZooKeeper整体配置：<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">tickTime=<span class="number">2000</span></div><div class="line">dataDir=/opt/zookeeper1</div><div class="line">clientPort=<span class="number">2181</span></div><div class="line">initLimit=<span class="number">5</span></div><div class="line">syncLimit=<span class="number">2</span></div><div class="line">server<span class="meta">.1</span>=<span class="number">192.168</span><span class="meta">.211</span><span class="meta">.1</span>:<span class="number">2888</span>:<span class="number">3888</span></div><div class="line">server<span class="meta">.2</span>=<span class="number">192.168</span><span class="meta">.211</span><span class="meta">.2</span>:<span class="number">2888</span>:<span class="number">3888</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>上面前三个的配置和单机模式一样，不多赘述了。<br><code>initLimit</code>：这个配置项是用来配置 Zookeeper 接受客户端（这里所说的客户端不是用户连接 Zookeeper 服务器的客户端，而是 Zookeeper 服务器集群中连接到 Leader 的 Follower 服务器）初始化连接时最长能忍受多少个心跳时间间隔数。当已经超过 10 个心跳的时间（也就是 tickTime）长度后 Zookeeper 服务器还没有收到客户端的返回信息，那么表明这个客户端连接失败。总的时间长度就是 5<em>2000=10 秒<br><code>syncLimit</code>：这个配置项标识 Leader 与 Follower 之间发送消息，请求和应答时间长度，最长不能超过多少个 tickTime 的时间长度，总的时间长度就是 2</em>2000=4 秒<br><code>server.A=B：C：D</code>：其中 A 是一个数字，表示这个是第几号服务器；B 是这个服务器的 ip 地址；C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口(上面的端口Y)；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口(上面的端口Z)。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。</p>
+<ul>
+<li><p>在上面配置的dataDir目录下创建myid文件，填写这个节点上的id号，就是<code>server.A=B：C：D</code>配置的A那个号码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># cat /opt/zookeeper1/myid</span></div><div class="line">1</div><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># cat /opt/zookeeper2/myid</span></div><div class="line">2</div><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># cat /opt/zookeeper3/myid</span></div><div class="line">3</div><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># cat /opt/zookeeper4/myid</span></div><div class="line">4</div></pre></td></tr></table></figure>
+</li>
+<li><p>将配置好的整个安装包复制到每个节点机器上，scp命令复制过去，我这里是采用伪分布式，直接使用cp命令即可。</p>
+</li>
+<li>到每个节点上zookeeper/bin目录下的zkServer.sh执行即可启动：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bin/zkServer.sh start</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其他脚本介绍：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">zkServer.sh     ： ZooKeeper服务器的启动、停止和重启脚本；</div><div class="line">zkCli.sh        ： ZooKeeper的简易客户端；</div><div class="line">zkEnv.sh        ： 设置ZooKeeper的环境变量；</div><div class="line">zkCleanup.sh    ： 清理ZooKeeper历史数据，包括事务日志文件和快照数据文件。</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>可以查看ZooKeeper的执行状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zookeeper/bin/zkServer.sh status</div></pre></td></tr></table></figure>
+</li>
+<li><p>简单说明这样的配置ZooKeeper集群是怎么工作的：</p>
+<blockquote>
+<ul>
+<li>首先，每个节点上zoo.cfg配置文件中都有整个集群的列表，所以每个节点之间的通信都是可行的。</li>
+<li>然后是dataDir目录下的myid标记了这个机器上的这个节点是zoo.cfg上的集群列表的哪个记录，从这个就能知道当前的这个节点所处的位置，也能知道当前机器的节点是不是leader，以便于执行leader该执行的程序。</li>
+<li>关于配置的三个端口号：<blockquote>
+<ul>
+<li><strong>端口X</strong>：监听客户端连接的，没什么可说的</li>
+<li><strong>端口Y</strong>：follower和leader进行数据同步通信用的，这个是长连接随时同步数据，健康情况下正常运行，leader宕机就无法正常执行，此时触发选举程序选择新的leader。</li>
+<li><strong>端口Z</strong>：选举时各个follower节点之间两两可以相互通信的，以便于成功选择出leader。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><code>踩坑记录</code>：我刚开始以为端口X和端口Y是同一个，导致了我就设置了同一个端口号，所以显然是无法启动成功的，后来知道这两个端口号完成的是不同的功能，所以改正完成就能启动成功了。</li>
+</ul>
+</blockquote>
+<ol>
+<li>可以创建一个启动脚本一次性启动整个集群，比如我搭建的伪分布式的启动脚本：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#! /bin/sh</span></div><div class="line">/usr/java/zookeeper/zookeeper1/bin/zkServer.sh start</div><div class="line">/usr/java/zookeeper/zookeeper2/bin/zkServer.sh start</div><div class="line">/usr/java/zookeeper/zookeeper3/bin/zkServer.sh start</div><div class="line">/usr/java/zookeeper/zookeeper4/bin/zkServer.sh start</div><div class="line">/usr/java/zookeeper/zookeeper1/bin/zkServer.sh status</div><div class="line">/usr/java/zookeeper/zookeeper2/bin/zkServer.sh status</div><div class="line">/usr/java/zookeeper/zookeeper3/bin/zkServer.sh status</div><div class="line">/usr/java/zookeeper/zookeeper4/bin/zkServer.sh status</div><div class="line"><span class="built_in">echo</span> <span class="string">'you can use zookeeper client connect to 119.29.153.56 on follow ports:'</span></div><div class="line"><span class="built_in">echo</span> <span class="string">'2181'</span></div><div class="line"><span class="built_in">echo</span> <span class="string">'2182'</span></div><div class="line"><span class="built_in">echo</span> <span class="string">'2183'</span></div><div class="line"><span class="built_in">echo</span> <span class="string">'2184'</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>各个节点的启动状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># /usr/java/zookeeper/zookeeper1/bin/zkServer.sh status</span></div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /usr/java/zookeeper/zookeeper1/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># /usr/java/zookeeper/zookeeper2/bin/zkServer.sh status</span></div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /usr/java/zookeeper/zookeeper2/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># /usr/java/zookeeper/zookeeper3/bin/zkServer.sh status</span></div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /usr/java/zookeeper/zookeeper3/bin/../conf/zoo.cfg</div><div class="line">Mode: leader</div><div class="line">[root@VM_68_145_centos zookeeper]<span class="comment"># /usr/java/zookeeper/zookeeper4/bin/zkServer.sh status</span></div><div class="line">ZooKeeper JMX enabled by default</div><div class="line">Using config: /usr/java/zookeeper/zookeeper4/bin/../conf/zoo.cfg</div><div class="line">Mode: follower</div></pre></td></tr></table></figure></p>
+<p>启动完成之后顺便查看了每个节点充当的是leader还是follower，并把集群的所有客户端连接端口号输出出来，从上面的执行结果可知，zookeeper3的这个实例是leader，其他实例是follower。</p>
+</blockquote>
+<ol>
+<li>ZooKeeper简单操作测试：<blockquote>
+<ul>
+<li>命令行方式操纵ZooKeeper：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 进入本地的ZooKeeper：</span></div><div class="line">/usr/java/zookeeper/zookeeper1/bin/zkCli.sh</div><div class="line"><span class="comment"># 进入远程的ZooKeeper：</span></div><div class="line">/usr/java/zookeeper/zookeeper1/bin/zkCli.sh -server &#123;ip&#125;:&#123;port&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>这样就进入了ZooKeeper的命令行客户端，就能访问指定的ZooKeeper集群中的数据，支持以下的操作（在命令行下输入错误命令就能看到提示了。。。）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">stat</span> path [watch]</div><div class="line">	<span class="built_in">set</span> path data [version]</div><div class="line">	ls path [watch]</div><div class="line">	delquota [-n|-b] path</div><div class="line">	ls2 path [watch]</div><div class="line">	<span class="built_in">set</span>Acl path acl</div><div class="line">	setquota -n|-b val path</div><div class="line">	<span class="built_in">history</span></div><div class="line">	redo cmdno</div><div class="line">	printwatches on|off</div><div class="line">	delete path [version]</div><div class="line">	sync path</div><div class="line">	listquota path</div><div class="line">	rmr path</div><div class="line">	get path [watch]</div><div class="line">	create [<span class="_">-s</span>] [<span class="_">-e</span>] path data acl</div><div class="line">	addauth scheme auth</div><div class="line">	quit</div><div class="line">	getAcl path</div><div class="line">	close</div><div class="line">	connect host:port</div></pre></td></tr></table></figure></p>
+<ul>
+<li>操作示例：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 创建节点/testInput，节点中的数值为inputData</span></div><div class="line">create /<span class="built_in">test</span>Input <span class="string">"inputData"</span></div><div class="line"><span class="comment"># 查询刚才插入的节点</span></div><div class="line">get /<span class="built_in">test</span>Input</div><div class="line"><span class="comment"># 运行结果</span></div><div class="line">inputData</div><div class="line">cZxid = 0x300000006</div><div class="line">ctime = Sun Dec 18 21:47:21 CST 2016</div><div class="line">mZxid = 0x300000006</div><div class="line">mtime = Sun Dec 18 21:47:21 CST 2016</div><div class="line">pZxid = 0x300000006</div><div class="line">cversion = 0</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 9</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>所以整个操纵的过程就和平时操作linux文件的感觉差不多，下面的Java程序操纵其实也只是对这些命令行的封装，下面也给出一些示例。</p>
+</blockquote>
+<ol>
+<li>Java客户端操纵ZooKeeper：<blockquote>
+<ul>
+<li>这里也只简单示例一些基本操作：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZooKeeperClient</span> </span>&#123;</div><div class="line">    <span class="comment">//同步互斥变量，用来阻塞等待ZooKeeper连接完成之后再进行ZooKeeper的操作命令</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CountDownLatch connectedSemaphore = <span class="keyword">new</span> CountDownLatch( <span class="number">1</span> );</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="comment">// 创建一个与服务器的连接</span></div><div class="line">        ZooKeeper zk = <span class="keyword">new</span> ZooKeeper(<span class="string">"119.29.153.56:2181"</span>,<span class="number">3000</span>, <span class="keyword">new</span> Watcher() &#123;<span class="comment">//这个是服务器连接完成回调的监听器</span></div><div class="line">            <span class="comment">// 监控所有被触发的事件</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(WatchedEvent event)</span> </span>&#123;</div><div class="line">                System.out.println(<span class="string">"已经触发了"</span> + event.getType() + <span class="string">"事件！"</span>);</div><div class="line">                <span class="keyword">if</span> ( Event.KeeperState.SyncConnected == event.getState() ) &#123;</div><div class="line">                    <span class="comment">//连接完成的同步事件，互斥变量取消，下面的阻塞停止，程序继续执行</span></div><div class="line">                    connectedSemaphore.countDown();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        <span class="comment">//如果和ZooKeeper服务器的TCP连接还没完全建立，就阻塞等待</span></div><div class="line">        connectedSemaphore.await();</div><div class="line">        <span class="comment">// 创建一个目录节点</span></div><div class="line">        zk.create(<span class="string">"/testRootPath"</span>, <span class="string">"testRootData"</span>.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,</div><div class="line">                CreateMode.PERSISTENT);</div><div class="line">        <span class="comment">// 创建一个子目录节点</span></div><div class="line">        zk.create(<span class="string">"/testRootPath/testChildPathOne"</span>, <span class="string">"testChildDataOne"</span>.getBytes(),</div><div class="line">                ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);</div><div class="line">        System.out.println(<span class="keyword">new</span> String(zk.getData(<span class="string">"/testRootPath"</span>,<span class="keyword">false</span>,<span class="keyword">null</span>)));</div><div class="line">        <span class="comment">// 取出子目录节点列表</span></div><div class="line">        System.out.println(zk.getChildren(<span class="string">"/testRootPath"</span>,<span class="keyword">true</span>));</div><div class="line">        <span class="comment">// 修改子目录节点数据</span></div><div class="line">        zk.setData(<span class="string">"/testRootPath/testChildPathOne"</span>,<span class="string">"modifyChildDataOne"</span>.getBytes(),-<span class="number">1</span>);</div><div class="line">        System.out.println(<span class="string">"目录节点状态：["</span>+zk.exists(<span class="string">"/testRootPath"</span>,<span class="keyword">true</span>)+<span class="string">"]"</span>);</div><div class="line">        <span class="comment">// 创建另外一个子目录节点</span></div><div class="line">        zk.create(<span class="string">"/testRootPath/testChildPathTwo"</span>, <span class="string">"testChildDataTwo"</span>.getBytes(),</div><div class="line">                ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);</div><div class="line">        System.out.println(<span class="keyword">new</span> String(zk.getData(<span class="string">"/testRootPath/testChildPathTwo"</span>,<span class="keyword">true</span>,<span class="keyword">null</span>)));</div><div class="line">        <span class="comment">// 删除子目录节点</span></div><div class="line">        zk.delete(<span class="string">"/testRootPath/testChildPathTwo"</span>,-<span class="number">1</span>);</div><div class="line">        zk.delete(<span class="string">"/testRootPath/testChildPathOne"</span>,-<span class="number">1</span>);</div><div class="line">        <span class="comment">// 删除父目录节点</span></div><div class="line">        zk.delete(<span class="string">"/testRootPath"</span>,-<span class="number">1</span>);</div><div class="line">        <span class="comment">// 关闭连接</span></div><div class="line">        zk.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>输出结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">已经触发了None事件！</div><div class="line"><span class="built_in">test</span>RootData</div><div class="line">[<span class="built_in">test</span>ChildPathOne]</div><div class="line">目录节点状态：[17179869200,17179869200,1482114759242,1482114759242,0,1,0,0,12,1,17179869201</div><div class="line">]</div><div class="line">已经触发了NodeChildrenChanged事件！</div><div class="line"><span class="built_in">test</span>ChildDataTwo</div><div class="line">已经触发了NodeDeleted事件！</div><div class="line">已经触发了NodeDeleted事件！</div></pre></td></tr></table></figure></p>
+<p><code>解释</code>：<br>第一个添加节点/testRootPath，触发None事件，之后再获取这个节点数据、其子节点列表、节点状态<br>接下来创建第二个子节点/testRootPath/testChildPathTwo，触发NodeChildrenChanged事件<br>然后删除两个子节点，触发两次NodeDeleted事件</p>
+<ul>
+<li><strong>常用接口介绍</strong>：<blockquote>
+<ul>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/" target="_blank" rel="external"><code>IBM教程</code></a>这边已经有部分接口的说明，可以拿来当做初步认识，在比较下面，往下翻哦~。</li>
+<li>几个可能的疑问：<br><code>ACL</code>：这个是ZooKeeper本身提供的简单的权限控制模型，有一些简单的权限控制策略，可以稍做了解。<br><code>OP</code>：面向对象的思想嘛，一个ZooKeeper的操作命令也抽象为一个操作对象，不过它只是个抽象类，具体的实现有Delete、Check等子类才是实际的具体操作对象。<br><code>CreateMode</code>：创建节点的模式枚举，四个成员分别是：PERSISTENT（持久化）、PERSISTENT_SEQUENTIAL（持久化并序号自增）、EPHEMERAL（临时，当前session有效）、EPHEMERAL_SEQUENTIAL（临时，当前session有效，序号自增）<br><code>ZooDefs.Ids</code>：提供了上面<code>ACL</code>的常用的权限策略常量列表。<br><code>Event.KeeperState</code>：ZooKeeper的事件类型状态常量列表。</li>
+<li>有了上面的就基本对ZooKeeper的API有了初步的认识，剩下的问题看官方文档就很好理解了：<a href="http://people.apache.org/~larsgeorge/zookeeper-1215258/build/docs/dev-api/" target="_blank" rel="external">http://people.apache.org/~larsgeorge/zookeeper-1215258/build/docs/dev-api/</a></li>
+</ul>
+</blockquote>
+</li>
+<li><h4 id="特别注意：ZooKeeper是支持Watcher监听的，你可以用它监听某个节点的值是否存在、是否改变、是否被删除等之类的动作，当他触发了相关的动作就会进行回调的，有点是异步编程，也是特别棒的东西。"><a href="#特别注意：ZooKeeper是支持Watcher监听的，你可以用它监听某个节点的值是否存在、是否改变、是否被删除等之类的动作，当他触发了相关的动作就会进行回调的，有点是异步编程，也是特别棒的东西。" class="headerlink" title="特别注意：ZooKeeper是支持Watcher监听的，你可以用它监听某个节点的值是否存在、是否改变、是否被删除等之类的动作，当他触发了相关的动作就会进行回调的，有点是异步编程，也是特别棒的东西。"></a><strong>特别注意：ZooKeeper是支持<code>Watcher监听</code>的，你可以用它监听某个节点的值是否存在、是否改变、是否被删除等之类的动作，当他触发了相关的动作就会进行<code>回调</code>的，有点是异步编程，也是特别棒的东西。</strong></h4>到这里入门就告一段落了，接下来就是实际应用场景的分析啦~</li>
+</ul>
+</blockquote>
+<h3 id="实战使用"><a href="#实战使用" class="headerlink" title="实战使用"></a>实战使用</h3><ol>
+<li><code>统一命名服务（Name Service）</code>：在ZooKeeper的树形结构下你可以创建一个统一的不重复的命名，比如create创建一个节点即可，再创建一个相同名称的节点是不允许的。</li>
+<li><code>配置管理（Configuration Management）</code>：意思就是分布式应用的配置可以交给ZooKeeper来管理，不然一旦修改配置，就得每台机器上的配置都做相应的修改，如果交给ZooKeeper管理的话，只需要修改ZooKeeper上的节点值即可。</li>
+<li><code>集群管理（Group Membership）</code>：<blockquote>
+<ul>
+<li>Zookeeper 不仅能够帮你维护当前的集群中机器的服务状态，而且能够帮你选出一个“总管”，让这个总管来管理集群，这就是 Zookeeper 的另一个功能 Leader Election。</li>
+<li>它们的实现方式都是在 Zookeeper上创建一个 EPHEMERAL 类型的目录节点，然后每个 Server 在它们创建目录节点的父目录节点上调用 getChildren(String path, boolean watch) 方法并设置 watch 为 true，由于是 EPHEMERAL 目录节点，当创建它的 Server 死去，这个目录节点也随之被删除，所以 Children 将会变化，这时 getChildren上的 Watch 将会被调用，所以其它 Server 就知道已经有某台 Server 死去了。新增 Server 也是同样的原理。</li>
+<li>Zookeeper 如何实现 Leader Election，也就是选出一个 Master Server。和前面的一样每台 Server 创建一个 EPHEMERAL 目录节点，不同的是它还是一个 SEQUENTIAL 目录节点，所以它是个 EPHEMERAL_SEQUENTIAL 目录节点。之所以它是 EPHEMERAL_SEQUENTIAL 目录节点，是因为我们可以给每台 Server 编号，我们可以选择当前是最小编号的 Server 为 Master，假如这个最小编号的 Server 死去，由于是 EPHEMERAL 节点，死去的 Server 对应的节点也被删除，所以当前的节点列表中又出现一个最小编号的节点，我们就选择这个节点为当前 Master。这样就实现了动态选择 Master，避免了传统意义上单 Master 容易出现单点故障的问题。</li>
+</ul>
+</blockquote>
+</li>
+<li><code>共享锁（Locks）</code>：共享锁在同一个进程中很容易实现，但是在跨进程或者在不同 Server 之间就不好实现了。Zookeeper 却很容易实现这个功能，实现方式也是需要获得锁的 Server 创建一个 EPHEMERAL_SEQUENTIAL 目录节点，然后调用 getChildren方法获取当前的目录节点列表中最小的目录节点是不是就是自己创建的目录节点，如果正是自己创建的，那么它就获得了这个锁，如果不是那么它就调用 exists(String path, boolean watch) 方法并监控 Zookeeper 上目录节点列表的变化，一直到自己创建的节点是列表中最小编号的目录节点，从而获得锁，释放锁很简单，只要删除前面它自己所创建的目录节点就行了。</li>
+<li><code>队列管理</code>：<blockquote>
+<ul>
+<li><code>同步队列</code>：<br>当一个队列的成员都聚齐时，这个队列才可用，否则一直等待所有成员到达，这种是同步队列。<br>队列按照 FIFO 方式进行入队和出队操作，例如实现生产者和消费者模型。<br>同步队列用 Zookeeper 实现的实现思路如下：<br>创建一个父目录 /synchronizing，每个成员都监控标志（Set Watch）位目录 /synchronizing/start 是否存在，然后每个成员都加入这个队列，加入队列的方式就是创建 /synchronizing/member_i 的临时目录节点，然后每个成员获取 / synchronizing 目录的所有目录节点，也就是 member_i。判断 i 的值是否已经是成员的个数，如果小于成员个数等待 /synchronizing/start 的出现，如果已经相等就创建 /synchronizing/start。</li>
+<li><code>FIFO队列</code>：<br>实现的思路也非常简单，就是在特定的目录下创建 SEQUENTIAL 类型的子目录 /queue_i，这样就能保证所有成员加入队列时都是有编号的，出队列时通过 getChildren( ) 方法可以返回当前所有的队列中的元素，然后消费其中最小的一个，这样就能保证 FIFO。</li>
+</ul>
+</blockquote>
+</li>
+<li><strong>可见ZooKeeper本身的树形目录结构以及其提供的对目录节点的<code>监控Watcher</code>，提供了实时数据同步以及可客户端的及时通知。并且利用节点之间的变化<code>触发的事件类型</code>可以很方便地设计很多实际应用场景的算法需求。</strong>具体的很多说明和算法示例代码在<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/" target="_blank" rel="external">IBM教程</a>中有详细的讲解。</li>
+</ol>
+<h3 id="常用分布式服务框架和ZooKeeper的依赖讲解"><a href="#常用分布式服务框架和ZooKeeper的依赖讲解" class="headerlink" title="常用分布式服务框架和ZooKeeper的依赖讲解"></a>常用分布式服务框架和ZooKeeper的依赖讲解</h3><blockquote>
+<ul>
+<li>之前的<code>Hadoop 2.x</code>高可用配置使用了ZooKeeper，但是我根本不知道这个外部添加的ZooKeeper工具是怎么被Hadoop调用的，当时只是知道按照教程一步步下来就能成功运行，不过现在好好把ZooKeeper研究完了，就该来好好回顾一下这个问题了。</li>
+<li>这个是之前的Hadoop 2.x的高可用安装配置教程：<a href="http://www.coselding.cn/article/2016-05-31/hadoop2-high-available.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-05-31/hadoop2-high-available.html</a></li>
+<li>具体的过程就不在这里重复说明了，只挑要点讲解：</li>
+</ul>
+<ol>
+<li>Hadoop 2.x启动前要求先把ZooKeeper配置好并启动起来，这个时候ZooKeeper还是独立运行的。</li>
+<li>Hadoop 2.x配置完成之后在启动步骤中有一步：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hdfs zkfc -formatZK</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这步干嘛的？这个时候Hadoop中的多个NameNode节点都已经配置好了，这个步骤就是把NameNode的信息注册到ZooKeeper当中，包括哪个是Active，有哪些Standby，都在ZooKeeper当中进行注册记录，并且有一个<code>ZKFC</code>进程负责观察NameNode的状态，如果有NameNode宕机了，就马上通知ZooKeeper进行相应的记录修改，也就是说，ZooKeeper当中实时存放着NameNode的节点列表以及哪个是Active。（这部分的实时记录和更新代码存在ZKFC当中，是Hadoop本身就已经实现的代码，不需要我们自己编写，配置好就行）。</p>
+<ol>
+<li>Hadoop怎么知道ZooKeeper的存在？<code>hdfs-site.xml</code>中不是配置了<code>dfs.nameservices</code>这个属性吗，这个属性就是告诉Hadoop ZooKeeper的地址，Hadoop通过这个地址连接到ZooKeeper注册NameNode的命名信息，这个动作由<code>hdfs zkfc -formatZK</code>这个命令触发初始化执行。</li>
+<li>到这步就已经知道了，Hadoop中的NameNode的信息ZooKeeper都知道了，那我们是怎么访问HDFS的呢？教程中很清楚说明了，我们访问的是<code>hdfs-site.xml</code>中配置的<code>dfs.nameservices</code>来访问HDFS的，这个地址刚才说了，就是ZooKeeper的地址，所以在访问HDFS的时候就是先访问了ZooKeeper得到当前的Active NameNode，然后再用得到的Active NameNode地址再去访问HDFS。</li>
+<li>Hadoop的Active NameNode宕机呢？<code>ZKFC</code>时刻检测着NameNode，当NameNode宕机的时候，通知ZooKeeper，ZooKeeper保存了所有的NameNode的地址列表，他去通知所有的Standby NameNode进行<code>抢锁竞选</code>，谁抢到不重要，结果是会有一个Standby NameNode抢到锁并切换为Active NameNode，并通知ZooKeeper，这个时候ZooKeeper中的数据依然是实时最新的，很完美~</li>
+<li>这不实现了高可用和主备自动切换吗~ 简单粗暴~</li>
+</ol>
+</blockquote>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><blockquote>
+<ul>
+<li>IBM教程：<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/" target="_blank" rel="external">https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/</a></li>
+<li>官网文档：<a href="https://zookeeper.apache.org/doc/r3.4.9/" target="_blank" rel="external">https://zookeeper.apache.org/doc/r3.4.9/</a></li>
+<li>参考博客：<a href="http://luchunli.blog.51cto.com/2368057/1681841" target="_blank" rel="external">http://luchunli.blog.51cto.com/2368057/1681841</a></li>
+</ul>
+</blockquote>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://www.coselding.cn/2017/01/02/ZooKeeper配置和学习笔记/" data-id="cj36an3xw0000ascvsadvm12c" class="article-share-link">分享</a><div class="tags"><a href="/tags/集群管理/">集群管理</a><a href="/tags/选举/">选举</a><a href="/tags/zookeeper/">zookeeper</a></div><div class="post-nav"><a href="/2017/01/02/Dubbo入门学习笔记/" class="pre">Dubbo入门学习笔记</a><a href="/2016/12/21/Pushy入门文档中文翻译/" class="next">Pushy入门文档中文翻译</a></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/25/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/04/maven多套环境配置文件和junit冲突问题解决方案/">maven多套环境配置文件和junit冲突问题解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/04/Quartz调度系统入门和调度高可用实现方案/">Quartz调度系统入门和调度高可用实现方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/16/Swagger-maven-plugin-环境配置踩坑记录/">Swagger-maven-plugin-环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/记毕设过程中遇到的一个InnoDB的坑/">记毕设过程中遇到的一个InnoDB的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/12/知识、任务管理软件个人测评/">知识、任务管理软件个人测评</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/Dubbo入门学习笔记/">Dubbo入门学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/ZooKeeper配置和学习笔记/">ZooKeeper配置和学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/21/Pushy入门文档中文翻译/">Pushy入门文档中文翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/IntelliJ-IDEA-license-server服务器搭建/">IntelliJ-IDEA-license-server服务器搭建</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IDE/">IDE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式/">分布式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务/">微服务</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推送/">推送</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/pushy/" style="font-size: 15px;">pushy</a> <a href="/tags/IOS/" style="font-size: 15px;">IOS</a> <a href="/tags/http-2/" style="font-size: 15px;">http/2</a> <a href="/tags/IntelliJ/" style="font-size: 15px;">IntelliJ</a> <a href="/tags/激活/" style="font-size: 15px;">激活</a> <a href="/tags/jetbrains/" style="font-size: 15px;">jetbrains</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/RPC/" style="font-size: 15px;">RPC</a> <a href="/tags/Dubbo/" style="font-size: 15px;">Dubbo</a> <a href="/tags/SOA/" style="font-size: 15px;">SOA</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/调度/" style="font-size: 15px;">调度</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/分布式调度/" style="font-size: 15px;">分布式调度</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/Swagger/" style="font-size: 15px;">Swagger</a> <a href="/tags/自动化/" style="font-size: 15px;">自动化</a> <a href="/tags/RESTful/" style="font-size: 15px;">RESTful</a> <a href="/tags/APNs/" style="font-size: 15px;">APNs</a> <a href="/tags/集群管理/" style="font-size: 15px;">集群管理</a> <a href="/tags/选举/" style="font-size: 15px;">选举</a> <a href="/tags/zookeeper/" style="font-size: 15px;">zookeeper</a> <a href="/tags/macOS/" style="font-size: 15px;">macOS</a> <a href="/tags/折腾/" style="font-size: 15px;">折腾</a> <a href="/tags/环境搭建/" style="font-size: 15px;">环境搭建</a> <a href="/tags/mac实用插件/" style="font-size: 15px;">mac实用插件</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/junit/" style="font-size: 15px;">junit</a> <a href="/tags/filter/" style="font-size: 15px;">filter</a> <a href="/tags/spring-test/" style="font-size: 15px;">spring-test</a> <a href="/tags/经验/" style="font-size: 15px;">经验</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/时间管理/" style="font-size: 15px;">时间管理</a> <a href="/tags/知识管理/" style="font-size: 15px;">知识管理</a> <a href="/tags/doit-im/" style="font-size: 15px;">doit.im</a> <a href="/tags/GTD/" style="font-size: 15px;">GTD</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/InnoDB/" style="font-size: 15px;">InnoDB</a> <a href="/tags/读写锁/" style="font-size: 15px;">读写锁</a> <a href="/tags/事务/" style="font-size: 15px;">事务</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

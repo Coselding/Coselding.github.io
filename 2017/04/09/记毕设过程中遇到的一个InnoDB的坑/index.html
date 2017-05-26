@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title>记毕设过程中遇到的一个InnoDB的坑 | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">记毕设过程中遇到的一个InnoDB的坑</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/timeline/"><i class="fa fa-hourglass-start"> 时间轴</i></a><a href="/old/"><i class="fa fa-link"> 以前</i></a><a href="/about/"><i class="fa fa-user"> 关于我</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">记毕设过程中遇到的一个InnoDB的坑</h1><div class="post-meta">Apr 9, 2017<span> | </span><span class="category"><a href="/categories/数据库/">数据库</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a href="/2017/04/09/记毕设过程中遇到的一个InnoDB的坑/#comments" class="ds-thread-count cloud-tie-join-count"><span style="font-size: 15px; color: #6E7173;" class="join-count">0</span><span> 条参与</span></a><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#情景描述"><span class="toc-number">1.</span> <span class="toc-text">情景描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决过程"><span class="toc-number">2.</span> <span class="toc-text">解决过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原因过程分析"><span class="toc-number">3.</span> <span class="toc-text">原因过程分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终代码"><span class="toc-number">4.</span> <span class="toc-text">最终代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><h2 id="情景描述"><a href="#情景描述" class="headerlink" title="情景描述"></a>情景描述</h2><ul>
+<li><p>我的毕设其中一个模块需要实现多线程爬虫，爬虫模块中的url容器打算使用mysql的一张表（表名叫<code>url_catcher</code>）来实现，里面涉及到url防重，子线程监控，url提取，路径计算方案等不是重点，不细讲。</p>
+</li>
+<li><p>重点来了，在这个并发环境下，最关键的一步自然就是多线程对同一条url的抢锁的实现，先说明我的原先的思路：通过对<code>url_catcher</code>中的一行<code>status</code>字段状态位进行<code>CAS</code>操作实现抢锁，贴代码：</p>
+</li>
+</ul>
+<ol>
+<li><p>Mybatis映射文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></div><div class="line">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</div><div class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"cn.coselding.docsearcher.catcher.dao.UrlCatcherDao"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTop1"</span> <span class="attr">resultType</span>=<span class="string">"UrlCatcher"</span>&gt;</span></div><div class="line">        select * from url_catcher where status=#&#123;status&#125; limit 0,1;</div><div class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"setStatus"</span>&gt;</span></div><div class="line">        update url_catcher set status= #&#123;newStatus&#125;,err_msg=#&#123;errMsg&#125; where id = #&#123;id&#125; and status= #&#123;oldStatus&#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>Dao只是个接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UrlCatcherDao</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function">UrlCatcher <span class="title">getTop1</span><span class="params">(@Param(<span class="string">"status"</span>)</span> Integer status)</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">setStatus</span><span class="params">(@Param(<span class="string">"id"</span>)</span> Integer id,</span></div><div class="line">    			  @<span class="title">Param</span><span class="params">(<span class="string">"oldStatus"</span>)</span> Integer oldStatus,</div><div class="line">                  @<span class="title">Param</span><span class="params">(<span class="string">"newStatus"</span>)</span> Integer newStatus,</div><div class="line">                  @<span class="title">Param</span><span class="params">(<span class="string">"errMsg"</span>)</span> String errMsg);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>url状态枚举：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> CatcherStatus &#123;</div><div class="line"></div><div class="line">   	NO_CATCH(<span class="number">0</span>, <span class="string">"还没爬取"</span>),</div><div class="line">   	CATCHING(<span class="number">1</span>, <span class="string">"正在爬取"</span>),</div><div class="line">   	CATCHED(<span class="number">2</span>, <span class="string">"爬取过了"</span>),</div><div class="line">   	FAILED(<span class="number">3</span>, <span class="string">"爬取失败"</span>);</div><div class="line"></div><div class="line">   	<span class="keyword">private</span> <span class="keyword">int</span> code;</div><div class="line">   	<span class="keyword">private</span> String description;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>抢锁关键Service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Transactional</span>(isolation = Isolation.REPEATABLE_READ)</div><div class="line">   <span class="function"><span class="keyword">public</span> UrlCatcher <span class="title">findTopAndLock</span><span class="params">()</span> </span>&#123;</div><div class="line">       UrlCatcher catcher = <span class="keyword">null</span>;</div><div class="line">       <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">       <span class="keyword">while</span> (count &lt;= <span class="number">0</span>) &#123;</div><div class="line">       	<span class="comment">//(1)获取表中status为NO_CATCH的第一条记录，sql语句见上面的Mybatis映射文件</span></div><div class="line">           catcher = urlCatcherDao.getTop1(CatcherStatus.NO_CATCH.getCode());</div><div class="line">           System.out.println(<span class="string">"catcher = "</span> + catcher + <span class="string">",count = "</span> + count);</div><div class="line">           <span class="comment">//(2)爬虫停止</span></div><div class="line">           <span class="keyword">if</span> (catcher == <span class="keyword">null</span>) &#123;</div><div class="line">               <span class="keyword">break</span>;<span class="comment">//容器中没url了</span></div><div class="line">           &#125;</div><div class="line">           <span class="comment">//(3) 修改状态，确认锁定：将对应id的记录，如果状态为NO_CATCH就修改为CATCHING，否则不修改，返回值count为这条sql执行后对表中影响的行数</span></div><div class="line">           count = urlCatcherDao.setStatus(catcher.getId(), CatcherStatus.NO_CATCH.getCode(), CatcherStatus.CATCHING.getCode(), <span class="string">""</span>);</div><div class="line">           <span class="comment">//count小于等于0表示没抢到，接着循环抢下一个，抢到了就返回</span></div><div class="line">       &#125;</div><div class="line">       logger.info(<span class="string">"抢锁成功：catcher = &#123;&#125;"</span>, catcher);</div><div class="line">       <span class="keyword">return</span> catcher;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<ul>
+<li>说明：</li>
+</ul>
+<ol>
+<li>第一步：获取表中status为<strong><code>NO_CATCH</code></strong>的第一条记录，sql语句见上面的Mybatis映射文件，很好理解</li>
+<li>第二步：获取的第一条记录catcher为空，表示表中没有可用url，退出循环返回，这不是重点，这是爬虫停止条件</li>
+<li>第三步：对第一步获取的catcher对象id进行<code>CAS</code>抢锁（如果状态为<strong><code>NO_CATCH</code></strong>就修改为<strong><code>CATCHING</code></strong>，否则不修改，返回值count为这条sql执行后<code>对表中影响的行数</code>），这样的结果就是如果该线程抢到了，状态修改成功（即加锁），count&gt;0退出循环返回，否则就是被其他线程抢了，count=0继续外层while循环</li>
+<li><code>@Transactional(isolation = Isolation.REPEATABLE_READ)</code>设定该操作的事务隔离级别</li>
+</ol>
+</blockquote>
+<ul>
+<li>这样看似没什么问题啊，运行起来却是偶尔正常，偶尔不正常。。。如下：<br><img src="http://upload-images.jianshu.io/upload_images/3932187-04fdd808c2a96bb6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="running-not-exist.png"></li>
+</ul>
+<p>死循环了吧~<br>看见id为1450了吗？我让这个死循环接着运行着，然后控制台sql查一下这条记录的status：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">id</span>,<span class="keyword">status</span> <span class="keyword">from</span> url_catcher <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="number">1450</span></div></pre></td></tr></table></figure></p>
+<p>结果如下：<br><img src="http://upload-images.jianshu.io/upload_images/3932187-d99e40b449a90b46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sql-result.png"></p>
+<p>对比上面的枚举类，可以知道该url当前的状态为<code>CATCHING</code>，被哪个线程抢了我不管，但是已经被抢了，这样在抢锁逻辑中<code>urlCatcherDao.getTop1(CatcherStatus.NO_CATCH.getCode());</code>这句肯定不应该获取这条记录的，我们把死循环的程序停了，看看打的日志：<br>不在公司，屏幕比较小，没法完成截图，复制其中一行看看：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">catcher = UrlCatcher&#123;id=<span class="number">1450</span>, docId=<span class="number">1</span>, fullUrlPath=<span class="string">'http://hadoop.apache.org/docs/r2.6.5/hadoop-mapreduce-client/hadoop-mapreduce-client-hs/images/logos/'</span>, rootUrlPath=<span class="string">'http://hadoop.apache.org/docs/r2.6.5/hadoop-mapreduce-client/hadoop-mapreduce-client-hs'</span>, rootFilePath=<span class="string">'/Users/coselding/test1'</span>, parentPath=<span class="string">'/images/logos'</span>, filename=<span class="string">''</span>, createTime=<span class="number">1491723334618</span>, status=<span class="number">0</span>, errMsg=<span class="string">'null'</span>&#125;,count = <span class="number">0</span></div><div class="line"><span class="number">20</span></div></pre></td></tr></table></figure></p>
+<p>看重点！！！id=1450,status=0（对应枚举<code>NO_CATCH</code>）<br>这尼玛，同样在运行中，死循环中查询出的1450记录status=0，而我用控制台sql得到的status=1，心中千万只草泥马奔腾而过！！！</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><ol>
+<li>首先想到的自然是事务隔离级别，我就在草稿纸上画两个事务线程的可能的执行轨迹，不论怎么画，都想不到有怎样的轨迹能够达到这种执行结果！！！这些不是重点，不贴图了，然后我就不想理论的了，直接把<code>@Transactional(isolation = Isolation.REPEATABLE_READ)</code>换着测试，一开始还挺顺利，换成<strong>SERIALIZABLE</strong>就不死循环了，但是因为没有理论支撑，我多执行了几次，然后死循环依然出现了，看来是锁粒度变大导致了死循环发生频率降低了，但是至少说明了我对这些事务隔离级别的理解还是对的，世界观没崩塌，还好还好~</li>
+<li>然后还是查资料：mysql缓存？就算是缓存也有有效时间，不可能死循环</li>
+<li>先查查事务隔离级别，找思路，直到找到了这几篇博客：</li>
+</ol>
+<ul>
+<li><a href="http://blog.csdn.net/sunny5211/article/details/7896383" target="_blank" rel="external">Innodb事务隔离级别</a></li>
+<li><a href="http://asialee.iteye.com/blog/2353254" target="_blank" rel="external">InnoDB中事务隔离级别和锁的关系</a></li>
+<li><a href="http://lib.csdn.net/article/14/44826?knId=376" target="_blank" rel="external">Innodb中的事务隔离级别和锁的关系</a></li>
+</ul>
+<ol>
+<li>重新回顾了一下<code>二段锁协议</code>，也了解了InnoDB的<code>行级锁</code>是<code>基于索引</code>的，没建立索引的字段无法触发行级锁，还有间隙锁，感觉自己了解的还是不够，之后还是得花时间好好补补</li>
+<li>重点来了：InnoDB的乐观锁实现<code>MVCC</code>，规则如下：<br><img src="http://upload-images.jianshu.io/upload_images/3932187-75a6af192194f447.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="innoDB-MVCC.png"></li>
+</ol>
+<p>InnoDB基于事务版本号对select实现了<code>快照读</code>，insert、delete、update是<code>当前读</code>，简单说呢，就是select在并发环境下可能读取到的就是<code>历史纪录</code>（和死循环的现象吻合），具体详解可以参照<a href="http://lib.csdn.net/article/14/44826?knId=376" target="_blank" rel="external">Innodb中的事务隔离级别和锁的关系</a>，有了这个思路，我们来分析一下上面的死循环原因~</p>
+<h2 id="原因过程分析"><a href="#原因过程分析" class="headerlink" title="原因过程分析"></a>原因过程分析</h2><p>还是id=1450作为例子，<code>初始创建版本号</code>createVersion为0，<code>删除版本号</code>deleteVersion为null</p>
+<table>
+<thead>
+<tr>
+<th>过程</th>
+<th>事务线程1</th>
+<th>事务线程2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事务开始</td>
+<td>createVersion=0，deleteVersion=null</td>
+<td>createVersion=0，deleteVersion=null</td>
+</tr>
+<tr>
+<td>事务版本号</td>
+<td>version=1</td>
+<td>version=2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>getTop1执行:createVersion&lt;version,deleteVersion=null</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>获取status=0</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>getTop1执行:createVersion&lt;version,deleteVersion=null</td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td>获取status=0</td>
+</tr>
+<tr>
+<td>5</td>
+<td></td>
+<td>setStatus执行，update规则：<code>新纪录</code>（status=1，createVersion=2，deleteVersion=null），<code>原记录快照</code>（status=0，createVersion=0，deleteVersion=2）</td>
+</tr>
+<tr>
+<td>6</td>
+<td></td>
+<td>抢锁成功，commit</td>
+</tr>
+<tr>
+<td>7</td>
+<td></td>
+<td>返回，该事务线程结束</td>
+</tr>
+<tr>
+<td>8</td>
+<td>setStatus抢锁失败</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>下次循环：getTop1执行:createVersion&lt;version,deleteVersion=null，查找到了刚才的<strong><code>原记录快照（status=0）</code></strong></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>setStatus抢锁失败，接着循环</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>该事务线程永远无法commit，version版本号永远不变，<code>永远查找到原记录快照</code>，status永远为0，陷入死循环</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>分析：由于两个事务线程需要按照上表的顺序交错进行才能出现死循环，因此和之前的结论：死循环偶尔出现是相吻合的</li>
+<li>根本原因：外层循环中多次的getTop1执行时由于在同一个事务中，<code>事务版本号始终不变</code>，导致始终获取快照记录，导致死循环</li>
+<li>解决方案：让getTop1和setStatus分离在不同事务中执行，即去掉<code>@Transactional(isolation = Isolation.REPEATABLE_READ)</code></li>
+</ul>
+<h2 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h2><ul>
+<li><p>就去掉了个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> UrlCatcher <span class="title">findTopAndLock</span><span class="params">()</span> </span>&#123;</div><div class="line">       UrlCatcher catcher = <span class="keyword">null</span>;</div><div class="line">       <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">       <span class="keyword">while</span> (count &lt;= <span class="number">0</span>) &#123;</div><div class="line">           catcher = urlCatcherDao.getTop1(CatcherStatus.NO_CATCH.getCode());</div><div class="line">           System.out.println(<span class="string">"catcher = "</span> + catcher + <span class="string">",count = "</span> + count);</div><div class="line">           <span class="keyword">if</span> (catcher == <span class="keyword">null</span>) &#123;</div><div class="line">               <span class="keyword">break</span>;<span class="comment">//容器中没url了</span></div><div class="line">           &#125;</div><div class="line">           <span class="comment">//抢分布式锁：开始抢锁</span></div><div class="line">           <span class="comment">//修改状态，确认锁定</span></div><div class="line">           count = urlCatcherDao.setStatus(catcher.getId(), CatcherStatus.NO_CATCH.getCode(), CatcherStatus.CATCHING.getCode(), <span class="string">""</span>);</div><div class="line">           <span class="comment">//count小于等于0表示没抢到，接着循环抢下一个，抢到了就返回</span></div><div class="line">       &#125;</div><div class="line">       logger.info(<span class="string">"抢锁成功：catcher = &#123;&#125;"</span>, catcher);</div><div class="line">       <span class="keyword">return</span> catcher;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>由于我这个爬虫所处理的业务规模不会无限膨胀，再进行了优化，将抢锁操作转移到内存中执行，降低mysql压力，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UrlCatcherServiceImpl</span> <span class="keyword">implements</span> <span class="title">UrlCatcherService</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> UrlCatcherDao urlCatcherDao;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ConcurrentHashMap&lt;Integer, Long&gt; urlLockMap = <span class="keyword">new</span> ConcurrentHashMap&lt;Integer, Long&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">prepareLockMap</span><span class="params">()</span> </span>&#123;</div><div class="line">        urlLockMap.clear();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> UrlCatcher <span class="title">findTopAndLock</span><span class="params">()</span> </span>&#123;</div><div class="line">        UrlCatcher catcher = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line">        Long currentThreadId = Thread.currentThread().getId();</div><div class="line">        <span class="keyword">while</span> (count &lt;= <span class="number">0</span>) &#123;</div><div class="line">            catcher = urlCatcherDao.getTop1(CatcherStatus.NO_CATCH.getCode());</div><div class="line">            logger.info(<span class="string">"catcher = "</span> + catcher + <span class="string">",count = "</span> + count);</div><div class="line">            <span class="keyword">if</span> (catcher == <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">break</span>;<span class="comment">//容器中没url了</span></div><div class="line">            &#125;</div><div class="line">            <span class="comment">//抢分布式锁：开始抢锁</span></div><div class="line">            Long beforeThreadId = urlLockMap.putIfAbsent(catcher.getId(), currentThreadId);</div><div class="line">            <span class="keyword">if</span> (beforeThreadId == <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="comment">//抢到了：之前该id为key没有映射关系</span></div><div class="line">                <span class="comment">//修改状态，确认锁定</span></div><div class="line">                count = urlCatcherDao.setStatus(catcher.getId(), CatcherStatus.NO_CATCH.getCode(), CatcherStatus.CATCHING.getCode(), <span class="string">""</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">//没抢到：之前已经有映射关系了</span></div><div class="line">                count = <span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//count小于等于0表示没抢到，接着循环抢下一个，抢到了就返回</span></div><div class="line">        &#125;</div><div class="line">        logger.info(<span class="string">"抢锁成功：catcher = &#123;&#125;"</span>, catcher);</div><div class="line">        <span class="keyword">return</span> catcher;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>改成这样之后，我前前后后重新执行了不下几十遍，再也没有出现死循环，算是解决了，如果后期还出现问题的话我再来更新博客哈哈哈，在此只是提供一个解决问题的思路~</p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>虽然最终解决方案只是去掉一个注解，但是这其中蕴含的原理却颇为深刻，专门花了时间记录一下，也让我意识到对MySQL的理解还远远不够，之后还是得重新把<code>《高性能MySQL》</code>重新拿来好好啃啃。</li>
+<li>之前由于接触不多，总感觉数据库InnoDB、高并发对于自己比较遥远，或者说是没有丰富的实战经验，导致对其中可能出现的问题、如何排查、如何解决问题等有种恐惧加拖延症，这次花了半天时间排查这个问题，时间上算是损失惨重，但是也让我对自己更加自信，算是第一次在我手中解决了一个高并发环境下的问题哈哈哈哈</li>
+</ul>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://www.coselding.cn/2017/04/09/记毕设过程中遇到的一个InnoDB的坑/" data-id="cj36amk7800019ccvlyjrjmrc" class="article-share-link">分享</a><div class="tags"><a href="/tags/mysql/">mysql</a><a href="/tags/InnoDB/">InnoDB</a><a href="/tags/读写锁/">读写锁</a><a href="/tags/事务/">事务</a></div><div class="post-nav"><a href="/2017/04/16/Swagger-maven-plugin-环境配置踩坑记录/" class="pre">Swagger-maven-plugin-环境配置踩坑记录</a><a href="/2017/03/12/知识、任务管理软件个人测评/" class="next">知识、任务管理软件个人测评</a></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/05/25/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/04/maven多套环境配置文件和junit冲突问题解决方案/">maven多套环境配置文件和junit冲突问题解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/04/Quartz调度系统入门和调度高可用实现方案/">Quartz调度系统入门和调度高可用实现方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/16/Swagger-maven-plugin-环境配置踩坑记录/">Swagger-maven-plugin-环境配置踩坑记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/记毕设过程中遇到的一个InnoDB的坑/">记毕设过程中遇到的一个InnoDB的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/12/知识、任务管理软件个人测评/">知识、任务管理软件个人测评</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/Dubbo入门学习笔记/">Dubbo入门学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/02/ZooKeeper配置和学习笔记/">ZooKeeper配置和学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/21/Pushy入门文档中文翻译/">Pushy入门文档中文翻译</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/IntelliJ-IDEA-license-server服务器搭建/">IntelliJ-IDEA-license-server服务器搭建</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IDE/">IDE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/分布式/">分布式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/微服务/">微服务</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/推送/">推送</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">1</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/SpringMVC/" style="font-size: 15px;">SpringMVC</a> <a href="/tags/pushy/" style="font-size: 15px;">pushy</a> <a href="/tags/IOS/" style="font-size: 15px;">IOS</a> <a href="/tags/http-2/" style="font-size: 15px;">http/2</a> <a href="/tags/IntelliJ/" style="font-size: 15px;">IntelliJ</a> <a href="/tags/激活/" style="font-size: 15px;">激活</a> <a href="/tags/jetbrains/" style="font-size: 15px;">jetbrains</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/RPC/" style="font-size: 15px;">RPC</a> <a href="/tags/Dubbo/" style="font-size: 15px;">Dubbo</a> <a href="/tags/SOA/" style="font-size: 15px;">SOA</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/调度/" style="font-size: 15px;">调度</a> <a href="/tags/quartz/" style="font-size: 15px;">quartz</a> <a href="/tags/分布式调度/" style="font-size: 15px;">分布式调度</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a> <a href="/tags/lucene/" style="font-size: 15px;">lucene</a> <a href="/tags/Swagger/" style="font-size: 15px;">Swagger</a> <a href="/tags/自动化/" style="font-size: 15px;">自动化</a> <a href="/tags/RESTful/" style="font-size: 15px;">RESTful</a> <a href="/tags/APNs/" style="font-size: 15px;">APNs</a> <a href="/tags/集群管理/" style="font-size: 15px;">集群管理</a> <a href="/tags/选举/" style="font-size: 15px;">选举</a> <a href="/tags/zookeeper/" style="font-size: 15px;">zookeeper</a> <a href="/tags/macOS/" style="font-size: 15px;">macOS</a> <a href="/tags/折腾/" style="font-size: 15px;">折腾</a> <a href="/tags/环境搭建/" style="font-size: 15px;">环境搭建</a> <a href="/tags/mac实用插件/" style="font-size: 15px;">mac实用插件</a> <a href="/tags/maven/" style="font-size: 15px;">maven</a> <a href="/tags/junit/" style="font-size: 15px;">junit</a> <a href="/tags/filter/" style="font-size: 15px;">filter</a> <a href="/tags/spring-test/" style="font-size: 15px;">spring-test</a> <a href="/tags/经验/" style="font-size: 15px;">经验</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/时间管理/" style="font-size: 15px;">时间管理</a> <a href="/tags/知识管理/" style="font-size: 15px;">知识管理</a> <a href="/tags/doit-im/" style="font-size: 15px;">doit.im</a> <a href="/tags/GTD/" style="font-size: 15px;">GTD</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/InnoDB/" style="font-size: 15px;">InnoDB</a> <a href="/tags/读写锁/" style="font-size: 15px;">读写锁</a> <a href="/tags/事务/" style="font-size: 15px;">事务</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
