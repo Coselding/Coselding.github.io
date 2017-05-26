@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Coselding</title>
+  <subtitle>非淡泊无以明志，非宁静无以致远。</subtitle>
+  <link href="/atom.xml" rel="self"/>
   
+  <link href="http://new.coselding.cn/"/>
+  <updated>2016-12-05T06:36:48.000Z</updated>
+  <id>http://new.coselding.cn/</id>
+  
+  <author>
+    <name>林宇强</name>
     
-    <entry>
-      <title><![CDATA[Solr 6.5.1集群部署和后台管理]]></title>
-      <url>/2016/12/05/Solr6.5.1%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%92%8C%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86/</url>
-      <content type="html"><![CDATA[<pre><code>两年前用过solr5.1版本的，当时只是简单入个门，拿来在项目里建个全文索引，然后再query，其他什么也没做，还是傻傻地自己去配Tomcat，这次做毕设因为需求而重拾solr，基于作死折腾的原则，肯定要用最新版的啦~，然后。。。还是很顺利踩到坑了，schema相关配置变了。。。配置变了。。。置变了。。。变了。。。了。。。不过还是很快解决了，当然这次打算把集群高可用相关也折腾折腾、还有和mysql之间的配合和索引同步，所以新写一篇看起来不那么low的博客出来（之前写过一篇弱文。。。）
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Solr 6.5.1集群部署和后台管理</title>
+    <link href="http://new.coselding.cn/2016/12/05/Solr6.5.1%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E5%92%8C%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86/"/>
+    <id>http://new.coselding.cn/2016/12/05/Solr6.5.1集群部署和后台管理/</id>
+    <published>2016-12-05T06:36:48.000Z</published>
+    <updated>2016-12-05T06:36:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>两年前用过solr5.1版本的，当时只是简单入个门，拿来在项目里建个全文索引，然后再query，其他什么也没做，还是傻傻地自己去配Tomcat，这次做毕设因为需求而重拾solr，基于作死折腾的原则，肯定要用最新版的啦~，然后。。。还是很顺利踩到坑了，schema相关配置变了。。。配置变了。。。置变了。。。变了。。。了。。。不过还是很快解决了，当然这次打算把集群高可用相关也折腾折腾、还有和mysql之间的配合和索引同步，所以新写一篇看起来不那么low的博客出来（之前写过一篇弱文。。。）
 </code></pre><h2 id="下载和初始化启动"><a href="#下载和初始化启动" class="headerlink" title="下载和初始化启动"></a>下载和初始化启动</h2><p><strong>官网下载6.5.1版本的solr，解压</strong></p>
 <h5 id="目录说明："><a href="#目录说明：" class="headerlink" title="目录说明："></a>目录说明：</h5><ul>
 <li>bin：启动脚本</li>
@@ -185,30 +202,32 @@
 <li><a href="https://cwiki.apache.org/confluence/display/solr/Configuration+APIs" target="_blank" rel="external">一些Solr的RESTful API</a></li>
 </ul>
 ]]></content>
-      
-        <categories>
-            
-            <category> 个人心得 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 搜索引擎 </tag>
-            
-            <tag> java </tag>
-            
-            <tag> solr </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[校招之路]]></title>
-      <url>/2016/12/05/%E6%A0%A1%E6%8B%9B%E4%B9%8B%E8%B7%AF/</url>
-      <content type="html"><![CDATA[<h1 id="行程经历："><a href="#行程经历：" class="headerlink" title="行程经历："></a>行程经历：</h1><blockquote>
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;两年前用过solr5.1版本的，当时只是简单入个门，拿来在项目里建个全文索引，然后再query，其他什么也没做，还是傻傻地自己去配Tomcat，这次做毕设因为需求而重拾solr，基于作死折腾的原则，肯定要用最新版的啦~，然后。。。还是很顺利踩到坑了，sche
+    
+    </summary>
+    
+      <category term="个人心得" scheme="http://new.coselding.cn/categories/%E4%B8%AA%E4%BA%BA%E5%BF%83%E5%BE%97/"/>
+    
+    
+      <category term="搜索引擎" scheme="http://new.coselding.cn/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    
+      <category term="java" scheme="http://new.coselding.cn/tags/java/"/>
+    
+      <category term="solr" scheme="http://new.coselding.cn/tags/solr/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>校招之路</title>
+    <link href="http://new.coselding.cn/2016/12/05/%E6%A0%A1%E6%8B%9B%E4%B9%8B%E8%B7%AF/"/>
+    <id>http://new.coselding.cn/2016/12/05/校招之路/</id>
+    <published>2016-12-05T06:36:48.000Z</published>
+    <updated>2016-12-05T06:36:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="行程经历："><a href="#行程经历：" class="headerlink" title="行程经历："></a>行程经历：</h1><blockquote>
 <ul>
 <li>华为实习生性格测试——一面——二面——面试通过（备胎）——no result</li>
 <li>华为校招提前批一面——二面——三面主管谈心——offer</li>
@@ -337,30 +356,34 @@
 </ul>
 </blockquote>
 ]]></content>
-      
-        <categories>
-            
-            <category> 个人心得 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 个人心得 </tag>
-            
-            <tag> 面试 </tag>
-            
-            <tag> 校招 </tag>
-            
-        </tags>
-        
-    </entry>
     
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>/2016/12/05/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+    <summary type="html">
+    
+      &lt;h1 id=&quot;行程经历：&quot;&gt;&lt;a href=&quot;#行程经历：&quot; class=&quot;headerlink&quot; title=&quot;行程经历：&quot;&gt;&lt;/a&gt;行程经历：&lt;/h1&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;华为实习生性格测试——一面——二面——面试通过（备胎）——no result&lt;
+    
+    </summary>
+    
+      <category term="个人心得" scheme="http://new.coselding.cn/categories/%E4%B8%AA%E4%BA%BA%E5%BF%83%E5%BE%97/"/>
+    
+    
+      <category term="个人心得" scheme="http://new.coselding.cn/tags/%E4%B8%AA%E4%BA%BA%E5%BF%83%E5%BE%97/"/>
+    
+      <category term="面试" scheme="http://new.coselding.cn/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="校招" scheme="http://new.coselding.cn/tags/%E6%A0%A1%E6%8B%9B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://new.coselding.cn/2016/12/05/hello-world/"/>
+    <id>http://new.coselding.cn/2016/12/05/hello-world/</id>
+    <published>2016-12-05T06:12:59.000Z</published>
+    <updated>2016-12-06T03:57:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
@@ -370,24 +393,20 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
-      
-        <categories>
-            
-            <category> Hello </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> hello </tag>
-            
-            <tag> init </tag>
-            
-        </tags>
-        
-    </entry>
     
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+      <category term="Hello" scheme="http://new.coselding.cn/categories/Hello/"/>
+    
+    
+      <category term="hello" scheme="http://new.coselding.cn/tags/hello/"/>
+    
+      <category term="init" scheme="http://new.coselding.cn/tags/init/"/>
+    
+  </entry>
   
-  
-</search>
+</feed>
