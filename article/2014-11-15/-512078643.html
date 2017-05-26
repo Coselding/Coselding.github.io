@@ -1,0 +1,291 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XML学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=6" title="基础知识">
+                        基础知识
+                        </a>
+                        &gt;&gt;
+                        XML学习笔记
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">XML学习笔记</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=6" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> 基础知识
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2014-11-15 11:26
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2014-11-15/-512078643.html" target="_blank" rel="external">http://www.coselding.cn/article/2014-11-15/-512078643.html</a></p>
+                <p><span style="font-family:微软雅黑;">1.&nbsp;XML语言（可扩展标记语言，方便用户自定义标签来使用XML语言）用来储存一些有关系的数据和软件配置文件（描述软件模块之间的关系），和HTML语言类似，有开始标签和结束标签；<br> 2.&nbsp;XML文件可以被浏览器识别打开，无法打开则是XML语法有错，在浏览器中显示是一个可收放的树状结构；<br> 3.&nbsp;XML语法：<br> &nbsp; A.文档说明：&lt;?xml version="1.0" ?&gt;&nbsp; 还可以添加encoding编码类型（注意文件的存储编码类型），standalone="no|yes"设置文件是否独立，是否依赖其他元素存在；<br> &nbsp; B.标签使用规则同HTML语言；不同点：标签之间的内容的换行空格元素可算作内容而使用<br> &nbsp; C.标签命名规则：和其他语言一样，不能下划线，xml，不能有冒号<br> &nbsp; D.属性值和HTML相同，但是可以用子标签来表示父标签的属性；<br> &nbsp; E.注释：和HTML相同；<br> &nbsp; F.CDATA区：&lt;![CDATA[&nbsp;&nbsp;&nbsp;&nbsp; 内容&nbsp;&nbsp;&nbsp; ]]&gt;&nbsp; 放到这个标签里面的内容不会被解析，而是原始内容原封不动的输出；和转义的区别，慢慢体会，机器看和人看的区别；<br> &nbsp; G．处理指令：&lt;?xml&nbsp;&nbsp;&nbsp; ?&gt;指令，用来对XML文件执行操作，比如css美化，用法和HTML类似；<br> &nbsp; H.XML约束：DTD和Schema，相当于在约束用户所能写的标签；注意编码问题！！！！！<br> 4. DTD：用一个.dtd文件声明需要自定义的标签，在xml文件里面连接这个文件就可使用所需标签，若标签有中文，则dtd和xml文件都用 &nbsp; UTF-8编码，不能有中文输入法状态下的任何符号；&lt;!ELEMENT&nbsp; 标签(子标签+)&gt;&nbsp; +表示可以同时有多个子标签；<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;xml连接语句：<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 本地：&lt;!DOCTYPE 最高级标签 SYSTEM "dtd文件路径"&gt;；<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 网络：&lt;!DOCTYPE 最高级标签 PUBLIC "DTD文件名称" "dtd文件的URL"&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DTD文档是否声明书写正确校验，和xml一起放到Eclipse中看有无报错；<br> &nbsp; &nbsp; &nbsp; &nbsp; &lt;!ELEMENT 标签名称 标签内容类型&gt;：内容类型可为ANY，或者EMPTY表示首尾标签中间文本为空，或者（）中指明类型，可以为#PCDATA表示字符串，或者是下面声明的其他标签作为其子标签；<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 逗号分开表示有序性，| 分开表示或，+表示一次以上，*表示0次以上，？表示一次或0次<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!ATTLIST 元素名<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 属性名&nbsp;&nbsp; 属性类型&nbsp;&nbsp; 属性说明<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 属性名&nbsp;&nbsp; 属性类型&nbsp;&nbsp; 属性说明<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ……<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 属性类型：CDATA表示字符串<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ENUMERATED&nbsp; 枚举类型&nbsp;&nbsp; 用( "1" | "2" | "3")表示<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ID&nbsp; 字母下划线开头，无空白字符，文档中唯一<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ENTITY 实体类型，在下面的ENTITY标签说明<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 属性说明：#REQUIRED表示必须有<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #IMPLIED&nbsp;&nbsp; 表示可选<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #FIXED&nbsp; 固定为某值&nbsp;&nbsp; 后面跟上其值<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 直接写"值"&nbsp;&nbsp;&nbsp; 为设置默认值<br> &lt;!ENTITY&nbsp; name&nbsp; "this is the content of entity"&gt;：<br> 引用实体：相当于在文档中把一段文档来创建变量，可以在xml中多处使用，提高代码重用度，引用实体的使用方式是 "&amp;"加上引用实体名称再加上分号，如 &amp;name；<br> 参数实体：&lt;!ENTITY % 实体名称 "实体内容"&gt;，这个是dtd文件中自用的，引用方式：<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;name;</span></p> 
+<p><span style="font-family:微软雅黑;">5.XML解析：<br> &nbsp; DOM方式解析：写入，先用TransformerFactory得到Transformer对象，再使用transformer<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 对象的transform方法，两个参数分别传入document对象和输出流<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dom中的element支持定点插入，insertBefore()<br> &nbsp; SAX：A、创建解析工厂，B、得到解析器，C、得到读取器，D、设置内容处理器，E、读取xml文档内容<br> 　　　SAX方式是读取到哪解析到哪，对内存要求低，但是标签跳跃性解析差，处理器就是对读取到开始标签，结束标签，文本内容的位置有特定的回调函数就行相关的数据操作来实现xml的解析<br> &nbsp; Dom4j：常用，也是document和element，attribute的从属关系，但是其设置返回值的方式和创建节点的方式较为方便使用XMLWriter进行xml文件的写入<br> &nbsp; OutputFormat可以对XMLWriter的输出进行格式化，编码控制定点插入需要对elements返回的elements的List集合进行定点插入即可实现目的<br> &nbsp;<br> &nbsp; XPath：dom4j中强大的查询和匹配表达式，取值匹配，与或运算等，具体详见文档样例<br> 6.XML Schema：用来替代DTD的XML文档约束文件，后缀名xsd，其格式也是xml的文档格式，具有强大的格式约束条件和限制条件，可用xml解析器解析<br> &nbsp; Xsd叫做模式文档，遵从模式文档写的xml叫做实例文档<br> &nbsp; Xsd根节点为schema，并且约束条件绑定到一个Uri名称空间上<br> &nbsp; 名称空间：<br> &nbsp; Xml文件中导入名称空间：<br> &nbsp; xmlns:itcast="<a href="http://www.itcast.cn" target="_blank" rel="external">http://www.itcast.cn</a>" 表示定义一个名称空间<a href="http://www.itcast.cn" target="_blank" rel="external">http://www.itcast.cn</a>，空间名为<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; itcast<br> &nbsp; xmlns:xsi="<a href="http://www.w3.org/2001/XMLSchema-instance" target="_blank" rel="external">http://www.w3.org/2001/XMLSchema-instance</a>"表示在标准Schema名称空间定义<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 为名字xsi<br> &nbsp; xsi:schemaLocation="<a href="http://www.itcast.cn" target="_blank" rel="external">http://www.itcast.cn</a> book.xsd"在标准名称空间xsi上定义一个名称空间，<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 并指定该名称空间所对应的xsd文件路径，中间用空格隔开<br> &nbsp; A、若直接xmlns=""则表示设置一个默认名称空间，则在写节点时不必在节点名称前加"名称空间名："+节点名，比如，itcast:xml<br> &nbsp; B、上面三句总体意思为：在标准空间上以book.xsd文件创建一个<a href="http://www.itcast.cn" target="_blank" rel="external">http://www.itcast.cn</a>的名称空间，并把该名称空间作为一个该xml文档所要遵循的空间进行绑定<br> &nbsp; C 、名称空间是一个不存在的概念上的抽象的空间，用来把一个文件抽象成一个抽象的空间。<br> &nbsp; Xml不使用名称空间导入Schema文档：<br> &nbsp; Xmlns:xsi="<a href="http://www.w3.org/2001/XMLSchema-instance" target="_blank" rel="external">http://www.w3.org/2001/XMLSchema-instance</a>"先定义标准名称空间<br> &nbsp; Xsi:noNamespaceSchemaLocation="xmlbook.xsd"在标准名称空间上定义要遵循的xsd文件路径<br> 7.Schema文件语法<br> &nbsp; 在Schema中定义名称空间：<br> &nbsp; Xmlns:xs="<a href="http://www.w3.org/2001/XMLSchema" target="_blank" rel="external">http://www.w3.org/2001/XMLSchema</a>"声明该xsd文档所要遵循的名称空间为标准<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名称空间<br> &nbsp; targetNamespace="<a href="http://www.itcast.cn" target="_blank" rel="external">http://www.itcast.cn</a>"定义该Schema所要绑定的名称空间名称<br> &nbsp; elementFormDefault="qualified"表示该文档根节点以下的全部导入到名称空间中<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Unqualified表示只绑定根节点<br> &nbsp; Schema语法：<br> &nbsp; 具体查看W3C的Schema文档<br> &nbsp; XSD简单元素：&lt;xs:element name="lastname" type="xs:string"/&gt;<br> &nbsp; XSD属性：&lt;xs:attribute name="lang" type="xs:string"/&gt;嵌套在标签声明下，表示该标签属性<br> &nbsp; XSD 限定：可以限定数值范围，枚举类型，正则表达式，去除空格，长度限定<br> &nbsp; XSD复杂元素：带属性，子标签<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;xs:complexType&gt;&lt;/xs:complexType&gt;在里面对复杂元素进行具体的定义<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;xs:sequence&gt;&lt;/xs:sequence&gt;里面填充多个有序的子元素<br> &nbsp; XSD类型指示器：定义元素在文档中的使用方式</span></p>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2014-11-15/-512078643.html" target="_blank" rel="external">http://www.coselding.cn/article/2014-11-15/-512078643.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 220 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=129')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 35 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','XML学习笔记','129')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2014-10-22/-1120574857.html" title="上一篇">
+                            &laquo;文件上传下载
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2014-11-17/-186085139.html" title="下一篇">
+                            EL表达式和jstl全&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-03-12/which-knowledgeAndGTD-app-to-use.html">知识、任务管理软件个人测评</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-03-12 20:19</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/dubbo-study-record.html">Dubbo入门学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 22:57</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/zookeeper-study-record.html">ZooKeeper配置和学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 17:21</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(1)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=129');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

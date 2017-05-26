@@ -1,0 +1,565 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>macOS入门认识与折腾</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=9" title="个人心得">
+                        个人心得
+                        </a>
+                        &gt;&gt;
+                        macOS入门认识与折腾
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">macOS入门认识与折腾</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=9" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> 个人心得
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2016-11-17 13:51
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-11-17/how-to-use-macOS.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-11-17/how-to-use-macOS.html</a></p>
+                <h1>macOS入门认识与折腾</h1> 
+<p>我这个不怕折腾星人入职一个多星期除了完成老大安排的任务外，其余时间都在没日没夜地折腾电脑，写这篇文章也算是对这次的折腾宣告结束，至少我觉得我与这台电脑的磨合期过了。。。可以愉快地用这台电脑学东西，做东西，不过这篇文章也算是一个笔记，比如快捷键，还没那么快完全记住。。。毕竟那些关键的操作按键和win的都不一样，我还是得时不时打开这个文档查看。。。</p> 
+<h3>第一步、拆包开机</h3> 
+<blockquote>
+ <ul> 
+  <li>很无脑的操作，一开始开机会设置用户之类的基本信息，按照自己的情况选择就行~</li> 
+ </ul> 
+</blockquote> 
+<h3>第二步、安装软件</h3> 
+<h4>软件列表是根据老大给的列表+我个人以前使用积累+Java这三个因素共同影响的结果，仅供参考。软件安装的原则是使用免费版，就算付费的也是找到破解教程（当然还是推荐支持正版！！！），仅供参考。。。</h4> 
+<blockquote>
+ <ul> 
+  <li><a href="https://www.iterm2.com/" target="_blank" rel="external">iTerm2</a> 挺不错的ssh客户端工具，比系统自带的好处是可以在菜单栏Profiles设置自己的常用服务器连接，之后需要使用直接点击连接即可，支持多标签，可以同时维护多个shell连接，基本上win上的XShell有的功能都有了，不过为了一个用的顺手的ssh工具我也是折腾了很久，以下列出部分折腾的干货：
+   <blockquote>
+    <ol> 
+     <li>应用商店有很多ssh客户端工具，不过大多收费，其中vSSH有个免费版，算还不错，但是最多支持2个标签同时工作，再多就得使用付费版。。。</li> 
+     <li>保存常用连接：</li> 
+     <li><h6>方式一</h6> 公私钥验证设置： <br>(1) 在mac下生成public_key与private_key生成的密钥在~/.ssh/下面 <br>(2) 把mac下刚生成的public_key “id_rsa.pub"文件拷贝一份到远端服务器即将需要登录用户家目录下的.ssh/目录下，并命名为authorized_keys，如果已存在该文件就追加。 <br>(3) 最后修改本机mac下得配置文件，~/.ssh/config，格式如下:<pre><code>Host aliyun
+HostName coselding.cn
+User coselding
+Port 22
+PubkeyAuthentication yes
+IdentityFile ~/.ssh/aliyun
+Host qqcloud
+HostName itransfer.coselding.cn
+User coselding
+Port 22
+PubkeyAuthentication yes
+IdentityFile ~/.ssh/qqcloud
+</code></pre> 就是按照这个格式设置好目标服务器的ssh地址、端口号、用户名，并指定自己对应在服务器上公钥的私钥文件即可。 <br>(4) 直接执行 ssh aliyun即可达到所记录的远端服务器，他其实就是找到对应的Host，然后用这个Host下设置的一系列参数自动帮你发送给命令连接，和你平时ssh ip这样连接然后提示你输入帐号密码是一样的道理。 <br>(5) 当然，上面的key设置你也可以换成直接写密码，只不过这样安全系数降低了。</li> 
+     <li><h6>方式二</h6> sshpass实现设置和profiles设置:<a href="[http://www.cnblogs.com/onlyfu/p/4460160.html">http://www.cnblogs.com/onlyfu/p/4460160.html</a></li> 
+     <li><h6>方式三</h6> sshpass 上面sshpass这个教程的方式是把你的服务器登录密码保存在文件系统中了，然后profiles的Command设置相应的命令在执行的时候去读取密码文件自动帮你登录，我个人推荐的是使用第一个方式使用ssh key设置好免密码登录，然后用第二个方式设置profiles，直接在profiles的Command选项填写ssh Host（就是第一个方式的第四步那个命令），这样每次需要连接自己的服务器只需要iTerm2的菜单栏——Profiles——选择你的服务器名称，就连上了，又避免了方式二在文件系统中明文保存密码的危险性。</li> 
+     <li>iTerm使用技巧：<a href="http://wulfric.me/2015/08/iterm2/" target="_blank" rel="external">http://wulfric.me/2015/08/iterm2/</a></li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">Inteillj IDEA</a>
+   <blockquote>
+    <ol> 
+     <li>安装没难度啊，官网下载，主要是破解教程，给个给力教程，jetbrains所有最新IDE都能用：<a href="http://blog.lanyus.com/archives/228.html" target="_blank" rel="external">http://blog.lanyus.com/archives/228.html</a>
+      <blockquote>
+       <ul> 
+        <li>干货就是Mac上要运行darwin x64那个文件，并且sudo执行，建议写成一个shell脚本以后方便使用，这个License Server不运行的话有时候idea的激活就会失效，需要重新打开再激活，写个脚本使用率还是很高的。</li> 
+       </ul> 
+      </blockquote> </li> 
+     <li>个性化设置：这个和你个人习惯有关，主要推荐设置的有keymap、显示行号、maven相关设置、github相关设置、tomcat设置、dark皮肤、字体字号，当然keymap建议还是用Mac OS X那套，快捷键你改的太多以后换电脑什么的挺麻烦，会不适应，除非你记录好自己改了些什么</li> 
+     <li>设置完当然是导出设置，把你的设置保存一份，以后可以随时还原：File——Export settings，选择好导出目录即可。</li> 
+    </ol> 
+   </blockquote> </li> 
+  <li>xmind 7：这货装完了，还没用，以后再更新，破解教程不方便公布，需要的单独联系。</li> 
+  <li>OmniGraffle 7 ：这货装完了，还没用，以后再更新，破解教程不方便公布，需要的单独联系。</li> 
+  <li><a href="https://www.sublimetext.com/" target="_blank" rel="external">sublime</a> ：用的人很多，也很好用，没什么可说的。。。</li> 
+  <li><a href="http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-macosx-x64.dmg" target="_blank" rel="external">jdk</a> ：Java狗必备。。。</li> 
+  <li><a href="https://git-scm.com/download/mac" target="_blank" rel="external">git</a> ：程序猿必备了基本上。。。</li> 
+  <li><a href="https://desktop.github.com/" target="_blank" rel="external">github desktop</a> ：github图形化界面，爱要不要吧。。。</li> 
+  <li><a href="https://www.apachefriends.org/zh_cn/index.html" target="_blank" rel="external">xampp</a> ：web开发套件，其实我只是用其中的mysql模块，但是比正式版的好处是这里面的mysql需要再开，占用资源少，你装正式版的mysql试试？反正我觉得正式版的平时不用的时候后台肯定也给你占用点资源，强迫症不能忍。。。</li> 
+  <li><a href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html" target="_blank" rel="external">chrome</a> ： 浏览器我只推chrome</li> 
+  <li>输入法：百度或者搜狗，目前感觉差不多，可以用久点看看哪个广告少。。。这个是我win端用qq输入法的原因。。。
+   <blockquote>
+    <ul> 
+     <li>用了多年的qq输入法，结果在mac上极其难用，打拼音的时候上下居然很难翻页，不能忍</li> 
+     <li>系统自带：必须吐槽，中英文符号切换，*居然有中英文两个版本，我只要ASCII那个版好吗，导致我code时输入个注释中英文切换都很频繁。。。这也就算了，关键是中英文切换需要control+space，不像第三方输入法直接shift搞定，这效率太低了。。。</li> 
+    </ul> 
+   </blockquote> </li> 
+  <li>haroopad：markdown编辑器，安装使用homebrew，给教程：<a href="http://macappstore.org/haroopad/" target="_blank" rel="external">http://macappstore.org/haroopad/</a> <br>当然Macdowm也不错，但是haroopad的菜单栏有插入，里面有常用控件的快捷插入方式，如果你markdown语法倒背如流，那还是Macdown吧，感觉漂亮点。。。</li> 
+  <li>navcat：使用多年，有感（习）情（惯）了，给破解教程：<a href="https://my.oschina.net/shyann/blog/515237" target="_blank" rel="external">https://my.oschina.net/shyann/blog/515237</a>
+   <blockquote>
+    <ul> 
+     <li><h6>没难度的过程，但是有一个坑，破解工具需要右键——显示简介——32位方式打开，我忘记在哪个博客上看到很关键的这句话了，感谢博主！！！</h6> </li> 
+    </ul> 
+   </blockquote> </li> 
+  <li><a href="https://github.com/shadowsocks/shadowsocks-iOS/releases" target="_blank" rel="external">ShadowsocksX</a> ：科学上网。。。</li> 
+  <li><a href="https://github.com/XX-net/XX-Net" target="_blank" rel="external">xx-net</a> ：GoAgent快捷工具，自己到github上下。。。打开方式为sudo打开start.command这个脚本。</li> 
+  <li><a href="https://www.jetbrains.com/webstorm/" target="_blank" rel="external">WebStorm</a> ：jetbrains公司的前端开发IDE，相关说明同IntelliJ IDEA</li> 
+  <li><a href="https://www.python.org/" target="_blank" rel="external">python</a> ：python爱好者必备。。。</li> 
+  <li>office ：目前装着MS Office 2011破解版，手上有MS Office 2016破解教程，不方便公布。。。</li> 
+  <li>虚拟机：Parallels Desktop,也是装的破解版，都不需要破解。。。比win端的VMware强大的多，运行流畅，并且和物理系统贴合很强，对物理磁盘的访问纯天然，也可以在macOS上右键windows方式打开一个.exe文件，谁用谁知道。。。</li> 
+  <li><a href="http://cidian.youdao.com/index-mac.html?keyfrom=dict2.index" target="_blank" rel="external">有道词典</a>：。。。</li> 
+  <li><a href="https://eclipse.org/downloads/" target="_blank" rel="external">eclipse</a>：装的JavaSE最小版本，装着有时候写小程序、demo用，做项目还是idea好用。</li> 
+  <li><a href="https://developer.android.com/studio/index.html" target="_blank" rel="external">android studio</a> ： Android狗也要有的吧。。。mac版居然才400+M，没占多少地。。。相关设置同IntelliJ IDEA</li> 
+  <li><a href="https://nodejs.org/zh-cn/" target="_blank" rel="external">nodejs</a> ： js爱好者哈哈哈，目前没装，先下了。。。</li> 
+  <li>xcode(应用商店) ： macOS上也要体验看看的，有空再玩。。。</li> 
+  <li>homebrew ：mac端包管理工具，以后研究。。。</li> 
+  <li><a href="https://appcleaner.en.softonic.com/mac" target="_blank" rel="external">AppCleaner</a> ：这东西有意思，每次你卸载删除软件它会自动弹窗提醒你是否清除软件相关数据，感觉是拯救强迫症患者的！</li> 
+  <li>视频软件：Movist，付费版的。。。不贵。。。感觉是mac端的PotPlayer</li> 
+  <li><a href="https://filezilla-project.org/download.php" target="_blank" rel="external">Filezilla</a> ：ftp、scp、sftp客户端</li> 
+  <li>下载工具：迅雷，有些下载链接只能用迅雷。。。</li> 
+  <li>管理软件：<a href="https://www.macupdate.com/app/mac/52661/dr-cleaner" target="_blank" rel="external">Dr.Cleaner</a>，管理内存，清除垃圾，删除大文件，重复文件，先用着。。。</li> 
+  <li>chm文档：<a href="https://itunes.apple.com/cn/app/chm-reader/id424182884?mt=12" target="_blank" rel="external">CHM Reader</a>，后来找到了Dash神奇就不想用这个了</li> 
+  <li><h5><a href="https://kapeli.com/dash" target="_blank" rel="external">Dash</a>：mac端强大的文档管理工具，反正里面bootstrap、js、jquery、JavaSE、JavaEE、Spring、python、Android、MySQL、Linux、Markdown、Git等各种教程文档都有，还有局部搜索和全局搜索，再也不用保存着一堆的chm文件了，强力推荐！！！！！！！！！！</h5> </li> 
+  <li>蓝牙：该有的功能得试试。。。</li> 
+  <li>移动硬盘相关：NTFS的移动硬盘在mac只能读无法写，装插件实现：
+   <blockquote>
+    <ul> 
+     <li>Paragon NTFS for Mac：这东西据说很好用，然而它的激活码居然是硬件关联的，换个电脑都不能用，目前没破解</li> 
+     <li><a href="http://www.tuxera.com/products/tuxera-ntfs-for-mac/" target="_blank" rel="external">Tuxera ntfs for mac</a>：这个是基于一个开源项目做的.</li> 
+    </ul> 
+   </blockquote> </li> 
+  <li>photoshop CC 2017：已有破解教程，不方便公布，需要请单独联系</li> 
+  <li><a href="https://itunes.apple.com/app/the-unarchiver/id425424353?mt=12&amp;ls=1&amp;utm_source=next.36kr.com" target="_blank" rel="external">The Unarchiver</a>:压缩软件，系统自带的不能解压rar的，以备不时之需。。。</li> 
+  <li>Mail：
+   <blockquote>
+    <ul> 
+     <li>设置QQ、163、gmail都天然兼容，一路通畅</li> 
+     <li><h6>企业邮箱：我司的企业邮箱一开始我在安全设置设置了个六位短信验证码，之后在系统自带的Mail上设置邮箱账户就死活无法登录，之后把动态验证码去掉即可——这绝对干货，浪费了两个多小时得到的教训！！！！</h6> </li> 
+    </ul> 
+   </blockquote> </li> 
+ </ul> 
+</blockquote> 
+<h3>第三步、系统折腾</h3> 
+<h5>这里给出我折腾的各种东西，装完软件整个电脑系统还用着很不习惯啊。。。</h5> 
+<blockquote>
+ <ul> 
+  <li>LanchPad整理：和IOS上图标整理差不多，拖动一个图标到另一个图标上面可以合成文件夹，这里主要给出如何删除不想要的图标：按住control+option+command或option+command即可看到一个叉叉。。。</li> 
+  <li>Docker整理，桌面整理：鼠标拖动。。。和win差不多</li> 
+  <li>文件整理：文件系统和linux差不多，自己根据文件树好好把自己的个人文件整理好，以后查找方便，不过macOS的Spotlight搜索异常强大。。。不过我个人对电脑中乱糟糟的文件分布不能忍。。。</li> 
+  <li>系统设置：自己弄。。。主要是安全性、鼠标、键盘、触控板、TimeMachine有比较有用的设置</li> 
+  <li>密码修改：密码严格点好。。。</li> 
+  <li>文件系统常用功能：macOS上的Finder相当于win的资源管理器，但是新建文件、command+X剪切文件等很多win的资源管理器常用功能这里都没有，一开始不习惯，连复制个文件路径都不行，编程怎么忍？<a href="http://www.trankynam.com/xtrafinder/" target="_blank" rel="external">XtraFinder</a> 用这个插件可以拓展Finder的功能，安装好需要重启按command+R去设置System Integrity Protection，具体安装好就能看到相关提醒。重启完自己打开就能看到各种设置。。。</li> 
+  <li>Finder相关设置：<a href="http://www.macx.cn/thread-2080254-1-1.html" target="_blank" rel="external">http://www.macx.cn/thread-2080254-1-1.html</a></li> 
+  <li>获取文件夹路径，这个教程主要是开启了我的macOS的事件流设置之旅，有意思！！！ <br><a href="http://jingyan.baidu.com/article/380abd0a12007b1d91192c5e.html" target="_blank" rel="external">http://jingyan.baidu.com/article/380abd0a12007b1d91192c5e.html</a></li> 
+  <li>触摸板：macOS的触摸板异常强大！！！特别爽，不需要教程，自己到偏好设置看！</li> 
+  <li>环境变量:<a href="http://www.cnblogs.com/shineqiujuan/p/4693404.html" target="_blank" rel="external">http://www.cnblogs.com/shineqiujuan/p/4693404.html</a>
+   <blockquote>
+    <p>JDK环境变量：<a href="http://www.mamicode.com/info-detail-425131.html" target="_blank" rel="external">http://www.mamicode.com/info-detail-425131.html</a> <br>都和linux一样的，没难度</p> 
+   </blockquote> </li> 
+  <li>进程管理：<a href="https://www.douban.com/group/topic/29517146/" target="_blank" rel="external">https://www.douban.com/group/topic/29517146/</a></li> 
+  <li>开机启动：<a href="http://www.mac52ipod.cn/post/apple-mac-os-x-auto-startup-items.php" target="_blank" rel="external">http://www.mac52ipod.cn/post/apple-mac-os-x-auto-startup-items.php</a></li> 
+  <li>关闭Guest用户：进偏好设置，然后打开左下角的那个锁，点那个Guest。右面有界面让你关掉</li> 
+  <li>多屏幕使用：
+   <blockquote>
+    <p>原先苦恼我的问题是两个屏幕如何控制鼠标键盘焦点在哪个屏幕上，<a href="http://shengbinxu.github.io/mac/2015/06/28/mac%E4%B8%8B%E5%8F%8C%E5%B1%8F%E5%88%87%E6%8D%A2/" target="_blank" rel="external">教程1</a>,<a href="http://blog.csdn.net/chenyufeng1991/article/details/50493362" target="_blank" rel="external">教程2</a>等等，类似教程很多可以多看看，下面说说我的使用体验：</p> 
+    <ol> 
+     <li>显示器公司会有适配的数据线，插上就能用~~</li> 
+     <li>系统偏好设置——显示器——排列，可以设置两块显示器的排列位置关系，之后你拖动鼠标从一个屏幕移动到另一个屏幕就是根据这个位置关系的；并且其中一个上面有个白条，那个代表了状态栏，相当于是主屏幕的标志。</li> 
+     <li>屏幕位置关系建议左右关系，因为上下关系的话你的Dock会不好切换，Dock是根据你在哪个屏幕下方停留就自动跳到那个屏幕的，会和鼠标屏幕间移动冲突。。。</li> 
+     <li>鼠标焦点转移：根据你设置的屏幕位置关系，移动到一个屏幕边缘就能在另一个屏幕出现，就像两个屏幕是连着的一样。</li> 
+     <li>键盘焦点转移：鼠标点击就自然转移了；或者command+tab转移app焦点的时候也能转移键盘焦点，但是这个时候鼠标焦点没变，比如你从主屏幕的chrome浏览器转移到副屏幕的终端输入命令行，命令行不需要鼠标，用这个方式显然提高效率的~~</li> 
+     <li>屏幕间拖动：可以从一个屏幕把整个桌面、程序窗口、文件等直接拖动到另一个屏幕，试试就知道~~</li> 
+     <li>举个例子：比如你在副屏幕idea编辑web程序运行（control+R）测试，这时候command+tab切换到chrome，然后command+R刷新，不需要动鼠标，多快~~</li> 
+    </ol> 
+   </blockquote> </li> 
+ </ul> 
+</blockquote> 
+<h3>第四步、快捷键：</h3> 
+<blockquote>
+ <ul> 
+  <li><p>显示桌面：</p> 
+   <blockquote>
+    <ul> 
+     <li>F11</li> 
+     <li>Command + F3</li> 
+     <li>Trackpad 上 五指散开</li> 
+     <li>如果有多个桌面，四指滑动到空白的桌面即可</li> 
+     <li>配置触角：偏好设置——Mission Control——左下角触发角，就能设置鼠标移动到屏幕四个角触发的动作。</li> 
+    </ul> 
+   </blockquote> </li> 
+  <li><p>打开iFinder：shift+command+H</p> </li> 
+  <li><p>窗口相关：</p> 
+   <blockquote>
+    <ol> 
+     <li>关闭屏幕:Ctrl+Shift+Power</li> 
+     <li>最小化窗口：command+M</li> 
+     <li>窗口全屏：control+command+F</li> 
+     <li>隐藏窗口：Command+H</li> 
+     <li>窗口切换：Command+tab（app间）、command+~（同一app的不同窗口间）</li> 
+     <li>开启新标签：command+T</li> 
+     <li>开启新窗口：command+N</li> 
+     <li>关闭当前标签：command+W</li> 
+     <li>切换标签：control+tab</li> 
+     <li>窗口关闭：command+W</li> 
+     <li>退出：command+Q</li> 
+     <li>强制退出程序：command+option+esc</li> 
+     <li>全屏标识（绿色圆圈）：
+      <blockquote>
+       <ul> 
+        <li>按住 Option 全屏按钮就会变为 + ， 点就是垂直最大化；</li> 
+        <li>按住 shift+Opt 全屏按钮也会变为 + ， 点击就是最大化，而不是全屏；</li> 
+       </ul> 
+      </blockquote> </li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><p>编辑相关：</p> 
+   <blockquote>
+    <ol> 
+     <li>剪切：command+X</li> 
+     <li>复制：command+C</li> 
+     <li>粘贴：command+V</li> 
+     <li>删除：command+delete</li> 
+     <li>全选：command+A</li> 
+     <li>撤销：command+Z</li> 
+     <li>重做：command+Y</li> 
+     <li>保存：command+S</li> 
+     <li>打印：command+P</li> 
+     <li>查找：command+F</li> 
+     <li>网页刷新：command+R</li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><p>QQ:</p> 
+   <blockquote>
+    <ol> 
+     <li>qq发送消息：return</li> 
+     <li>qq查看消息：control+command+Z</li> 
+     <li>qq会话切换：command+上下</li> 
+     <li>截图：control+command+A</li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><p>微信：control+command+W</p> </li> 
+  <li><p>企业微信查看消息：shift+command+W</p> </li> 
+  <li><p>网易云音乐:</p> 
+   <blockquote>
+    <ol> 
+     <li>上下曲：option+command+左右</li> 
+     <li>调节音量：option+command+上下</li> 
+     <li>播放/暂停：option+command+space</li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><p>切换输入法：control+option+space、control+space</p> </li> 
+  <li><p>调节音量：功能键</p> </li> 
+  <li><p>调节屏幕亮度：功能键</p> </li> 
+  <li><p>睡眠 (sleep):Cmd+Opt+Power</p> </li> 
+  <li><p>注销：shift+command+Q</p> </li> 
+  <li><p>关机：control+power</p> </li> 
+  <li><p>idea快捷键：</p> 
+   <blockquote>
+    <ol> 
+     <li>格式化代码：command+option+L</li> 
+     <li>注释：command+/</li> 
+     <li>代码提醒（系统输入法切换快捷键更改，冲突了）：control+space、control+shift+space</li> 
+     <li>生成代码：control+return</li> 
+     <li>快速修复：option+return</li> 
+     <li>导包：control+option+O</li> 
+     <li>移动当前行：option+shift+上下方向键、command+shift+上下方向键</li> 
+     <li>全屏：control+command+F</li> 
+     <li>覆盖方法：control+O</li> 
+     <li>实现方法：control+I</li> 
+     <li>全部大写：command+shift+U</li> 
+     <li>编译project：command+F9</li> 
+     <li>运行：control+R</li> 
+     <li>调试：control+D</li> 
+     <li>包围代码：Option+Command+T</li> 
+     <li>插入模板代码：command+J</li> 
+     <li>command+option+左右方向键：查看代码的前后跳转，相当于win版的alt+左右方向键</li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><p>chrome快捷键：</p> 
+   <blockquote>
+    <ol> 
+     <li>新窗口：command+N</li> 
+     <li>新标签：command+T</li> 
+     <li>标签间切换：control+tab</li> 
+    </ol> 
+   </blockquote> </li> 
+ </ul> 
+</blockquote> 
+<h3>第五、额外推荐</h3> 
+<blockquote>
+ <ul> 
+  <li>移动硬盘文件整理:</li> 
+  <li>sd卡:京东有MacBook专用SD拓容卡，新版MacBook Pro已不支持，目前还在纠结</li> 
+  <li>移动硬盘：需要分一个区格式化为HFS+专供TimeMachine电脑备份使用</li> 
+ </ul> 
+</blockquote> 
+<h3>感谢</h3> 
+<blockquote>
+ <ul> 
+  <li><a href="http://blog.jobbole.com/104138/" target="_blank" rel="external">http://blog.jobbole.com/104138/</a></li> 
+  <li><a href="http://www.macx.cn/thread-2078092-1-1.html" target="_blank" rel="external">http://www.macx.cn/thread-2078092-1-1.html</a></li> 
+  <li><a href="http://www.apple.com/cn/support/macbasics/" target="_blank" rel="external">http://www.apple.com/cn/support/macbasics/</a></li> 
+  <li><a href="https://support.apple.com/zh-cn/HT201236" target="_blank" rel="external">https://support.apple.com/zh-cn/HT201236</a></li> 
+  <li><a href="http://wiki.jikexueyuan.com/project/intellij-idea-tutorial/keymap-mac-introduce.html" target="_blank" rel="external">http://wiki.jikexueyuan.com/project/intellij-idea-tutorial/keymap-mac-introduce.html</a></li> 
+  <li><a href="http://www.ifunmac.com/" target="_blank" rel="external">玩转苹果</a></li> 
+  <li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">Git教程</a></li> 
+  <li>还有知乎上各种大神的教程和软件推荐，我遇到问题时搜到的各个博客，数量太多，没能及时记录，大家弄出来都是互相分享的嘛~~</li> 
+  <li>然后就是感谢好多个给力的学弟分享的各种软件的破解教程，真的炒鸡给力！！！</li> 
+ </ul> 
+</blockquote>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-11-17/how-to-use-macOS.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-11-17/how-to-use-macOS.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 162 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=178')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 23 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','macOS入门认识与折腾','178')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2016-10-19/xiaozhao-jinli.html" title="上一篇">
+                            &laquo;校招之路
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2016-12-01/Pushy-readme-translation.html" title="下一篇">
+                            Pushy入门文档中文翻译&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-05-04/maven-filters-junit.html">maven多套环境配置文件和junit冲突问题解决方案</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-05-04 22:36</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-05-04/quartz-study-and-highavailable.html">Quartz调度系统入门和调度高可用实现方案</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-05-04 15:58</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-04-16/swagger-maven-plugin-tips.html">Swagger maven plugin 环境配置踩坑记录</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-04-16 00:36</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(15)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=178');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

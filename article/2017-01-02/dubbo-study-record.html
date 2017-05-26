@@ -1,0 +1,604 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dubbo入门学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=11" title="Hadoop和云计算">
+                        Hadoop和云计算
+                        </a>
+                        &gt;&gt;
+                        Dubbo入门学习笔记
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">Dubbo入门学习笔记</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=11" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> Hadoop和云计算
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2017-01-02 22:57
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2017-01-02/dubbo-study-record.html" target="_blank" rel="external">http://www.coselding.cn/article/2017-01-02/dubbo-study-record.html</a></p>
+                <h3>Dubbo是什么</h3> 
+<p>Dubbo是Alibaba开源的分布式服务框架，它最大的特点是按照分层的方式来架构，使用这种方式可以使各个层之间解耦合（或者最大限度地松耦合）。从服务模型的角度来看，Dubbo采用的是一种非常简单的模型，要么是提供方提供服务，要么是消费方消费服务，所以基于这一点可以抽象出服务提供方（Provider）和服务消费方（Consumer）两个角色。 <br>简单说呢，Dubbo用起来就和EJB、WebService差不多，调用一个远程的服务（或者JavaBean）的时候在本地有一个接口，就像调用本地的方法一样去调用，它底层帮你实现好你的方法参数传输和远程服务运行结果传回之后的返回，就是RPC的一种封装啦~ <br>当然，这个只是Dubbo的最基本的功能，它的特点是：</p> 
+<ol> 
+ <li>它主要是使用高效的网络框架和序列化框架，让分布式服务之间调用效率更高。</li> 
+ <li>采用<code>注册中心</code>管理众多的服务接口地址，当你想调用服务的时候只需要跟注册中心询问即可，不用像使用WebService一样每个服务都得记录好接口调用方式。</li> 
+ <li><code>监控中心</code>：实现对服务方和调用方之间运行状态的监控，还能控制服务的优先级、权限、权重、上下线等，让整个庞大的分布式服务系统的维护和治理比较方便。</li> 
+ <li>高可用：有个服务宕机了？注册中心就会从服务列表去掉该节点。还是调用到了？客户端会向注册中心请求另一台可用的服务节点重新调用。注册中心宕机？注册中心也能实现高可用（ZooKeeper）。</li> 
+ <li>负载均衡：采用软负载均衡算法实现对多个相同服务的节点的请求负载均衡。</li> 
+ <li>等等。。。很多高大上的，看官方文档吧，我也是文档中抄过来的~</li> 
+</ol> 
+<h3>一些参考站点或博客</h3> 
+<blockquote>
+ <ul> 
+  <li>官方用户指南：<a href="http://dubbo.io/User+Guide-zh.htm" target="_blank" rel="external">http://dubbo.io/User+Guide-zh.htm</a></li> 
+  <li>官网(还有挺多东西，不一一列出了，自己点点就有)：<a href="http://dubbo.io/" target="_blank" rel="external">http://dubbo.io/</a></li> 
+  <li>Dubbo开源地址：<a href="https://github.com/alibaba/dubbo/" target="_blank" rel="external">https://github.com/alibaba/dubbo/</a></li> 
+  <li>Dubbo另一开源地址：<a href="https://github.com/dubbo/" target="_blank" rel="external">https://github.com/dubbo/</a> <br>主要包括了Alibaba的Dubbo项目和当当网拓展之后的Dubbox项目，以及一些其他子项目和工具的代码，可以作为参考。</li> 
+  <li>Dubbo架构设计详解：<a href="http://shiyanjun.cn/archives/325.html" target="_blank" rel="external">http://shiyanjun.cn/archives/325.html</a> <br>一开始会有很多看不懂的，很正常，先整体过一遍，了解大致情况，等学的比较清楚了，再看一遍，会有额外收获，温故而知新，可以为师矣。</li> 
+  <li>一个很详细的Dubbo学习笔记博客：<a href="http://blog.csdn.net/lipslive/article/details/46530361" target="_blank" rel="external">http://blog.csdn.net/lipslive/article/details/46530361</a></li> 
+  <li>软负载均衡算法：<a href="http://www.cnblogs.com/xrq730/p/5154340.html" target="_blank" rel="external">http://www.cnblogs.com/xrq730/p/5154340.html</a></li> 
+ </ul> 
+</blockquote> 
+<h4><strong><em> 注意 </em></strong></h4> 
+<p>所有东西以官方用户指南为准：<a href="http://dubbo.io/User+Guide-zh.htm" target="_blank" rel="external">http://dubbo.io/User+Guide-zh.htm</a> <br>其他第三方文章博客什么的可以参考辅助理解，但是由于阿里是国内公司，官方用户指南，特别是中文版都特别详细，真的没有很多必要去找一堆第三方的教程来看啦~</p> 
+<h3>Dubbo环境准备</h3> 
+<p>Dubbo需要四大基本组件：Registry、Monitor、Provider、Consumer。 <br><img src="/upload/images/1/12/113e679d-2e4c-4f52-8a20-0ea00c7febf0_.jpg" alt="" width="100%" height="" style=""></p> 
+<ol> 
+ <li><p>安装<strong>注册中心</strong>（Registry），我用ZooKeeper，具体参考我的<a href="">ZooKeeper教程博客</a>，安装好ZooKeeper之后注册中心就有了，先放着，等会用。</p> </li> 
+ <li><p>安装<strong>简单监控中心</strong>：simple-monitor。网上找<code>dubbo-monitor-simple-2.8.4-assembly.tar.gz</code>。</p> 
+  <blockquote>
+   <ul> 
+    <li>解压，找到conf文件夹下的dubbo.properties文件，下面简单介绍各个配置参数的意义：<pre><code class="bash"># 容器，就是说这个简单监控中心是在jetty和spring环境下运行的，依赖于注册中心，日志系统是log4j
+dubbo.container=log4j,spring,registry,jetty
+# 监控系统对整个Dubbo服务系统来说也是一个服务，这里指定了这个监控服务的名称
+dubbo.application.name=simple-monitor
+# 服务的所有者，这是Dubbo的服务的功能，可以指定服务的负责人
+dubbo.application.owner=coselding
+# 下面四个是指定注册中心地址的，分别为广播、zookeeper、redis、dubbo（自带）方式的注册中心，前面说了，我用的是Zookeeper（前面配好了），因此去掉zookeeper前面的#，配置zookeeper的ip和端口号。之后简单监控中心就能通过注册中心获取当前可用的服务列表及其状态，在页面向你汇报Dubbo中的服务运行情况。
+#dubbo.registry.address=multicast://224.5.6.7:1234
+dubbo.registry.address=zookeeper://{ip}:{port}
+#dubbo.registry.address=redis://127.0.0.1:6379
+#dubbo.registry.address=dubbo://127.0.0.1:9090
+# dubbo协议端口号，保持默认即可
+dubbo.protocol.port=7070
+# jetty工作端口号，平时不是习惯8080吗？当然，这里为了不影响之后运行的tomcat，就不要占用8080端口啦。
+dubbo.jetty.port=8082
+# 一个工作目录，在这个目录会保存一些监控中心的数据，比如调用曲线图等，这里指定一个存在的空目录即可
+dubbo.jetty.directory=${user.home}/monitor
+# 监控中心报表存放的目录，同上，一般默认即可
+dubbo.charts.directory=${dubbo.jetty.directory}/charts
+# 监控中心数据资料目录，同上，一般默认即可
+dubbo.statistics.directory=${user.home}/monitor/statistics
+# 监控中心日志文件路径
+dubbo.log4j.file=logs/dubbo-monitor-simple.log
+# 监控中心日志记录级别
+dubbo.log4j.level=WARN
+</code></pre> </li> 
+    <li>运行bin目录下的start.sh（unix系下）或start.bat（win下）即可。</li> 
+    <li>浏览器访问：<code>http://{简单监控中心所在的主机ip}:8082</code>，端口号是刚才配置文件设置的8082，即可访问查看Dubbo服务集群中的应用和服务的简单情况。</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p>安装<strong>Dubbo管理控制台</strong>：</p> 
+  <blockquote>
+   <ul> 
+    <li>下载<code>dubbo-admin-2.8.4.war</code>，这个是Dubbo的管理控制台的webapp的war包，将其解压。</li> 
+    <li>WEB-INF目录下的<code>dubbo.properties</code>文件配置Dubbo的信息，如下：<pre><code class="bash"># 配置注册中心地址，和简单监控中心一样，通过注册中心才能监控当前所有可用的服务。
+dubbo.registry.address=zookeeper://127.0.0.1:2181
+# root账户的密码，网页进入控制台界面之前需要输入帐号密码
+dubbo.admin.root.password=root
+# guest访客账户的密码
+dubbo.admin.guest.password=guest
+</code></pre> </li> 
+    <li>将修改完配置的dubbo-admin的整个目录复制到tomcat的webapps目录下，重启tomcat，说白了dubbo-admin就是tomcat的一个webapp的形式存在。</li> 
+   </ul> 
+  </blockquote> </li> 
+</ol> 
+<h3>Dubbo注册中心</h3> 
+<p>上面已经安装完成了zookeeper的注册中心了，这个注册中心主要就是负责dubbo的所有服务地址列表维护，并且可以通过在ZooKeeper节点中设置相应的值来实现对这个服务的权重、优先级、是否可用、路由、权限等的控制。 <br>你可以先记住，之后在Dubbo的管理控制台对服务的一堆治理策略设置和调整，实际上就是修改了注册中心中的服务对应的配置数据（即修改了zookeeper中服务对应的节点的配置数据）。 <br>之后<code>Consumer</code>从注册中心请求到服务的数据时就能根据这些配置数据进行相应的治理配置参数的代码执行生效。</p> 
+<h3>Dubbo样例服务开发</h3> 
+<p>这里我用maven构建项目，在Spring环境中配置Provider和Consumer。 <br>先说明使用的依赖：</p> 
+<pre><code class="xml">        &lt;!-- Spring所需依赖 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+            &lt;version&gt;4.2.3.RELEASE&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- dubbo所需依赖 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;dubbo&lt;/artifactId&gt;
+            &lt;version&gt;2.8.4&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;javassist&lt;/groupId&gt;
+            &lt;artifactId&gt;javassist&lt;/artifactId&gt;
+            &lt;version&gt;3.12.0.GA&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.jboss.netty&lt;/groupId&gt;
+            &lt;artifactId&gt;netty&lt;/artifactId&gt;
+            &lt;version&gt;LATEST&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- ZooKeeper所需依赖 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.101tec&lt;/groupId&gt;
+            &lt;artifactId&gt;zkclient&lt;/artifactId&gt;
+            &lt;version&gt;0.10&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+            &lt;version&gt;1.7.12&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre> 
+<ol> 
+ <li><code>Provider</code>：
+  <blockquote>
+   <ul> 
+    <li>声明服务的接口：<pre><code class="java">public interface IMyDemo {
+String sayHello(String name);
+}
+</code></pre> </li> 
+    <li>对接口进行实现（这里是Provider，需要真的实现，之后在Consumer端调用接口之后实际就是在这里的实现代码执行所需逻辑的）：<pre><code class="java">public class MyDemo implements IMyDemo {
+@Override
+public String sayHello(String name) {
+    String hello = "hello " + name;
+    System.out.println(hello);
+    return hello;
+}
+}
+</code></pre> </li> 
+    <li>Spring配置相应的Dubbo服务(provider.xml)：<pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- 这里添加了dubbo的命名空间，之后Spring通过dubbo中扩展的配置解析生成对应的dubbo实例放到Spring的IoC容器中 --&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://code.alibabatech.com/schema/dubbo
+http://code.alibabatech.com/schema/dubbo/dubbo.xsd"&gt;
+&lt;!-- 指定服务的应用名称，在dubbo中层次级别是先分为多个应用（可以理解为一个项目），在每个应用下有多个服务（可以理解为项目下具体的某个提供服务的服务类） --&gt;
+&lt;!-- 这里就是指定一个应用的名称，指定相同的应用名的服务在dubbo中都会被分配在同一个应用分支下 --&gt;
+&lt;dubbo:application name="hello-world-app"  /&gt;
+&lt;!-- 之前配置好的ZooKeeper服务器作为注册中心，这里指定好ZooKeeper的地址，此处的Dubbo才能连接上注册服务器，很好理解 --&gt;
+&lt;dubbo:registry address="zookeeper://119.29.153.56:2181" id="registry" /&gt;
+&lt;!-- Dubbo的每个节点之间通信可以支持rmi、Http、Dubbo等一系列的协议，这里指定默认的dubbo协议，以及此处的服务Provider对外暴露的服务端口号 --&gt;
+&lt;dubbo:protocol name="dubbo" port="20880" /&gt;
+&lt;!-- 到这里，这个Provider节点就已经能连上注册服务器，并使用指定的协议进行通信了 --&gt;
+&lt;!-- 这里对外暴露刚才编写的接口，并指定IoC容器中接口的实现来为这个接口提供实际的服务 --&gt;
+&lt;dubbo:service interface="com.weidian.dubbo.IMyDemo" ref="myDemo"/&gt;
+&lt;!-- 这里是Spring原始的JavaBean声明方式，并放在IoC容器中 --&gt;
+&lt;bean id="myDemo" class="com.weidian.dubbo.MyDemo"/&gt;
+&lt;/beans&gt;
+</code></pre> </li> 
+    <li>本地测试一下这个服务是否可用，这里还没用到Dubbo，只是先测试一下Spring容器是否有问题：<pre><code class="java">@org.junit.Test
+public void testDubbo() throws InterruptedException {
+ApplicationContext providerContext = new ClassPathXmlApplicationContext("provider.xml");
+IMyDemo demo = providerContext.getBean(IMyDemo.class);
+System.out.println(demo.sayHello("world"));
+Thread.sleep(60000);
+}
+</code></pre> </li> 
+    <li>运行结果： <br><img src="/upload/images/5/14/c364a56c-ec88-43c2-8f67-fdbe0455cbde_.png" alt="" width="100%" height="" style=""> <br>Provider内部代码输出了一遍，返回到测试代码又输出了一遍，总共两遍hello world</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><code>Consumer</code>：
+  <blockquote>
+   <ul> 
+    <li>编写和Provider服务的对应接口：<pre><code class="java">public interface IMyDemo {
+String sayHello(String name);
+}
+</code></pre> </li> 
+    <li>Spring配置远程的服务为本地的JavaBean（consumer.xml）：<pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!-- 这里添加了dubbo的命名空间，之后Spring通过dubbo中扩展的配置解析生成对应的dubbo实例放到Spring的IoC容器中 --&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://code.alibabatech.com/schema/dubbo
+http://code.alibabatech.com/schema/dubbo/dubbo.xsd"&gt;
+&lt;!-- 声明要连接的应用名称，要和Provider声明的指定的应用名一致 --&gt;
+&lt;dubbo:application name="hello-world-app"  /&gt;
+&lt;!-- 之前配置好的ZooKeeper服务器作为注册中心，这里指定好ZooKeeper的地址，此处的Dubbo才能连接上注册服务器，很好理解 --&gt;
+&lt;dubbo:registry address="zookeeper://119.29.153.56:2181" id="registry" /&gt;
+&lt;!-- Dubbo的每个节点之间通信可以支持rmi、Http、Dubbo等一系列的协议，这里指定默认的dubbo协议，
+以及此处的Consumer对外暴露的服务端口号，因为注册中心有服务节点列表更新是要实时推送到Consumer中的 
+--&gt;
+&lt;dubbo:protocol name="dubbo" port="20880" /&gt;
+&lt;!-- 到这里，这个Consumer节点就已经能连上注册服务器，并使用指定的协议进行通信了 --&gt;
+&lt;!-- 接口指定Consumer端的那个服务接口，之后它就会通过这个接口的应用名和全限定名去注册中心
+查找实际的服务Provider地址列表，再通过指定的dubbo协议进行通信，实现RPC，而在Consumer
+本机端对Spring的IoC容器指定id，方便之后对这个远程JavaBean的引用调用 --&gt;
+&lt;dubbo:reference id="demoRemote" interface="com.weidian.dubbo.IMyDemo" protocol="dubbo"/&gt;
+&lt;/beans&gt;
+</code></pre> </li> 
+    <li>另外，也能绕过Registry直连Provider，如下：<pre><code class="xml">&lt;dubbo:reference interface="com.weidian.dubbo.IMyDemo" version="1.0" id="myDemo" url="dubbo://127.0.0.1:20880/"&gt;&lt;/dubbo:reference&gt;
+</code></pre> </li> 
+    <li>远程过程调用测试(前提是先把Provider的服务先运行起来再来运行这个Consumer（在两个端的测试代码尾部都添加了sleep代码的原因）：<pre><code class="java">@org.junit.Test
+public void testGetRemoteService() throws InterruptedException {
+ApplicationContext consumerContext = new ClassPathXmlApplicationContext("consumer.xml");
+IMyDemo demoRemote = consumerContext.getBean(IMyDemo.class);
+System.out.println(demoRemote.sayHello("world"));
+Thread.sleep(30000);
+}
+</code></pre> </li> 
+    <li>运行结果： <br>Provider： <br><img src="/upload/images/15/1/8cfede17-6ca3-4305-baba-608ec0565dba_.png" alt="" width="100%" height="" style=""> <br>启动Provider输出了两遍，Consumer调用时本地实现又输出了一遍，共三遍。 <br>Consumer： <br><img src="/upload/images/9/13/1ab405de-51f4-47b2-bdb5-87d53ca8503f_.png" alt="" width="100%" height="" style=""> <br>启动Consumer，远程返回输出了一遍。</li> 
+   </ul> 
+  </blockquote> </li> 
+</ol> 
+<h3>Dubbo简单监控中心</h3> 
+<p>简单介绍，其实用处不大，我觉得管理后台的功能已经把这个监控中心的功能覆盖了，仅仅只是拿来测试使用一下。</p> 
+<blockquote>
+ <ul> 
+  <li>主界面： <br><img src="/upload/images/13/14/ec52d96e-f536-4c62-bea0-307c63f86aae_.png" alt="" width="100%" height="" style=""></li> 
+  <li>服务列表界面，显示所有服务以及它的Provider和Consumer情况： <br><img src="/upload/images/9/15/7ca6aa2c-528b-44f9-bfa2-7958ee8613d7_.png" alt="" width="100%" height="" style=""></li> 
+ </ul> 
+</blockquote> 
+<h3>Dubbo管理后台使用</h3> 
+<p>之前Tomcat中配置好了dubbo-admin的webapp，现在只要打开tomcat，并输入相应的地址即可访问dubbo-admin的界面，如我的是<code>http://127.0.0.1:8080/dubbo-admin/</code>。 <br>其实就是一个很常见的管理后台，可以控制每个服务、应用的状态、权重、路由控制、访问控制、负载均衡、各个应用的服务情况和消费情况等，不需要教程，直接上手使用即可，至于其中的一些可能有疑问的概念，下面的内容将一一说明。</p> 
+<h3>服务路由</h3> 
+<p>路由，顾名思义，就是通过配置去设定哪些Consumer节点的请求由哪些节点的Provider节点的服务来进行响应，可以在一定程度上控制负载分布。 <br>知道这个概念，那剩下就是配置的问题了，明白怎么回事其实就很简单啦~</p> 
+<p>在dubbo-admin<code>主界面</code>——<code>服务治理</code>——<code>路由规则</code>，如下： <br><img src="/upload/images/15/11/aede6fff-3371-464b-b0f7-77e62a39c9f9_.png" alt="" width="100%" height="" style=""> <br>点击<code>新增</code>： <br><img src="/upload/images/10/2/f75d804b-9628-4beb-9e6b-61a0c827bb0f_.png" alt="" width="100%" height="" style=""> <br><code>路由名称</code>:为你定义的这个路由规则声明一个名称，之后可以根据这个名称来找这个路由规则。 <br><code>优先级</code>:很明显，一个int数值代表这个路由规则的优先级，优先级越高这个规则越先匹配。 <br><code>服务名</code>:列表选择的，从注册中心中已有的服务列表中选择一个服务，表示这个路由规则要约束的是哪个服务。 <br><code>方法名</code>:列表选择的，选择要约束的这个服务中的哪个方法。 <br><code>匹配条件</code>:填写<code>匹配</code>下面的列表就表示匹配了条件才受这个路由规则约束，否则就是不匹配规则才受该规则约束。 <br><code>消费者IP地址</code>:要约束的Consumer的IP地址列表，逗号隔开。 <br><code>消费者应用名</code>:要约束的Consumer的应用名列表。 <br><code>消费者集群</code>:按照提示上写的去找，没找到相应的选项，暂时也没用到，之后再回头编辑。 <br><code>过滤规则</code>:填写<code>匹配</code>下面的列表就表示匹配了条件才受这个路由规则约束，否则就是不匹配规则才受该规则约束。 <br><code>提供者IP地址</code>:要约束的Provider的IP地址列表，逗号隔开。 <br><code>提供者集群</code>:按照提示上写的去找，没找到相应的选项，暂时也没用到，之后再回头编辑。 <br><code>提供者协议</code>:指定Provider的协议，不是该协议的也不约束。 <br><code>提供者端口</code>:指定Provider的端口，不是这个端口的也不约束。</p> 
+<p>测试样例展示： <br><img src="/upload/images/1/2/973e27b1-e229-46f5-b5d4-c46eba78c828_.png" alt="" width="100%" height="" style=""> <br>这样配置的路由就能够生效，效果是：<code>com.weidian.dubbo.IMyDemo</code>服务的<code>sayHello</code>方法下，地址为<code>192.168.31.164</code>的Consumer的请求由（地址：<code>192.168.31.164</code>；协议：<code>dubbo</code>；端口：<code>20880</code>）的Provider进行响应，如果没有匹配的Provider就会默认返回所有的Provider列表给Consumer，让Consumer自己选。 <br>点击<code>保存</code>，保存新增的路由规则，并在路由规则列表中启用这个规则，如下： <br><img src="/upload/images/11/6/e38ad943-4fe9-4b12-8f25-48d5f593c254_.png" alt="" width="100%" height="" style=""> <br>点击<code>预览</code>，在消费者地址填写192.168.31.164，点击预览，如下图所示： <br><img src="/upload/images/0/9/057eb1ce-edc9-40f2-9e91-40ba7e2c8c2d_.png" alt="" width="100%" height="" style=""> <br>运行Consumer程序，查看消费者状态，可知设定的这个路由规则对该对应地址的消费真生效了，如下图： <br><img src="/upload/images/12/3/383348e1-6a24-44b2-92e5-b88b22a154bb_.png" alt="" width="100%" height="" style=""> <br>另外，IP地址支持结尾为<em>匹配所有，如10.0.0.</em>或者10.0.*等。 <br>不匹配的配置规则和匹配的配置规则是一致的。</p> 
+<h3>负载均衡</h3> 
+<p>dubbo提供4种负载均衡方式: <br><code>Random</code>：随机，按权重配置随机概率，调用量越大分布越均匀，默认是这种方式 <br><code>RoundRobin</code>：轮询，按权重设置轮询比例，如果存在比较慢的机器容易在这台机器的请求阻塞较多 <br><code>LeastActive</code>：最少活跃调用数，不支持权重，只能根据自动识别的活跃数分配，不能灵活调配 <br><code>ConsistentHash</code>：一致性hash，对相同参数的请求路由到一个服务提供者上，如果有类似灰度发布需求可采用 <br>dubbo的负载均衡机制是在客户端调用时通过内存中的服务方信息及配置的负责均衡策略选择，如果对自己系统没有一个全面认知，建议先采用random方式。</p> 
+<blockquote>
+ <ul> 
+  <li>软负载均衡算法：<a href="http://www.cnblogs.com/xrq730/p/5154340.html" target="_blank" rel="external">http://www.cnblogs.com/xrq730/p/5154340.html</a></li> 
+ </ul> 
+</blockquote> 
+<h3>Dubbo过滤器</h3> 
+<p>有需要自己实现dubbo过滤器的，可关注如下步骤：</p> 
+<ol> 
+ <li><p>dubbo初始化过程加载ClassPath下的<code>META-INF/dubbo/internal/</code>，<code>META-INF/dubbo/</code>，<code>META-INF/services/</code>三个路径(classloader resource)下面的<code>com.alibaba.dubbo.rpc.Filter</code>文件。 <br>文件内容： <br>每行<code>Name</code>=<code>FullClassName</code>，这些类必须是实现Filter接口，如下图： <br><img src="/upload/images/8/10/9dc8c076-fbee-44a5-a9de-48f6ec756074_.png" alt="" width="100%" height="" style=""></p> </li> 
+ <li><p>自定义Filter类：</p> <pre><code class="java">import com.alibaba.dubbo.common.Constants;
+import com.alibaba.dubbo.common.extension.Activate;
+import com.alibaba.dubbo.rpc.*;
+//激活这个过滤器的注解，标记这个过滤器在消费者端加入过滤器链
+@Activate(group = Constants.CONSUMER)
+//dubbo过滤器的实现类
+public class DubboTestFilter implements Filter {
+/**计时器过滤器，记录这个RPC的整个过程执行时间
+ * @param invoker
+ * @param invocation
+ * @return
+ * @throws RpcException
+ */
+@Override
+public Result invoke(Invoker&lt;?&gt; invoker, Invocation invocation) throws RpcException {
+    long start = System.currentTimeMillis();
+    //这个是RPC的实现体，Result就是RPC的执行结果，和Servlet的过滤器有些类似
+    Result result = invoker.invoke(invocation);
+    System.out.println("time = " + (System.currentTimeMillis() - start) + "ms");
+    System.out.println(result.getValue());
+    return result;
+}
+}
+</code></pre> </li> 
+ <li><p>consumer.xml配置文件中配置这个过滤器，如下图： <br><img src="/upload/images/12/9/fe5ae476-afb5-4ef6-9230-2ec9c9fd7150_.png" alt="" width="100%" height="" style=""></p> </li> 
+ <li><p>先来看看配置完成之后的执行效果： <br><img src="/upload/images/7/10/77f73192-3871-4ea1-b83b-8674e2060aa0_.png" alt="" width="100%" height="" style=""></p> 
+  <blockquote>
+   <p>对比上面的过滤器代码可知，先输出了RPC过程的运行时间，之后在过滤器中输出了一遍执行结果<code>hello world</code>，之后单元测试本身再把执行结果输出一遍，因此<code>hello world</code>输出了两遍。</p> 
+  </blockquote> </li> 
+ <li><p>Dubbo过于这个过滤器的加载过程：</p> 
+  <blockquote>
+   <p>(1) 先加载那三个路径下的<code>com.alibaba.dubbo.rpc.Filter</code>文件里面的键值对，key为过滤器的名称，value为过滤器的类全限定名（这个类必须实现Dubbo中的Filter接口）； <br>(2) 这样就能找到这个类的class文件了，检查<code>@Activate</code>注解加载这个过滤器设定的一些全局基本属性； <br>(3) Spring在加载consumer.xml文件的时候，通过</p> 
+   <pre><code class="xml">&lt;dubbo:consumer filter="dubboTestFilter" id="dubboTestFilter" retries="0"/&gt;
+</code></pre> 
+   <p>指定消费者端要加载的过滤器，通过<code>filter</code>属性指定过滤器名称（就是配置文件中的过滤器key），这样刚才加载的过滤器类就加入消费者代码逻辑中的过滤器链了。</p> 
+  </blockquote> </li> 
+ <li><p>关于<code>@Activate</code>注解： —— 自动激活</p> 
+  <blockquote>
+   <p><code>group</code>：(provider|consumer）匹配了对应的角色才被加载 <br><code>value</code>：标明过滤条件，不写则所有条件下都会被加载，写了则只有dubbo URL中包含该参数名且参数值不为空才被加载，这个参数会以dubbo协议的一个参数K-V对传到Provider。</p> 
+  </blockquote> </li> 
+</ol> 
+<h2>Dubbo Rest风格服务</h2> 
+<ol> 
+ <li>当当Dubbox：<a href="https://dangdangdotcom.github.io/dubbox/rest.html" target="_blank" rel="external">https://dangdangdotcom.github.io/dubbox/rest.html</a></li> 
+ <li>Dubbo Rest风格服务开发：<a href="https://segmentfault.com/a/1190000005170426" target="_blank" rel="external">https://segmentfault.com/a/1190000005170426</a></li> 
+</ol> 
+<p><strong>—-</strong></p> 
+<h4>还欠缺安全保护和集群性能调优方面的讲解，毕竟才刚入门，待我在公司的项目中使用一段时间有了真正的一些实战感悟再来好好总结~</h4>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2017-01-02/dubbo-study-record.html" target="_blank" rel="external">http://www.coselding.cn/article/2017-01-02/dubbo-study-record.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 46 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=183')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 16 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','Dubbo入门学习笔记','183')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2017-01-02/zookeeper-study-record.html" title="上一篇">
+                            &laquo;ZooKeeper配置和学习笔记
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2017-03-12/which-knowledgeAndGTD-app-to-use.html" title="下一篇">
+                            知识、任务管理软件个人测评&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-03-12/which-knowledgeAndGTD-app-to-use.html">知识、任务管理软件个人测评</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-03-12 20:19</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/dubbo-study-record.html">Dubbo入门学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 22:57</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/zookeeper-study-record.html">ZooKeeper配置和学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 17:21</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(1)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=183');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

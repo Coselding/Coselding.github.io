@@ -1,0 +1,528 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Swagger maven plugin 环境配置踩坑记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=5" title="JavaEE">
+                        JavaEE
+                        </a>
+                        &gt;&gt;
+                        Swagger maven plugin 环境配置踩坑记录
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">Swagger maven plugin 环境配置踩坑记录</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=5" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> JavaEE
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2017-04-16 00:36
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2017-04-16/swagger-maven-plugin-tips.html" target="_blank" rel="external">http://www.coselding.cn/article/2017-04-16/swagger-maven-plugin-tips.html</a></p>
+                <h2>症状</h2> 
+<p>按照该有的教程都配置完成了，swagger页面也正常显示，但是呢，页面里面一个API也没有，关键是我明明按照该有的步骤配置好了相关的注解了，如下图： <br><img src="/upload/images/15/12/75c83b1b-27ce-4aca-92dd-6bd0bce12945_.png" alt="image" width="100%" height="" style=""> <br>列表里面一条也木有啊。。。</p> 
+<h2>Swagger环境搭建</h2> 
+<ul> 
+ <li><p>强行插入一下，不说说环境搭建你可能都对我说的东西一脸蒙蔽哈哈哈~</p> </li> 
+ <li><p>Swagger是一个很方便的合成API文档的工具，有了它，你只要专心做API接口就行了，接口文档Swagger帮你完成，毕竟写完代码之后一想到还要给App或者H5团队一个个讲自己的接口该怎么用，实在是很心累，有了Swagger，只要你的接口开发完毕，部署到测试服务器，只要把swagger页面链接扔给他们就行了~ 多爽~</p> </li> 
+</ul> 
+<h5>我这里使用maven的插件方式在项目中接入Swagger，项目使用SpringMVC</h5> 
+<ol> 
+ <li><p>maven依赖，列出swagger使用的相关依赖，其他Spring和SpringMVC的自己添加：</p> <pre><code class="xml">    &lt;!-- AOP合成字节码的实现框架 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+        &lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;
+        &lt;version&gt;1.7.3&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+        &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+        &lt;version&gt;1.7.3&lt;/version&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Spring AOP模块 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;
+        &lt;version&gt;4.2.5.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- JSON处理框架 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+        &lt;version&gt;2.5.4&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.5.4&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Swagger依赖 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.swagger&lt;/groupId&gt;
+        &lt;artifactId&gt;swagger-core&lt;/artifactId&gt;
+        &lt;scope&gt;compile&lt;/scope&gt;
+        &lt;version&gt;1.5.3&lt;/version&gt;
+        &lt;exclusions&gt;
+            &lt;exclusion&gt;
+                &lt;groupId&gt;javax.ws.rs&lt;/groupId&gt;
+                &lt;artifactId&gt;jsr311-api&lt;/artifactId&gt;
+            &lt;/exclusion&gt;
+        &lt;/exclusions&gt;
+    &lt;/dependency&gt;
+</code></pre> </li> 
+ <li><p>然后是maven插件配置，顺便把jetty和打包插件也列出</p> <pre><code class="xml">&lt;build&gt;
+    &lt;finalName&gt;doc-searcher-web&lt;/finalName&gt;
+    &lt;resources&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;filtering&gt;true&lt;/filtering&gt;
+        &lt;/resource&gt;
+    &lt;/resources&gt;
+    &lt;plugins&gt;
+        &lt;!-- jetty插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+            &lt;version&gt;6.1.20&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;connectors&gt;
+                    &lt;connector implementation="org.mortbay.jetty.nio.SelectChannelConnector"&gt;
+                        &lt;port&gt;8080&lt;/port&gt;
+                        &lt;maxIdleTime&gt;60000&lt;/maxIdleTime&gt;
+                    &lt;/connector&gt;
+                &lt;/connectors&gt;
+                &lt;contextPath&gt;/doc-searcher-web&lt;/contextPath&gt;
+                &lt;systemProperties&gt;
+                    &lt;systemProperty&gt;
+                        &lt;name&gt;org.mortbay.jetty.Request.maxFormContentSize&lt;/name&gt;
+                        &lt;value&gt;-1&lt;/value&gt;
+                    &lt;/systemProperty&gt;
+                &lt;/systemProperties&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- maven编译插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.2&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;1.8&lt;/source&gt;
+                &lt;target&gt;1.8&lt;/target&gt;
+                &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- maven资源插件，作用于maven的resources目录下 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.7&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- maven war包打包插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.2&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;warName&gt;${project.artifactId}&lt;/warName&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;!-- 重点：swagger插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;com.github.kongchen&lt;/groupId&gt;
+            &lt;artifactId&gt;swagger-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;apiSources&gt;
+                    &lt;apiSource&gt;
+                        &lt;!-- 支持springMVC --&gt;
+                        &lt;springmvc&gt;true&lt;/springmvc&gt;
+                       &lt;!-- 你的web项目Controller包名 --&gt; &lt;locations&gt;cn.coselding.docsearcher.web.controller&lt;/locations&gt;
+                       &lt;!-- 协议 --&gt;
+                        &lt;schemes&gt;http&lt;/schemes&gt;
+                        &lt;!-- 所在主机，可以为空 --&gt;
+                        &lt;host&gt;localhost:8080&lt;/host&gt;
+                        &lt;!-- web项目Context Path --&gt;
+                        &lt;basePath&gt;/doc-searcher-web&lt;/basePath&gt;
+                        &lt;!-- 必须！要在主页显示你的API的整体信息的，相当于是标题 --&gt;
+                        &lt;info&gt;
+                            &lt;title&gt;文档搜索器&lt;/title&gt;
+                            &lt;version&gt;v1&lt;/version&gt;
+                            &lt;description&gt;
+                                文档搜索器-API
+                            &lt;/description&gt;
+                        &lt;/info&gt;
+                       &lt;!-- 模板位置，支持classpath:类型路径 --&gt; &lt;templatePath&gt;classpath:/template/markdown.hbs&lt;/templatePath&gt;
+                       &lt;!-- 编译期扫描controller之后合成的API文档输出位置 --&gt; &lt;outputPath&gt;${project.basedir}/src/main/webapp/swagger-ui/document.md&lt;/outputPath&gt;
+                       &lt;!-- web目录下的js、css等资源位置 --&gt; &lt;swaggerDirectory&gt;${project.basedir}/src/main/webapp/swagger-ui/&lt;/swaggerDirectory&gt;
+                    &lt;/apiSource&gt;
+                &lt;/apiSources&gt;
+            &lt;/configuration&gt;
+            &lt;!-- 这里很重要，简单说就是配置在maven的compile生命周期执行时触发swagger插件的generate命令 --&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;phase&gt;compile&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;generate&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre> <p>很好理解，在maven的compile生命周期触发的时候触发swagger的generate命令，当然你直接使用插件的generate手动执行也可以，执行完成之后会在webapp/swagger-ui/目录下生成swagger.json里面就列出了扫描到的所有接口信息。</p> </li> 
+ <li><p>webapp目录下放入资源文件，是一些css、js、html之类的文件，如下图： <br><img src=" /upload/images/12/11/bd334d5e-e717-45f1-84fd-3bb5b8693417_.png" width="100%" align="center" height="" style=""></p> </li> 
+ <li><p>classpath下放入一些模板资源文件，如下图： <br><img src=" /upload/images/7/15/6791d6c5-08cd-4100-b145-c74f41784d5c_.png" width="100%" align="center" height="" style=""> <br>以上这两个资源包是公司一个大佬@张章改过的，网上没找到，最后会给出几个博客，也能拿到相关的资源，不过是官方原生的。</p> </li> 
+ <li><p>SpringMVC配置</p> <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd "&gt;
+
+&lt;!-- Controller包扫描 --&gt;
+&lt;context:component-scan base-package="cn.coselding.docsearcher.web.controller"/&gt;
+
+&lt;!-- springMVC注解驱动支持 --&gt;
+&lt;mvc:annotation-driven/&gt;
+
+&lt;!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL，不设置这个你在请求刚才的js、css文件就请求不到了 --&gt;
+&lt;mvc:default-servlet-handler/&gt;
+
+&lt;!-- 声明swagger资源文件位置，表示这个路径下的SpringMVC的DispatcherServlet不拦截 --&gt;
+&lt;mvc:resources mapping="/swagger-ui/**" location="/swagger-ui/"/&gt;
+&lt;!-- SpringMVC设置AOP --&gt;
+&lt;aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="false"/&gt;
+&lt;/beans&gt;
+</code></pre> <p>这里主要就是配置这个AOP，它会在编译期拦截读取各个Controller的注解接口信息，提取关键数据，合成swagger.json文件，有了这个文件，剩下那些html就能渲染出相关的接口文档页面。</p> </li> 
+ <li><p>上面那些是整体环境配置，接下来只要在Controller编写的时候加点注解，文档就帮你合成好啦~ <br>注解使用：如下一个样例Controller：</p> <pre><code class="java">@Controller
+@RequestMapping("/test")
+@Api("文档搜索器API")
+public class UrlCatcherController {
+@ApiOperation("测试1")
+@RequestMapping(value = "/spider/{id}", method = RequestMethod.POST)
+@ResponseBody
+public Map spider(
+        @ApiParam(required = true,name = "id",value = "测试id")
+        @PathVariable("id") Integer id) {
+    Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
+    result.put("result", "success");
+    result.put("id", id);
+    return result;
+}
+}
+</code></pre> </li> 
+ <li><p><code>@Api("文档搜索器API")</code>：这个是整个Controller的标题，Controller下的所有接口会被整理在同一个列表组下，组名组名就是这个。</p> </li> 
+ <li><p><code>@ApiOperation("测试1")</code>：这个是具体的一个接口的名称</p> </li> 
+ <li><p><code>@ApiParam(required = true,name = "id",value = "测试id")</code>：这个是接口参数的标注，<code>required</code>不用说，<code>name</code>标注作用的表单参数名称，和下面的id对应，<code>value</code>是文档页面上这个参数的描述</p> </li> 
+</ol> 
+<h5>之后，maven jetty启动项目，访问页面<code>http://localhost:8080/doc-searcher-web/swagger-ui/index.html</code>，如下图所示：</h5> 
+<p><img src="/upload/images/1/15/4112415f-090f-483b-8afe-a9c31645b1e9_.png" alt="image" width="100%" height="" style=""></p> 
+<p>还能在参数那边输入对应的值，直接测试接口呢~</p> 
+<h2>踩坑记录</h2> 
+<ol> 
+ <li>如果你设置了SpringMVC拦截器，要注意，必须对webapp/swagger-ui/目录下的exclude，不然会报错~如下：<pre><code class="xml">&lt;mvc:interceptors&gt;
+    &lt;!-- Jobs鉴权拦截器 --&gt;
+    &lt;mvc:interceptor&gt;
+        &lt;mvc:mapping path="/**/*"/&gt;
+        &lt;!-- 排除对swagger-ui目录下的拦截 --&gt;
+        &lt;mvc:exclude-mapping path="/swagger-ui/**"/&gt;
+        &lt;bean class="com.weidian.jobs.web.interceptor.JobsAuthInterceptor"&gt;
+        &lt;/bean&gt;
+    &lt;/mvc:interceptor&gt;
+&lt;/mvc:interceptors&gt;
+</code></pre> </li> 
+ <li>文首，我的Swagger页面居然没有API列表是为什么？如下是我之前的Controller方法注解：<pre><code class="java">@ApiOperation("测试1")
+@RequestMapping(value = "/spider/{id}")
+@ResponseBody
+public Map spider(
+        @ApiParam(required = true,name = "id",value = "测试id")
+        @PathVariable("id") Integer id) {
+    Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
+    result.put("result", "success");
+    result.put("id", id);
+    return result;
+}
+</code></pre> 对，就是没<code>method = RequestMethod.POST</code>参数，你这边写了什么参数，Swagger就给你在API列表相应添加一条，没写就什么都没有，这个错误我犯了两次了，真不能忍啊！！！</li> 
+</ol> 
+<h2>相关博客</h2> 
+<p>末尾，来几个搭建教程，里面就有相关的swagger资源包的下载地址啦~</p> 
+<ul> 
+ <li><a href="http://blog.csdn.net/doctor_who2004/article/details/50816208" target="_blank" rel="external">利用Swagger Maven Plugin生成Rest API文档</a></li> 
+ <li><a href="https://github.com/swagger-api/swagger-ui/" target="_blank" rel="external">swagger-ui开源地址</a></li> 
+ <li><a href="https://github.com/kongchen/swagger-maven-plugin" target="_blank" rel="external">swagger-maven-plugin开源地址</a></li> 
+</ul>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2017-04-16/swagger-maven-plugin-tips.html" target="_blank" rel="external">http://www.coselding.cn/article/2017-04-16/swagger-maven-plugin-tips.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 13 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=186')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 5 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','Swagger maven plugin 环境配置踩坑记录','186')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2017-04-09/innodb-concurrent-mvcc.html" title="上一篇">
+                            &laquo;记毕设过程中遇到的一个InnoDB的"坑"
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2017-05-04/quartz-study-and-highavailable.html" title="下一篇">
+                            Quartz调度系统入门和调度高可用实现方案&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-05-04/quartz-study-and-highavailable.html">Quartz调度系统入门和调度高可用实现方案</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-05-04 15:58</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-04-16/swagger-maven-plugin-tips.html">Swagger maven plugin 环境配置踩坑记录</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-04-16 00:36</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-04-09/innodb-concurrent-mvcc.html">记毕设过程中遇到的一个InnoDB的"坑"</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-04-09 18:22</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(14)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=186');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

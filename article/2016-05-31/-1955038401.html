@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hadoop简介和家族成员介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=11" title="Hadoop和云计算">
+                        Hadoop和云计算
+                        </a>
+                        &gt;&gt;
+                        Hadoop简介和家族成员介绍
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">Hadoop简介和家族成员介绍</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=11" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> Hadoop和云计算
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2016-05-31 02:21
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-05-31/-1955038401.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-05-31/-1955038401.html</a></p>
+                <p><span style="font-family:微软雅黑;">1、&nbsp;HDFS：分布式文件系统实现，来源GFS（Google File System）<br> 2、&nbsp;MapReduce：云计算框架，来源Google的MapReduce<br> 3、&nbsp;一个Master和多个Slave：<br> &nbsp; &nbsp;Master：NameNode、JobTracker，SecondaryNameNode<br> &nbsp; &nbsp;Slaves：DataNode、TaskTracker<br> 4、&nbsp;Pig：Hadoop客户端，类似于SQL的面向数据流的Pig Latin语言；<br> &nbsp; &nbsp;作用：将Pig Latin语言翻译成MapReduce程序上传到集群进行运行，方便非Java程序员使用Hadoop<br> &nbsp; &nbsp;功能：排序，过滤，求和，聚组，关联等，支持自定义函数<br> &nbsp; &nbsp;运行方式：GruntShell，脚本方式，嵌入式<br> 5、&nbsp;HBase：Google的BigTable的开源实现<br> &nbsp; &nbsp;列式数据库<br> &nbsp; &nbsp;可集群化<br> &nbsp; &nbsp;可以使用shell、web、api等方式访问<br> &nbsp; &nbsp;适合高读写（Insert）的场景<br> &nbsp; &nbsp;HQL查询语言（HBase Query Language）（和Hibernate的不是同一个）<br> &nbsp; &nbsp;NoSQL的典型代表产品<br> 6、&nbsp;Hive：数据仓库工具，可以把Hadoop下的原始结构化的数据变成Hive中的表<br> &nbsp; &nbsp;支持一种几乎和SQL（92标准）一样的语言HiveQL。除了不支持更新、索引和事务，几乎SQL的其他特征都能支持<br> &nbsp; &nbsp;可以看成是从SQL到Map-Reduce的映射器<br> &nbsp; &nbsp;提供Shell、JDBC/ODBC、Thrift、Web等接口<br> 7、&nbsp;ZooKeeper：Google Chubby的开源实现<br> &nbsp; &nbsp;用于协调分布式系统上的各种服务，例如确认消息是否准确到达，防止单点失效，处理负载均衡等<br> &nbsp; &nbsp;应用场景：HBase，实现NameNode自动切换<br> &nbsp; &nbsp;工作原理：领导者，跟随者和选举过程<br> 8、&nbsp;Sqoop：用于Hadoop和关系型数据库之间交换数据<br> &nbsp; &nbsp;通过JDBC接口连入关系型数据库<br> 9、&nbsp;Avro：数据序列化工具<br> &nbsp; &nbsp;用于支持大批量数据交换的应用。支持二进制序列化的方式，可以便捷，快速地处理大量数据<br> &nbsp; &nbsp;动态语言友好，Avro提供的机制使动态语言可以很方便地处理Avro数据<br> &nbsp; &nbsp;Thrift接口<br> 10、&nbsp;Chukwa：架构在Hadoop之上的数据采集和分析框架<br> &nbsp; &nbsp;主要进行日志采集和分析<br> &nbsp; &nbsp;通过安装在收集节点的"代理"采集最原始的日志数据<br> &nbsp; &nbsp;代理将数据发送给收集器<br> &nbsp; &nbsp;收集器定时将数据写入Hadoop集群<br> &nbsp; &nbsp;指定定时启动的MapReduce作业对数据进行加工处理和分析<br> &nbsp; &nbsp;Hadoop基础管理中心（HICC）最终展示数据<br> 11、&nbsp;Cassandra：NoSQL，分布式的Key-Value型数据库，由FaceBook贡献<br> &nbsp; &nbsp;与HBase类似，与HBase类似，也是借鉴Google BigTable的思想体系<br> &nbsp; &nbsp;只有顺序写，没有随机写的设计，满足高负荷情形的性能需求</span></p>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-05-31/-1955038401.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-05-31/-1955038401.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 206 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=164')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 10 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','Hadoop简介和家族成员介绍','164')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2016-05-31/-1132746016.html" title="上一篇">
+                            &laquo;MySQL优化
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2016-05-31/1468944515.html" title="下一篇">
+                            Hadoop 1.x HDFS理论和底层原理&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-03-12/which-knowledgeAndGTD-app-to-use.html">知识、任务管理软件个人测评</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-03-12 20:19</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/dubbo-study-record.html">Dubbo入门学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 22:57</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/zookeeper-study-record.html">ZooKeeper配置和学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 17:21</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(1)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=164');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>APNs入门学习和使用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=12" title="iOS相关">
+                        iOS相关
+                        </a>
+                        &gt;&gt;
+                        APNs入门学习和使用
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">APNs入门学习和使用</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=12" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> iOS相关
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2016-12-01 04:29
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-12-01/APNs-study-and-use.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-12-01/APNs-study-and-use.html</a></p>
+                <h1>APNs入门学习和使用</h1> 
+<p>这篇文章费了我好多心血啊，这都是在我测试了一堆失败的代码，看了大量的博客之后，把其中最有用，最精华的部分提取出来的集成，也是我艰辛的踩坑历程，满满的干货啊！可能是我太渣了，这些东西以前都没接触过，所以下面会有很多很基础的东西，大神切莫见怪。。。</p> 
+<h1>HTTP/2</h1> 
+<blockquote>
+ <ul> 
+  <li><p>HTTP/2扫盲：<a href="http://www.cnblogs.com/yingsmirk/p/5248506.html" target="_blank" rel="external">http://www.cnblogs.com/yingsmirk/p/5248506.html</a></p> </li> 
+  <li><p>HTTP/2官网文档：<a href="https://http2.github.io/" target="_blank" rel="external">https://http2.github.io/</a></p> </li> 
+  <li><p>HTTP/2标准文档中英文对照：<a href="https://github.com/fex-team/http2-spec" target="_blank" rel="external">https://github.com/fex-team/http2-spec</a></p> </li> 
+  <li><p>Wireshark抓包教程：<a href="http://fangxin.blog.51cto.com/1125131/735178" target="_blank" rel="external">http://fangxin.blog.51cto.com/1125131/735178</a></p> </li> 
+  <li><p>HTTP/2 大神汇总博客：<a href="https://imququ.com/post/http2-resource.html" target="_blank" rel="external">https://imququ.com/post/http2-resource.html</a></p> </li> 
+  <li><p>看过这些之后，应该对http/2协议有了一些最初的了解，知道大体是怎么回事，其实和http1/1差不多，区别点主要是以下几点：</p> 
+   <blockquote>
+    <ol> 
+     <li>二进制分帧：每个请求分成多个帧进行传送，都送到之后再进行拼装</li> 
+     <li>多路复用：二进制分帧之后的一个好处，多个请求共享同一个tcp连接，节约连接数量，提高连接利用率</li> 
+     <li>服务器推送：推测客户端之后可能要的数据提前推送</li> 
+     <li>头部压缩：两端各维护一个头部表，每次请求只传送头部不同的部分，减少传输冗余资源</li> 
+     <li>ALPN应用层协议协商：和http1/1的兼容协商机制，这个下面会有关于java的相关说明</li> 
+     <li>支持异步编程，非阻塞，提高效率</li> 
+    </ol> 
+   </blockquote> </li> 
+  <li><p>看了这些算是了解一些大概吧，很多东西到了实际使用中再来慢慢体会</p> </li> 
+ </ul> 
+</blockquote> 
+<h1>OkHttp学习和使用</h1> 
+<blockquote>
+ <p>这东西好久之前就用过，这次算是复习和提升以下，以前就是当个http客户端模拟使用，没处理过cookie、证书什么的，这次由于下面要做的事情的需要，就做了这些测试：</p> 
+ <ul> 
+  <li><p>okhttp教程：<a href="http://gold.xitu.io/entry/5728441d128fe1006058b6b9" target="_blank" rel="external">http://gold.xitu.io/entry/5728441d128fe1006058b6b9</a></p> </li> 
+  <li><p>OkHttp使用进阶 译自OkHttp Github官方教程：<a href="http://www.cnblogs.com/ct2011/p/3997368.html" target="_blank" rel="external">http://www.cnblogs.com/ct2011/p/3997368.html</a></p> </li> 
+  <li><p>OkHttp使用完全教程：<a href="http://www.jianshu.com/p/ca8a982a116b" target="_blank" rel="external">http://www.jianshu.com/p/ca8a982a116b</a></p> </li> 
+  <li><p>okhttp APNs：<a href="https://segmentfault.com/a/1190000005060740" target="_blank" rel="external">https://segmentfault.com/a/1190000005060740</a></p> </li> 
+  <li><p>okhttp https:<a href="http://blog.csdn.net/lmj623565791/article/details/48129405" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/48129405</a> <br><a href="http://www.itdadao.com/articles/c15a693269p0.html" target="_blank" rel="external">http://www.itdadao.com/articles/c15a693269p0.html</a></p> </li> 
+ </ul> 
+ <p>用的很爽啊，链式编程、API设计易于理解、sample众多、直接搬砖。。。</p> 
+</blockquote> 
+<h1>APNs</h1> 
+<p>github上找了很多项目来实验啊，最后还是Pushy这个最满意，也最实用，并且也由它又发现了新世界，开启新世界，新的征程开始~ <br>先来点介绍文吧~ 这些介绍看完，相信你也对APNs新版的协议有了比较清楚的了解。</p> 
+<blockquote>
+ <ul> 
+  <li>APNs官网文档：<a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1</a></li> 
+  <li>APNs简要介绍：基于HTTP2的全新APNs协议：<a href="https://github.com/ChenYilong/iOS9AdaptationTips" target="_blank" rel="external">https://github.com/ChenYilong/iOS9AdaptationTips</a></li> 
+  <li><a href="https://github.com/ChenYilong/iOS9AdaptationTips/blob/master/%E5%9F%BA%E4%BA%8EHTTP2%E7%9A%84%E5%85%A8%E6%96%B0APNs%E5%8D%8F%E8%AE%AE/%E5%9F%BA%E4%BA%8EHTTP2%E7%9A%84%E5%85%A8%E6%96%B0APNs%E5%8D%8F%E8%AE%AE.md" target="_blank" rel="external">https://github.com/ChenYilong/iOS9AdaptationTips/blob/master/%E5%9F%BA%E4%BA%8EHTTP2%E7%9A%84%E5%85%A8%E6%96%B0APNs%E5%8D%8F%E8%AE%AE/%E5%9F%BA%E4%BA%8EHTTP2%E7%9A%84%E5%85%A8%E6%96%B0APNs%E5%8D%8F%E8%AE%AE.md</a></li> 
+ </ul> 
+</blockquote> 
+<p>Pushy神器来啦~下面的APNs调用都用这个项目来作为底层支撑。</p> 
+<blockquote>
+ <ul> 
+  <li>Pushy开源项目：<a href="https://github.com/relayrides/pushy" target="_blank" rel="external">https://github.com/relayrides/pushy</a></li> 
+  <li>Pushy官网：<a href="http://relayrides.github.io/pushy/" target="_blank" rel="external">http://relayrides.github.io/pushy/</a></li> 
+  <li>Pushy文档：<a href="http://relayrides.github.io/pushy/apidocs/0.8/overview-summary.html" target="_blank" rel="external">http://relayrides.github.io/pushy/apidocs/0.8/overview-summary.html</a></li> 
+  <li>Jetty ALPN配置：<a href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html#alpn-starting" target="_blank" rel="external">http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html#alpn-starting</a></li> 
+  <li>alpn-boot依赖下载：<a href="http://mvnrepository.com/artifact/org.mortbay.jetty.alpn/alpn-boot" target="_blank" rel="external">http://mvnrepository.com/artifact/org.mortbay.jetty.alpn/alpn-boot</a></li> 
+ </ul> 
+</blockquote> 
+<h1>额外收获</h1> 
+<blockquote>
+ <ul> 
+  <li>Netty高性能之道：<a href="http://www.infoq.com/cn/articles/netty-high-performance" target="_blank" rel="external">http://www.infoq.com/cn/articles/netty-high-performance</a></li> 
+  <li>Netty官网：<a href="http://netty.io/" target="_blank" rel="external">http://netty.io/</a></li> 
+  <li>书：《Netty权威指南》</li> 
+ </ul> 
+</blockquote> 
+<p>你可能会觉得上面的废话好多，好多东西好像不需要了解，直接使用Pushy就行了呗，其实我也不敢说上面那些东西是否真的对下面的有用，但是知道这些原理，对后面发生的异常才能心中有数，至少在我的踩坑过程中也是深有体会的，其实上面那些东西不是我一开始就都看完的，是在我踩坑的过程中一步步补充的，每个人的只是学习顺序也许有所不同，你可以根据自己的情况合理安排~ <br>我之所以会事先看这些东西，原因也是因为http/2、APNs、IOS推送、TLS等这些东西我真的不是很了解，会有一种恐惧之心，算是我自己的一个知识补充吧，所以对于对这些知识掌握很好的大神其实上面那些基础是完全可以不看的~ <br>下面开始开发：</p> 
+<h1>环境配置：</h1> 
+<p>在Pushy的README.md中详细说明了Pushy所需的环境，我个人由于感激这篇文章在我踩坑过程中的作用，因此特别的把它翻译出来<a href="http://www.coselding.cn/article/2016/12/01/Pushy%E5%85%A5%E9%97%A8%E6%96%87%E6%A1%A3%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/" target="_blank" rel="external">Pushy README.md中文翻译本</a>。 <br>因为Pushy本身依赖了其他类库，为了方便，也由于我是是使用Maven管理和构件项目，我下面的教程完全都在Maven下进行部署和开发，请悉知：</p> 
+<h2>环境说明：</h2> 
+<blockquote>
+ <p>必须JDK7以上版本，这个<a href="http://www.coselding.cn/article/2016/12/01/Pushy%E5%85%A5%E9%97%A8%E6%96%87%E6%A1%A3%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/" target="_blank" rel="external">Pushy README.md中文翻译本</a>上面详细说明了。</p> 
+ <ol> 
+  <li>JDK8+Tomcat9 M11：部署成功</li> 
+  <li>JDK7+Tomcat7：部署成功</li> 
+  <li>JDK7+Tomcat9 M11：Tomcat启动失败，原因不明，我从Tomcat启动失败的报错中认为可能是Tomcat9 M11中调用了JDK8中特有的API，导致在JDK7中启动失败。</li> 
+ </ol> 
+ <p>所以你部署环境的时候这个要注意，特别是部署到服务器当中的时候。</p> 
+</blockquote> 
+<h2>步骤：</h2> 
+<blockquote>
+ <ol> 
+  <li><p>添加Pushy依赖：</p> <pre><code class="xml">&lt;dependency&gt;
+ &lt;groupId&gt;com.relayrides&lt;/groupId&gt;
+ &lt;artifactId&gt;pushy&lt;/artifactId&gt;
+ &lt;version&gt;0.8.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> </li> 
+  <li><p>添加native SSL provider依赖，注意版本哦：</p> <pre><code class="xml">&lt;dependency&gt;
+ &lt;groupId&gt;io.netty&lt;/groupId&gt;
+ &lt;artifactId&gt;netty-tcnative-boringssl-static&lt;/artifactId&gt;
+ &lt;version&gt;1.1.33.Fork22&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> <p>这个是ALPN协议协商的实现依赖包，在<a href="http://www.coselding.cn/article/2016/12/01/Pushy%E5%85%A5%E9%97%A8%E6%96%87%E6%A1%A3%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91/" target="_blank" rel="external">Pushy README.md中文翻译本</a>有详细说明的。到这一步，你的普通Java程序就能跑起来向APNs服务器发起一个推送了~~</p> </li> 
+  <li><p>添加alpn-boot依赖（Tomcat中所需）： <br>这一步和上面的不太一样，因为jar包需要添加到bootclasspath中，和普通的classpath不太一样，在JVM启动参数添加如下：</p> <pre><code class="-Xbootclasspath/p:/Users/coselding/Downloads/alpn-boot-8.1.9.v20160720.jar```">`p:`后面的部分就是你下载下来的alpn-boot的jar包的本地地址，这个jar包的下载地址是这个[http://mvnrepository.com/artifact/org.mortbay.jetty.alpn/alpn-boot](http://mvnrepository.com/artifact/org.mortbay.jetty.alpn/alpn-boot)
+`原因：`
+&gt;1. 这种方式添加的jar包会替换JVM底层运行的相关API，你可以理解为加载优先级更高的jar，但是这种方式加载的jar是和平台相关的，所以你下载的jar包要选择和你平台相匹配的才行哦~~，当然，这里的这个jar其实已经是linux、win、macOS全平台都具有的了，它会根据平台加载相应的那个组件。
+&gt;2. 加载这个jar的理由是，我们上面加载的netty-tcnative-boringssl-static这个依赖，和Tomcat内部的tcnative实现相冲突了，所以要用这个jar包要进行适配，具体的底层原理这里不研究，你只要记住，如果你使用Tomcat，就要加上步骤3的这个依赖，Jetty实测不需要这个依赖。
+</code></pre> </li> 
+  <li><p>添加从Apple开发者平台申请到的app证书文件到项目资源目录下</p> </li> 
+  <li><p>开始编码：创建ApnsClient对象实例：根据证书和证书密码创建和APNs服务器的连接对象</p> <pre><code class="java">ApnsClient apnsClient = new ApnsClientBuilder().setClientCredentials(new File("/path/to/p12-file"), "p12-file-password").build();
+</code></pre> </li> 
+  <li><p>等待和APNs的连接成功（HTTP/2是异步的，但是这里连接没成功后续步骤无法继续，所以需要等待）：</p> <pre><code class="java">Future&lt;Void&gt; connectFuture = apnsClient.connect(ApnsClient.PRODUCTION_APNS_HOST);
+    connectFuture.await();
+</code></pre> <p>链接地址有<code>DEVELOPMENT_APNS_HOST</code>和<code>PRODUCTION_APNS_HOST</code>两个，你要确认你拿到的证书是否支持开发者模式连接开发者服务器，我拿到的证书就是不支持的，需要直接连接正式服务器，这是我踩的坑。</p> </li> 
+  <li><p>封装推送消息内容体：</p> <pre><code class="java">ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+    payloadBuilder.setAlertBody("alert-message-body");
+</code></pre> <p>ApnsPayloadBuilder这个类可以好好看看，就是这个类封装推送消息体，携带了APNs推送能发送的各个字段，比如显示按钮、通知消息标题、消息体、图片名、消息声音文件名等，还由于APNs对每个消息最大长度限制为4K，因此还对过长的消息进行了智能化地截取工作。最后这这个类会被序列化为json串，就像如下的</p> <pre><code class="javascript">{
+"aps" : {
+  "category" : "NEW_MESSAGE_CATEGORY"
+  "alert" : {
+     "body" : "Acme message received from Johnny Appleseed",
+  },
+  "badge" : 3,
+  "sound" : “chime.aiff"
+},
+"acme-account" : "jane.appleseed@apple.com",
+"acme-message" : "message123456"
+}
+</code></pre> <p>如果你要自己封装json也行，只要最后的json中有apple规定的那些键值就行，而额外的，你也可以自定义地添加一些自己业务所需的其他键值方便客户端接收到推送消息之后进行处理。</p> <h6>智能截取4K长度：</h6> <pre><code class="java">String payload = payloadBuilder.buildWithDefaultMaximumLength();
+</code></pre> </li> 
+  <li><p>封装消息体：</p> <pre><code class="java">SimpleApnsPushNotification pushNotification = new SimpleApnsPushNotification(token, "com.example.AppName", payload);
+</code></pre> <p>其中token是每个设备生成的token串经过如下代码加工后得到的，相当于是设备的唯一id：</p> <pre><code class="java">String token = TokenUtil.sanitizeTokenString("&lt;device token&gt;");
+</code></pre> <p>“com.example.AppName”:这个是你的证书签名，必须保证证书签名、证书、证书密码、产生token的app签名全部一致，不然就会报错。</p> <h6>你的整个推送消息体封装好之后，在网络http/2传输过程中的最终传输的数据格式如下，主要包括headers和body data：</h6> 
+   <blockquote>
+    <pre><code class="java">HEADERS
+\- END_STREAM
+\+ END_HEADERS
+:method = POST
+:scheme = https
+:path = /3/device/00fc13adff785122b4ad28809a3420982341241421348097878e577c991de8f0
+host = api.development.push.apple.com
+apns-id = eabeae54-14a8-11e5-b60b-1697f925ec7b
+apns-expiration = 0
+apns-priority = 10
+apns-topic = &lt;MyAppTopic&gt; 
+DATA
+\+ END_STREAM
+{ "aps" : { "alert" : "Hello" } }
+</code></pre> 
+   </blockquote> </li> 
+  <li><p>发送消息推送：</p> <pre><code class="java">Future&lt;PushNotificationResponse&lt;SimpleApnsPushNotification&gt;&gt; sendNotificationFuture = apnsClient.sendNotification(pushNotification);
+</code></pre> <p>这是一个异步阻塞方法，调用之后推送通知会放到内部消息队列，等待APNs接收到消息并反馈的时候才能通过下面的方法得到响应，否则下面这个方法就会阻塞着，上线产品建议写成异步回调的方式：</p> <pre><code class="java">PushNotificationResponse&lt;SimpleApnsPushNotification&gt; pushNotificationResponse = sendNotificationFuture.get();
+</code></pre> </li> 
+  <li><p>接收APNs服务器响应：</p> <pre><code class="java">pushNotificationResponse.isAccepted();
+</code></pre> <p>以下方法获取APNs服务器拒绝消息的相关响应信息：</p> <pre><code class="java">pushNotificationResponse.getRejectionReason();//获取拒绝原因
+pushNotificationResponse.getTokenInvalidationTimestamp();//获取token失效时间
+</code></pre> </li> 
+  <li><p>连接断开重连：</p> <pre><code class="java">apnsClient.getReconnectionFuture().await();
+</code></pre> </li> 
+  <li><p>关闭连接，释放资源：</p> <pre><code class="java">Future&lt;Void&gt; disconnectFuture = apnsClient.disconnect();
+disconnectFuture.await();
+</code></pre> </li> 
+  <li><p>踩坑记录：Pushy项目中依赖了gson，如下：</p> <pre><code class="xml">&lt;dependency&gt;
+ &lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;
+ &lt;artifactId&gt;gson&lt;/artifactId&gt;
+ &lt;version&gt;2.6.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> <p>如果你添加了如下的gson：</p> <pre><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.google&lt;/groupId&gt;
+  &lt;artifactId&gt;gson&lt;/artifactId&gt;
+  &lt;version&gt;1.3&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> <p>那你的com.google的gson就会和Pushy中的gson冲突，然后出现未知的错误。。。知道就行，具体和这两个gson的差别有关，我没了解。。。这种坑也只有我这种人品的能踩到。。。最好是两个够不添加，反正Pushy在Maven中就会自动依赖引入了，何必多此一举。</p> </li> 
+ </ol> 
+</blockquote> 
+<h1>消息包装实战</h1> 
+<p>我本人没接触过iOS开发，因此对这个消息体那些字段有些什么用不是搞得很清楚，只是大概知道图标、按钮显示、声音等意思，但是具体到iOS设备接收到之后会有什么样的消息体现，我不是很清楚，但是懂得的人看了下面我的测试样例，我相信也能很快包装出自己想要的消息~</p> 
+<h5>消息json中的<code>aps字段</code>一看就知道是apple推送到设备之后的专属识别字段，在该字段下的每个子字段分别有相应的作用和意义，再来就是<code>自定义字段</code>，在json中会和aps同一级别目录下展示，这个是开发者自己知道的字段，在客户端自行解析和提取使用。</h5> 
+<blockquote>
+ <ul> 
+  <li>消息包装代码展示：<pre><code class="java">ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+//体现在aps的category字段
+payloadBuilder.setCategoryName("category");
+//体现在aps的content-available字段
+payloadBuilder.setContentAvailable(true);
+//弹出窗消息图标，aps的alert字段的launch-image字段
+payloadBuilder.setLaunchImageFileName("icon.icon");
+//以下为两种弹出窗的消息封装模式
+//弹出窗消息封装1
+payloadBuilder.setAlertBody("Example!");//aps的alert字段的body字段
+payloadBuilder.setAlertSubtitle("AlertSubtitle");//aps的alert字段的title字段
+payloadBuilder.setAlertTitle("AlertTitle");//aps的alert字段的subtitle字段
+//弹出窗消息封装2
+payloadBuilder.setLocalizedActionButtonKey("LocalizedActionButtonKey");//aps的alert字段的action-loc-key字段
+payloadBuilder.setLocalizedAlertMessage("LocalizedAlertMessage");//aps的alert字段的loc-key字段
+payloadBuilder.setLocalizedAlertSubtitle("LocalizedAlertSubtitle");//aps的alert字段的subtitle-loc-key字段
+payloadBuilder.setLocalizedAlertTitle("LocalizedAlertTitle");//aps的alert字段的title-loc-key字段
+//消息通知声音，aps的sound字段
+payloadBuilder.setSoundFileName("sound.wav");
+//aps的badge字段
+payloadBuilder.setBadgeNumber(1);
+//aps的mutable-content字段
+payloadBuilder.setMutableContent(true);
+//自定义键值对，其中value是Object，可以支持多层的json字串，这个根据业务需求而定
+payloadBuilder.addCustomProperty("name","value");
+//是否显示动作按钮，这个没在json中体现啊，可能在header中体现吧，没研究
+payloadBuilder.setShowActionButton(true);
+String payload = payloadBuilder.buildWithDefaultMaximumLength();
+String token = TokenUtil.sanitizeTokenString("aa1e3286fcf87a68f9e8be642d9661c4a4537e34fe4abab68a9681ced773c18f");
+System.out.println("payload = " + payload);
+System.out.println("token = " + token);
+SimpleApnsPushNotification pushNotification = new SimpleApnsPushNotification(token, "cn.geili.KoudaiGouwu", payload);
+System.out.println(pushNotification.toString());
+</code></pre> </li> 
+  <li>其中弹出窗消息封装有两种，如下所示</li> 
+  <li>弹出窗消息封装1，json展示：<pre><code class="javascript">{
+"aps": {
+    "category": "category",
+    "content-available": 1,
+    "alert": {
+        "body": "Example!",
+        "launch-image": "icon.icon",
+        "title": "AlertTitle",
+        "subtitle": "AlertSubtitle"
+    },
+    "sound": "sound.wav",
+    "badge": 1,
+    "mutable-content": 1
+},
+"name": "value"
+}
+</code></pre> </li> 
+  <li>弹出窗消息封装2，json展示：<pre><code class="javascript">{
+"aps": {
+    "category": "category",
+    "content-available": 1,
+    "alert": {
+        "launch-image": "icon.icon",
+        "action-loc-key": "LocalizedActionButtonKey",
+        "loc-key": "LocalizedAlertMessage",
+        "subtitle-loc-key": "LocalizedAlertSubtitle",
+        "title-loc-key": "LocalizedAlertTitle"
+    },
+    "sound": "sound.wav",
+    "badge": 1,
+    "mutable-content": 1
+},
+"name": "value"
+}
+</code></pre> </li> 
+ </ul> 
+</blockquote> 
+<h1>结语</h1> 
+<p>教程完结，有了这个教程，差不多就可以在生产环境中部署新版的APNs推送服务了，你只需要将以上的教程代码进行相应的封装，根据业务场景对消息体json也进行相应的封装，剩余的事情都交给这个Pushy框架即可，内部对消息队列、失败重传等都进行了处理，不过为了更好地开发出高性能高并发的推送服务器，最好还是对内部原理深入理解，特别是Netty内部细节（这个可是Pushy底层的网络支持和IO框架）。</p>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-12-01/APNs-study-and-use.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-12-01/APNs-study-and-use.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 192 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=180')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 12 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','APNs入门学习和使用','180')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2016-12-01/Pushy-readme-translation.html" title="上一篇">
+                            &laquo;Pushy入门文档中文翻译
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2016-12-15/IntelliJ-IDEA-license-server-build.html" title="下一篇">
+                            IntelliJ IDEA license server服务器搭建&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-03-12/which-knowledgeAndGTD-app-to-use.html">知识、任务管理软件个人测评</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-03-12 20:19</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/dubbo-study-record.html">Dubbo入门学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 22:57</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/zookeeper-study-record.html">ZooKeeper配置和学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 17:21</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(1)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=180');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

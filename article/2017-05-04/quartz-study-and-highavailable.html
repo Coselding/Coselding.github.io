@@ -1,0 +1,605 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quartz调度系统入门和调度高可用实现方案</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=5" title="JavaEE">
+                        JavaEE
+                        </a>
+                        &gt;&gt;
+                        Quartz调度系统入门和调度高可用实现方案
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">Quartz调度系统入门和调度高可用实现方案</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=5" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> JavaEE
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2017-05-04 15:58
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2017-05-04/quartz-study-and-highavailable.html" target="_blank" rel="external">http://www.coselding.cn/article/2017-05-04/quartz-study-and-highavailable.html</a></p>
+                <p><em></em> 版本：2.2.1 <em></em></p> 
+<h3>Hello world：</h3> 
+<ul> 
+ <li><p>调度器：</p> <pre><code class="java">Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+scheduler.start();
+</code></pre> </li> 
+ <li><p>任务详情：任务体实现<code>Job</code>接口</p> <pre><code class="java">JobDetail job = JobBuilder.newJob(MakeHtml.class)
+            .withIdentity("job1", "group1")
+            .build();
+</code></pre> </li> 
+ <li><p>触发器：</p> <pre><code class="java">Trigger trigger = TriggerBuilder.newTrigger()
+            .withIdentity("trigger1", "group1")
+            .startNow()
+            .withSchedule(CronScheduleBuilder.cronSchedule("0/2 * * * * ?"))
+            .build();
+</code></pre> </li> 
+ <li><p>执行调度：</p> <pre><code class="java">scheduler.scheduleJob(job, trigger);
+</code></pre> </li> 
+ <li><p>数据传输、参数传输：</p> <pre><code class="java">//传入
+job.getJobDataMap().put("FAVORITE_COLOR", "red");
+//在执行线程获得
+jobExecutionContext.getJobDetail().getJobDataMap();
+//在该Map中嵌套传输Map可实现对象引用的传输，即实现实时对象参数传输，需要保证线程安全。
+</code></pre> </li> 
+ <li><p>多任务对象管理： <br><code>Scheduler</code>对象中保存了JobKey、TriggerKey等和对应的Job、Trigger的映射关系，可以通过该Map进行同对象复用和检索。</p> </li> 
+</ul> 
+<h3>配置：classpath下的<code>quartz.properties</code></h3> 
+<ul> 
+ <li>设置任务线程池大小：org.quartz.threadPool.threadCount=4 <br>详细的配置参数列表说明在这：<a href="http://www.quartz-scheduler.org/documentation/quartz-2.1.x/configuration/" target="_blank" rel="external">http://www.quartz-scheduler.org/documentation/quartz-2.1.x/configuration/</a></li> 
+</ul> 
+<h3>触发器类型：<code>ScheduleBuilder</code>接口</h3> 
+<ol> 
+ <li>CalendarIntervalScheduleBuilder：
+  <blockquote>
+   <ul> 
+    <li>通过指定对应日期的定时执行触发器</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li>CronScheduleBuilder：
+  <blockquote>
+   <ul> 
+    <li>cron表达式实现的定时执行</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li>DailyTimeIntervalScheduleBuilder：
+  <blockquote>
+   <ul> 
+    <li>根据时间定时执行</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li>SimpleScheduleBuilder
+  <blockquote>
+   <ul> 
+    <li>简单循环执行，设定执行次数，开始结束时间等</li> 
+   </ul> 
+  </blockquote> </li> 
+</ol> 
+<h3>注解：</h3> 
+<ul> 
+ <li><p>@PersistJobDataAfterExecution：执行完成把状态持久化保存</p> 
+  <blockquote>
+   <ul> 
+    <li>目前发现没这个注解，JobDataMap中的数据依然还是在数据库中保存着，不明所以，可能这个注解的作用是在每次执行调度刷新一次数据保持数据库中的数据是最新的值吧。。。</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p>@DisallowConcurrentExecution：Job对象多实例禁止并发执行</p> 
+  <blockquote>
+   <ul> 
+    <li>就是当这个调度作业还没执行完成的时候，下一次的调度又到了，如果注解了表示不会再申请一个线程让两个Job并发执行，需要等上一次作业执行完成才串行的执行。</li> 
+   </ul> 
+  </blockquote> </li> 
+</ul> 
+<h2>任务本身发生异常</h2> 
+<ol> 
+ <li>再次尝试执行：<pre><code class="java">JobExecutionException e2 =
+            new JobExecutionException(e);
+        // this job will refire immediately
+        e2.refireImmediately();
+</code></pre> </li> 
+ <li>不再执行，所有该job的调度全部停止：<pre><code class="java">JobExecutionException e2 =
+            new JobExecutionException(e);
+        // Quartz will automatically unschedule
+        // all triggers associated with this job
+        // so that it does not run again
+        e2.setUnscheduleAllTriggers(true);
+</code></pre> </li> 
+</ol> 
+<h3>监听器</h3> 
+<ul> 
+ <li><p>没难度，就是在各种事件或者生命周期过程中进行回调。</p> </li> 
+ <li><p><code>scheduler.getListenerManager()</code>添加各式各样的监听器，主要有三种：<code>JobListener</code>、<code>TriggerListener</code>、<code>SchedulerListener</code>。</p> </li> 
+ <li><p>支持通过JobKey和TriggerKey定向对某个Job或Trigger进行专属监听。</p> </li> 
+ <li><p><code>JobListener</code>：</p> 
+  <blockquote>
+   <ul> 
+    <li><code>getName</code>：获取监听器名字</li> 
+    <li><code>jobToBeExecuted</code>：job执行前</li> 
+    <li><code>jobExecutionVetoed</code>：job执行被触发器拒绝</li> 
+    <li><code>jobWasExecuted</code>：job执行完</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p><code>TriggerListener</code>：</p> 
+  <blockquote>
+   <ul> 
+    <li><code>getName</code>：获取监听器名字</li> 
+    <li><code>triggerFired</code>：触发器触发</li> 
+    <li><code>vetoJobExecution</code>：触发器执行拒绝Job，返回true就是拒绝</li> 
+    <li><code>triggerMisfired</code>：触发器发现MisFire</li> 
+    <li><code>triggerComplete</code>：触发器触发完成</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p><code>SchedulerListener</code>：</p> 
+  <blockquote>
+   <ul> 
+    <li><code>jobScheduled</code>：job调度完</li> 
+    <li><code>jobUnscheduled</code>：作业没被调度</li> 
+    <li><code>triggerFinalized</code>：有调度器被完全停止调度时</li> 
+    <li><code>triggerPaused</code>：单个触发器暂停</li> 
+    <li><code>triggersPaused</code>：全部触发器暂停</li> 
+    <li><code>triggerResumed</code>：单个触发器唤醒</li> 
+    <li><code>triggersResumed</code>：全部触发器唤醒</li> 
+    <li><code>jobAdded</code>：job添加</li> 
+    <li><code>jobDeleted</code>：job删除</li> 
+    <li><code>jobPaused</code>：单个job暂停</li> 
+    <li><code>jobsPaused</code>：全部job暂停</li> 
+    <li><code>jobResumed</code>：单个job唤醒</li> 
+    <li><code>jobsResumed</code>：全部job唤醒</li> 
+    <li><code>schedulerError</code>：调度出错</li> 
+    <li><code>schedulerInStandbyMode</code>：调度器正处于standby模式</li> 
+    <li><code>schedulerStarted</code>：调度器启动完成</li> 
+    <li><code>schedulerStarting</code>：调度器正在启动</li> 
+    <li><code>schedulerShutdown</code>：调度器关闭完成</li> 
+    <li><code>schedulerShuttingdown</code>：调度器正在关闭</li> 
+    <li><code>schedulingDataCleared</code>：调度器数据清除完成</li> 
+   </ul> 
+  </blockquote> </li> 
+</ul> 
+<h3>持久化</h3> 
+<ul> 
+ <li>RAMJobStore：将工作中的作业Job和调度触发器Trigger都存储在内存中，宕机都没了。</li> 
+ <li>JobStoreX：将Job和Trigger都存储在数据库中，实例重启会自动扫描数据库恢复数据，可进行集群配置，详细请看下面的集群配置。</li> 
+</ul> 
+<h3>Misfire处理规则</h3> 
+<blockquote>
+ <ul> 
+  <li>指的是不小心没调度时，对错过的调度次数如何处理的规则策略选择，情形如下：
+   <blockquote>
+    <ol> 
+     <li>比如调度器休眠了</li> 
+     <li>quartz集群全体宕机了再重启之后扫描表中数据得知之前的调度错失了就是这种情况</li> 
+    </ol> 
+   </blockquote> </li> 
+ </ul> 
+</blockquote> 
+<p><strong>策略选择</strong>（指的是CronTrigger，而SimpleTrigger有其对应的策略，在这里不做探讨）：</p> 
+<ul> 
+ <li>withMisfireHandlingInstructionDoNothing<pre><code>——不触发立即执行
+——等待下次Cron触发频率到达时刻开始按照Cron频率依次执行
+</code></pre> 
+  <blockquote>
+   <ul> 
+    <li>这是网上的说法，表达是正确的，我经过代码测试的结果是，调度刻度依然不变，就是很干脆地把错过的那些调度直接不管了</li> 
+    <li>调度刻度：指的是作业放入调度器之后通过cron表达式计算出的之后的每个需要调度的时间点组成的一段点线段，就如刻度尺上面的刻度，到达刻度点时就触发调度。</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li>withMisfireHandlingInstructionIgnoreMisfires<pre><code>——以错过的第一个频率时间立刻开始执行
+——重做错过的所有频率周期后
+——当下一次触发频率发生时间大于当前时间后，再按照正常的Cron频率依次执行
+</code></pre> 
+  <blockquote>
+   <ul> 
+    <li>这是网上说法，意思很明了，就是指错过的那些调度都会全部重新执行一遍，但是需要注意的是，如果错过的调度数量很多，这一大堆的调度也是在发现misfire的之后的短时间内一次性全部完成的，然后接着按照调度刻度进行执行。这时候在调度任务内部获取的两个时间：fireTime和scheduleFireTime，fireTime指的是misfire发现之后重新调度的实际时间，scheduleFireTime指的是调度刻度上的基准时间，比如我有个本来应该在12:12:12执行的作业，但是发生misfire或者failover了，重启之后根据策略把错过的任务重新执行，这时候这个任务的实际调度时间可能为12:20:20，所有你如果有些任务的执行是需要依赖于标准的调度时间的（比如每隔一小时dump数据库的数据一次，应该获取的时间戳是scheduleFireTime而不是fireTime），这点要注意。</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li>withMisfireHandlingInstructionFireAndProceed<pre><code>——以当前时间为触发频率立刻触发一次执行
+——然后按照Cron频率依次执行
+</code></pre> 
+  <blockquote>
+   <ul> 
+    <li>这是网上说法，说的是可能misfire错过了一堆任务，这里只在发现misfire的时候补偿性地调度一次该任务，接下来还是按照调度刻度执行。</li> 
+    <li>特别注意！！！网上有的说法是调度刻度会在这种策略下平移，如下：16:00要执行的调度，结果misfire了，到16:15才恢复，网上的说法是16:15会调度一次，然后刻度往后移，下一次调度会在17:15发生，但是！！！我的代码测试结果却是：16:15确实会调用一次，这是策略控制结果，下一次的调度时间是17:00，调度刻度并没有变！！！所以说这个策略和第二个策略其实是类似的，只不过第二个策略是把错过的全部调度一次，这个是只调度一次，而且是用恢复的这一瞬间作为scheduleFireTime。</li> 
+   </ul> 
+  </blockquote> </li> 
+</ul> 
+<p><strong>SimpleTrigger</strong>有一堆的另外的MisFire机制，这里先不做讨论，以后有机会再更新，如下： <br><code>withMisfireHandlingInstructionFireNow</code>、<code>withMisfireHandlingInstructionIgnoreMisfires</code>、<code>withMisfireHandlingInstructionNextWithExistingCount</code>、<code>withMisfireHandlingInstructionNowWithExistingCount</code>、<code>withMisfireHandlingInstructionNextWithRemainingCount</code>、<code>withMisfireHandlingInstructionNowWithRemainingCount</code>、<code>MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT</code></p> 
+<h3>执行中Job可获取的时间</h3> 
+<p>这些时间是在某一次的调度作业的作业执行过程中可以获取到的时间戳。</p> 
+<ul> 
+ <li><code>PreviousFireTime</code>：当前调度的上一次调度的时间戳。</li> 
+ <li><code>ScheduledFireTime</code>：当前调度的基准调度刻度中的时间戳，就是任务一开始调度就算出来的未来一系列的调度刻度。</li> 
+ <li><code>FireTime</code>：当前调度的实际调度时间戳，通常和ScheduledFireTime一致，但是如果发生misFire或者Fail-Over就可能和ScheduledFireTime不一致。</li> 
+ <li><code>NextFireTime</code>：下一次调度的基准刻度时间。</li> 
+</ul> 
+<h3>集群</h3> 
+<ul> 
+ <li>集群通过故障切换和负载平衡的功能，能给调度器带来高可用性和伸缩性。目前集群只能工作在JDBC-JobStore（JobStore TX或者JobStoreCMT）方式下，从本质上来说，是使集群上的每一个节点通过共享同一个数据库来工作的（Quartz通过启动两个维护线程来维护数据库状态实现集群管理，一个是检测节点状态线程，一个是恢复任务线程）。</li> 
+ <li>负载平衡是自动完成的，集群的每个节点会尽快触发任务。当一个触发器的触发时间到达时，第一个节点将会获得任务（通过锁定），成为执行任务的节点。</li> 
+ <li>故障切换的发生是在当一个节点正在执行一个或者多个任务失败的时候。当一个节点失败了，其他的节点会检测到并且标 识在失败节点上正在进行的数据库中的任务。任何被标记为可恢复（任务详细信息的"requests recovery"属性）的任务都会被其他的节点重新执行。没有标记可恢复的任务只会被释放出来，将会在下次相关触发器触发时执行。</li> 
+</ul> 
+<h4>实验结论</h4> 
+<ul> 
+ <li><p>简单来说就是多个quartz节点共同访问同一个数据库来保证各个节点的调度信息同步，后台有守护线程实时同步节点内存和数据库中的信息同步</p> </li> 
+ <li><p>一个节点宕机，mysql数据没丢失，重启后从mysql读取恢复内存信息还原宕机前状态</p> </li> 
+ <li><p>一个被调度的任务由哪个节点执行调度？所有节点去抢mysql表中一个分布式锁（悲观），谁抢到了就谁执行当前任务</p> </li> 
+ <li><p>宕机切换：我测试在一台机器上启动4个quartz实例模拟集群，其中把一个抢到锁的实例kill掉，quartz会自动切换另一个实例继续执行剩下的调度</p> </li> 
+ <li><p><strong>quartz能够保证一个作业在cron表达式作用下的一次调度不重不漏，以及宕机调度任务重新分配，但是当一个Job被quartz正确调度了，在Job内部逻辑过程中出错抛异常了、或者此时宕机了，那这个Job在quartz系统中其实是已执行状态，因为的确正确调度了，只不过调度执行的Job本身内部出错了，quartz对Job内部异常也有相应的方案，上面有说，但是在作业平台调度系统设计过程中觉得quartz本身提供的job异常机制不够可靠，对此进行了这方面的高可用拓展，详细请看Jobs作业平台的调度系统设计方案</strong></p> </li> 
+ <li><p>配置：</p> <pre><code class="bash">#集群名称和id
+org.quartz.scheduler.instanceName = MyClusteredScheduler
+org.quartz.scheduler.instanceId = AUTO
+#线程池
+org.quartz.threadPool.class = org.quartz.simpl.SimpleThreadPool
+org.quartz.threadPool.threadCount = 25
+org.quartz.threadPool.threadPriority = 5
+#misfire检测时间
+org.quartz.jobStore.misfireThreshold = 60000
+#jobStore配置和数据表前缀等基础配置
+org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
+org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+org.quartz.jobStore.useProperties = false
+org.quartz.jobStore.dataSource = myDS
+org.quartz.jobStore.tablePrefix = QRTZ
+#集群模式和集群节点间活性检测临界时间
+org.quartz.jobStore.isClustered = true
+org.quartz.jobStore.clusterCheckinInterval = 20000
+#database jdbs配置
+org.quartz.dataSource.myDS.driver = oracle.jdbc.driver.OracleDriver
+org.quartz.dataSource.myDS.URL = jdbc:oracle:thin:@cluster:1521:dev
+org.quartz.dataSource.myDS.user = quartz
+org.quartz.dataSource.myDS.password = quartz
+org.quartz.dataSource.myDS.maxConnections = 5
+org.quartz.dataSource.myDS.validationQuery=select 0 from dual
+</code></pre> </li> 
+</ul> 
+<h2>Fail-Over容灾机制</h2> 
+<blockquote>
+ <ul> 
+  <li>系统崩溃、某个节点宕机的情况下，其他节点自动主备替换的机制，整个机制了高可用Hadoop的主备切换思路也是类似的，主宕机就备挣锁选举。</li> 
+  <li><code>Fail-Over</code>机制工作在集群环境中，执行recovery工作的线程类叫做<code>ClusterManager</code>，该线程类同样是在调度器初始化时就开启运行了。这个线程类在运行期间每<code>15s</code>进行一次<code>check in</code>操作，所谓check in，就是在数据库的<code>QRTZ2_SCHEDULER_STATE</code>表中更新该调度器对应的<code>LAST_CHECKIN_TIME</code>字段为当前时间，并且查看其他调度器实例的该字段有没有发生停止更新的情况，如果检查到有调度器的check in time比当前时间要早约15s（视具体的执行预配置情况而定），那么就判定该调度实例需要<code>recover</code>，随后会启动该调度器的<code>recovery机制</code>，获取<code>目标调度器实例正在触发的trigger</code>，并针对每一个trigger临时添加一各对应的<code>仅执行一次的simpletrigger</code>。等到调度流程扫描trigger时，这些trigger会被触发，这样就成功的把这些未完整执行的调度以一种特殊trigger的形式纳入了普通的调度流程中，只要调度流程在正常运行，这些被recover的trigger就会很快被触发并执行。 <br>就是这个机制，使用了SimpleTrigger导致了上面的fireTime和scheduleFireTime可能不同的情况。</li> 
+ </ul> 
+</blockquote> 
+<h3>负载均衡</h3> 
+<ul> 
+ <li>Quartz集群自动支持节点间任务调度的负载均衡。</li> 
+ <li>由于自身实现调度集群分布式锁、节点数据同步，因此部署好Quartz集群之后就自然而然实现了宕机自动节点切换，服务器压力大直接横向拓展也能迅速应对短时间内的业务爆发。</li> 
+</ul> 
+<h4>缺点</h4> 
+<p>Quartz自身提供了对任务调度本身的不重不漏的高可用保证，但是一个任务确实被Quartz正确调度之后呢，Quartz系统中的记录已经标记为这个任务执行完成了，但是这个任务在执行过程中出错了，怎么办？</p> 
+<ul> 
+ <li>Quartz自身提供了两套策略：</li> 
+ <li>任务失败不再重试</li> 
+ <li>任务失败自行重试
+  <blockquote>
+   <ul> 
+    <li>这两套方案粒度太粗了，或者说任务自动重试再次失败呢？还要接着重试吗？总而言之就是在我做的统计作业平台对调度要求不重不漏（其实允许重，但是不允许漏），并且要支持在重试次数上限下的失败重试，并且需要对作业平台中的作业调度失败原因做出不同的错误处理策略。</li> 
+   </ul> 
+  </blockquote> </li> 
+</ul> 
+<h4>我的方案：</h4> 
+<ul> 
+ <li>任务调度高可用 —— 依然依靠Quartz集群提供</li> 
+ <li>任务调度了，在任务执行过程中出错，这段处理逻辑中的出错处理，我来控制，策略如下：</li> 
+ <li>任务失败自动重试，到达重试上线设置失败</li> 
+ <li>开机重启扫描任务列表，把<code>正在调度</code>状态的作业进行开机恢复</li> 
+ <li>任务调度前后记录start和end状态位日志（Quartz监听器实现），后台定时扫描start和end的对应关系，对不对应的任务进行恢复，这步执行概率极低，是在极端情况下的调度任务丢失采取的最后的保障措施</li> 
+ <li>下面详细说明我的任务调度高可用方案实现过程</li> 
+</ul> 
+<h4>一个Job的整个执行过程分解</h4> 
+<ul> 
+ <li><p>(1). 记录start日志</p> </li> 
+ <li><p>(2). 调度记录表插入记录之前的数据准备</p> </li> 
+ <li><p>(3). 调度记录表查询本次调度记录，状态ready</p> </li> 
+ <li><p>(4). 准备本次作业流调度执行需要的相关数据，并设置状态位scheduling</p> </li> 
+ <li><p>(5). 调用作业流执行的dubbo服务，延时操作，等待调度结果</p> </li> 
+ <li><p>(6).</p> 
+  <blockquote>
+   <ul> 
+    <li>成功：状态位success</li> 
+    <li>失败：设置为retrying，等待守护线程扫描之后重试</li> 
+    <li>不支持的调度：直接设置fail，告警</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p>(7). 记录日志end</p> </li> 
+</ul> 
+<h4>quartz系统在Jobs平台下的高可用保证的改造方案</h4> 
+<ol> 
+ <li><p>系统启动：守护线程调度(jobs-schedule-daemon)、恢复线程调度(jobs-schedule-recovery)这两个是系统分组中的调度</p> 
+  <blockquote>
+   <ul> 
+    <li>jobs-schedule-daemon负责三分钟扫描一次调度记录表中的retrying状态的记录，并将其添加新的调度来重新执行，添加的调度在jobs-retry分组，该线程后台死循环重复执行</li> 
+    <li>jobs-schedule-recovery是宕机恢复调度，在系统宕机重启之后自动扫描调度记录表中的ready和scheduling两种状态的记录，将其重新执行调度，分组为jobs-recovery，之后恢复线程结束</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p>之后按照各个作业调度器cron表达式正确调度</p> </li> 
+ <li><p>作业各个状态高可用保证：</p> 
+  <blockquote>
+   <ul> 
+    <li>步骤(3)：ready状态，宕机重启会进行恢复</li> 
+    <li>步骤(4)：scheduling状态，宕机重启会进行恢复</li> 
+    <li>步骤(5)：retrying状态，守护线程每隔3分钟扫描一次进行重试调度</li> 
+    <li>步骤(6)：success和fail状态，属于最终状态，已完成</li> 
+   </ul> 
+  </blockquote> </li> 
+ <li><p>以上的步骤基于调度记录表对应调度记录存在的情况下保证高可用</p> </li> 
+ <li><p>步骤(1)和(2)是在没有MySQL表记录的情况下，要保证高可用计划通过前后的start和end日志对称对比来实现宕机作业恢复，该步骤除了mysql连接以外都是内存计算，宕机可能性极地，并且这几个步骤没有mysql表中对应的一条记录为依托，因此只能依靠任务调度前后的start和end状态日志进行任务丢失恢复。</p> </li> 
+</ol> 
+<h3>参考</h3> 
+<ul> 
+ <li>Quartz学习：<a href="http://blog.csdn.net/bubei/article/details/2108778" target="_blank" rel="external">http://blog.csdn.net/bubei/article/details/2108778</a></li> 
+ <li>Quartz快速入门：<a href="http://www.blogjava.net/baoyaer/articles/155645.html" target="_blank" rel="external">http://www.blogjava.net/baoyaer/articles/155645.html</a></li> 
+ <li>Quartz官方文档：<a href="http://www.quartz-scheduler.org/documentation/" target="_blank" rel="external">http://www.quartz-scheduler.org/documentation/</a></li> 
+ <li>Quartz官方API：<a href="http://www.quartz-scheduler.org/api/2.1.7/index.html" target="_blank" rel="external">http://www.quartz-scheduler.org/api/2.1.7/index.html</a></li> 
+ <li>集群配置：<a href="http://blog.csdn.net/tayanxunhua/article/details/19345733" target="_blank" rel="external">http://blog.csdn.net/tayanxunhua/article/details/19345733</a></li> 
+ <li>Quartz分布式解决方案：<a href="http://www.tuicool.com/articles/B3qeUrB" target="_blank" rel="external">http://www.tuicool.com/articles/B3qeUrB</a></li> 
+ <li>Quartz集群配置（MySQL数据源）：<a href="http://blog.csdn.net/l1028386804/article/details/49129603" target="_blank" rel="external">http://blog.csdn.net/l1028386804/article/details/49129603</a></li> 
+ <li></li> 
+</ul>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2017-05-04/quartz-study-and-highavailable.html" target="_blank" rel="external">http://www.coselding.cn/article/2017-05-04/quartz-study-and-highavailable.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 1 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=187')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 0 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','Quartz调度系统入门和调度高可用实现方案','187')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2017-04-16/swagger-maven-plugin-tips.html" title="上一篇">
+                            &laquo;Swagger maven plugin 环境配置踩坑记录
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2017-05-04/maven-filters-junit.html" title="下一篇">
+                            maven多套环境配置文件和junit冲突问题解决方案&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-05-04/maven-filters-junit.html">maven多套环境配置文件和junit冲突问题解决方案</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-05-04 22:36</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-05-04/quartz-study-and-highavailable.html">Quartz调度系统入门和调度高可用实现方案</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-05-04 15:58</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-04-16/swagger-maven-plugin-tips.html">Swagger maven plugin 环境配置踩坑记录</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-04-16 00:36</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(15)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=187');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

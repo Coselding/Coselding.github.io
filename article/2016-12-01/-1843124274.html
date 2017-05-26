@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pushy入门文档中文翻译</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #e38d13" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=12" title="iOS相关">
+                        iOS相关
+                        </a>
+                        &gt;&gt;
+                        Pushy入门文档中文翻译
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">Pushy入门文档中文翻译</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=12" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> iOS相关
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2016-12-01 04:14
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-12-01/-1843124274.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-12-01/-1843124274.html</a></p>
+                <h1>pushy</h1> 
+<h3>这是我自己的翻译版本，<a href="https://github.com/relayrides/pushy/blob/master/README.md" target="_blank" rel="external">原文地址</a>。</h3> 
+<p>Pushy 是一个发送 <a href="https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html" target="_blank" rel="external">APNs</a> (iOS, OS X, 或 Safari) 推送通知的Java类库。这是一个<a href="https://turo.com/" target="_blank" rel="external">Turo</a>创建和维护的项目。</p> 
+<p>Pushy 使用Apple的基于HTTP/2的APNs协议来推送通知。她区别于其他类库的主要特征在于 <a href="http://relayrides.github.io/pushy/apidocs/0.8/" target="_blank" rel="external">完善的文档</a>，异步任务操作和为了工业规模而设计；对于Pushy来说,维持多个和APNs网关服务器的并行连接发送大量的通知到多个不同的app(“topics”)，是很简单又高效的。</p> 
+<p>我们坚信Pushy已经是发送APNs推送通知的最好的Java应用程序工具，我们希望您能通过报告bug或pull代码请求来使这个项目越来越好。 如果你有任何关于使用Pushy的问题，请加入我们<a href="https://groups.google.com/d/forum/pushy-apns" target="_blank" rel="external">Pushy邮件列表</a> 或者查看我们的<a href="https://github.com/relayrides/pushy/wiki" target="_blank" rel="external">wiki</a>。谢谢！</p> 
+<h2>使用Pushy</h2> 
+<p>如果你用<a href="http://maven.apache.org/" target="_blank" rel="external">Maven</a>，你可以通过在你的项目中的pom.xml文件中添加以下的依赖声明来向项目中添加Pushy：</p> 
+<pre>
+<code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.relayrides&lt;/groupId&gt;
+    &lt;artifactId&gt;pushy&lt;/artifactId&gt;
+    &lt;version&gt;0.8.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> 
+<p>如果你不使用Maven(或者其他像Gradle一样能识别Maven依赖的工具), 你就需要<a href="https://github.com/relayrides/pushy/releases/download/pushy-0.8.1/pushy-0.8.1.jar" target="_blank" rel="external">下载Pushy的jar文件</a>并直接添加到你的项目中。你还需要确认Pushy运行时依赖的以下组件是否在classpath中：</p> 
+<ul> 
+ <li><a href="http://netty.io/" target="_blank" rel="external">netty 4.1.5</a></li> 
+ <li><a href="https://github.com/google/gson" target="_blank" rel="external">gson 2.6</a></li> 
+ <li><a href="http://www.slf4j.org/" target="_blank" rel="external">slf4j 1.7.6</a> (还需要绑定SLF4J的具体实现，具体详细说明请看下面的<a href="#logging">logging</a>模块)</li> 
+ <li><code>netty-tcnative</code> (1.1.33.Fork22以上版本) 或者 <code>alpn-boot</code>其中之一的组件。具体的讨论请看下面的<a href="#system-requirements">系统准备</a>模块</li> 
+ <li><a href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html" target="_blank" rel="external">alpn-api</a> 如果你选择native SSL provider (<code>alpn-api</code>已经包含在<code>alpn-boot</code>里面了)；请看<a href="#system-requirements">系统需求</a>模块查看详细内容)</li> 
+</ul> 
+<p>Pushy的运行和构建需要在Java7以及以上版本。</p> 
+<h2>发送推送通知</h2> 
+<p>在你开始使用Pushy之前，你需要先做一些准备工作，包括到Apple注册你的app并获得所需的证书。这个准备工作的详细说明请看苹果官方文档的<a href="https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ProvisioningDevelopment.html#//apple_ref/doc/uid/TP40008194-CH104-SW1" target="_blank" rel="external">Provisioning and Development</a>模块。请注意这里有一些<a href="https://github.com/relayrides/pushy/wiki/Certificates" target="_blank" rel="external">警告</a>，特别是Mac OS X 10.11 (El Capitan)以下的版本。</p> 
+<p>当你的app注册完成并获得相应的证书之后, 要开始推送通知，你需要做的第一件事是使用Pushy创建一个<a href="http://relayrides.github.io/pushy/apidocs/0.8/com/relayrides/pushy/apns/ApnsClient.html" target="_blank" rel="external"><code>ApnsClient</code></a>。客户端需要一个证书和一个私钥向APNs服务器请求认证。保存证书的最常用方法是使用一个私钥加密PKCS#12文件(如果在我写这篇文章的这个时间点你遵守Apple的相关说明和建议，你会使用一个.p12后缀名的文件存储证书):</p> 
+<pre>
+<code class="java">final ApnsClient apnsClient = new ApnsClientBuilder()
+        .setClientCredentials(new File("/path/to/certificate.p12"), "p12-file-password")
+        .build();
+</code></pre> 
+<p>当你创建了一个client实例之后，你就可以连接上APNs网关服务器可。请注意，这个连接过程是异步的；client实例将会马上返回一个Future对象，但在你发送任何推送通知之前，你需要等待这个连接过程完成之后才能进行。请注意，这个<a href="http://netty.io/4.1/api/io/netty/util/concurrent/Future.html" target="_blank" rel="external"><code>Future</code></a>对象是Netty框架中的，它是Java中的<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html" target="_blank" rel="external"><code>Future</code></a>接口的一个拓展，它允许调用者添加监听器或添加methods来检测<code>Future</code>的状态。</p> 
+<pre>
+<code class="java">final Future&lt;Void&gt; connectFuture = apnsClient.connect(ApnsClient.DEVELOPMENT_APNS_HOST);
+connectFuture.await();
+</code></pre> 
+<p>只要你的client实例完成了和APNs服务器的连接，你就可以发送推送通知了。不过在你进行<a href="http://relayrides.github.io/pushy/apidocs/0.8/com/relayrides/pushy/apns/ApnsPushNotification.html" target="_blank" rel="external">推送通知</a>的时候，需要提供这几个数据：目标设备的token，代表app签名的topic，和一个推送通知负载（消息内容）。</p> 
+<pre>
+<code class="java">final SimpleApnsPushNotification pushNotification;
+
+{
+    final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
+    payloadBuilder.setAlertBody("Example!");
+
+    final String payload = payloadBuilder.buildWithDefaultMaximumLength();
+    final String token = TokenUtil.sanitizeTokenString("&lt;efc7492 bdbd8209&gt;");
+
+    pushNotification = new SimpleApnsPushNotification(token, "com.example.myApp", payload);
+}
+</code></pre> 
+<p>和连接服务器一样，发送推送通知也是一个异步过程。你会马上获取一个<code>Future</code>对象，但在你获知你的推送消息是被APNs网关服务器接受还是拒绝之前，还需要等待<code>Future</code>过程完成。</p> 
+<pre>
+<code class="java">final Future&lt;PushNotificationResponse&lt;SimpleApnsPushNotification&gt;&gt; sendNotificationFuture =
+        apnsClient.sendNotification(pushNotification);
+</code></pre> 
+<p><code>Future</code>对象的执行结果会有以下三种情形：</p> 
+<ol> 
+ <li>APNs网关服务器接收推送通知，并尝试将消息投递到token对应的目标设备。</li> 
+ <li>APNs网关服务器拒绝推送通知，并且这是一个永久的错误，您的推送通知将不会被重新投递推送。此外，APNs服务器会给token对应的设备标记一个最近失效时间的<a href="https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/APNsProviderAPI.html#//apple_ref/doc/uid/TP40008194-CH101-SW18" target="_blank" rel="external">时间戳</a>。如果发生这个情况，你应该停止尝试向这个token对应的设备发送任何通知， 除非这个token在这个时间戳之后又重新上线了。</li> 
+ <li><code>Future</code>对象因为一些未知异常而执行失败，这通常是在某种特定情况下的暂时性的失败，调用者应该在问题解决之后对这个推送通知进行重新地投递发送。但如果是在<a href="http://relayrides.github.io/pushy/apidocs/0.8/com/relayrides/pushy/apns/ClientNotConnectedException.html" target="_blank" rel="external"><code>ClientNotConnectedException</code></a>这种情况下投递失败，调用者应该通过调用阻塞方法<a href="http://relayrides.github.io/pushy/apidocs/0.8/com/relayrides/pushy/apns/ApnsClient.html#getReconnectionFuture--" target="_blank" rel="external"><code>ApnsClient#getReconnectionFuture()</code></a>来返回一个<code>Future</code>对象，这个过程其实是在连接断开之后进行自动重连。</li> 
+</ol> 
+<p>举个例子：</p> 
+<pre>
+<code class="java">try {
+    final PushNotificationResponse&lt;SimpleApnsPushNotification&gt; pushNotificationResponse =
+            sendNotificationFuture.get();
+
+    if (pushNotificationResponse.isAccepted()) {
+        System.out.println("Push notification accepted by APNs gateway.");
+    } else {
+        System.out.println("Notification rejected by the APNs gateway: " +
+                pushNotificationResponse.getRejectionReason());
+
+        if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
+            System.out.println("\t…and the token is invalid as of " +
+                pushNotificationResponse.getTokenInvalidationTimestamp());
+        }
+    }
+} catch (final ExecutionException e) {
+    System.err.println("Failed to send push notification.");
+    e.printStackTrace();
+
+    if (e.getCause() instanceof ClientNotConnectedException) {
+        System.out.println("Waiting for client to reconnect…");
+        apnsClient.getReconnectionFuture().await();
+        System.out.println("Reconnected.");
+    }
+}
+</code></pre> 
+<p>再强调一遍，返回的这个<code>Future</code>对象是支持监听器的；在实际应用场景中，去等待对每个特定设备的阻塞推送，效率是极其低的。而在<code>Future</code>中添加一个监听器，在推送完成之后回调这个监听器的方法，和阻塞等待每个推送完成这种方式相比起来，显然能够提供更高效的高并发服务。</p> 
+<p>最后一点，在你的应用程序关闭的时候，你需要断开每个存活的client对象中的连接：</p> 
+<pre>
+<code class="java">final Future&lt;Void&gt; disconnectFuture = apnsClient.disconnect();
+disconnectFuture.await();
+</code></pre> 
+<p>client关闭连接的过程，也是一个异步过程。client会等待那些已经发送给APNs服务器的，但还没收到APNs服务器回复响应消息的推送通知，等这些消息收到了APNs的回复之后，再断开连接。调用者通常应该确保所有已经发送给APNs服务器的推送通知都得到服务器的回复之后，再关闭和服务器的连接。此外，在Pushy内部维护了一个消息队列，在你调用了<code>sendNotification</code>方法投放的推送通知对象都会先放到这个消息队列中，然后再一个个的发送给APNs服务器，也就是说，在你关闭client对象连接的瞬间，消息队列中如果还有未发送的消息存在，那这些消息就会在这个瞬间立即推送失败，client在这之后只负责等待未被服务器回复的消息，不再添加额外的推送通知。</p> 
+<h2>系统准备</h2> 
+<p>Pushy运行于Java 7以上版本，但在特定的运行环境中可能要添加额外的特定依赖。</p> 
+<p>APNs协议是基于<a href="https://http2.github.io/" target="_blank" rel="external">HTTP/2协议</a>的一套推送协议。HTTP/2是一套相对新的协议，以至于它的发展还没有延伸拓展到Java世界中。例如以下几点：</p> 
+<ol> 
+ <li>HTTP/2依赖于<a href="https://tools.ietf.org/html/rfc7301" target="_blank" rel="external">ALPN</a>，它是一种在TLS协议上拓展出来的协议协商机制。在目前还没有哪个Java版本原生支持ALPN协议。所以如果我们要用ALPN，目前可以在Java7或Java8中，使用<a href="#using-a-native-ssl-provider">第三方的原生SSL provider</a>，或者使用<a href="#using-jettys-alpn-implementation">Jetty的ALPN实现</a>。</li> 
+ <li>HTTP/2还需要使用<a href="https://httpwg.github.io/specs/rfc7540.html#rfc.section.9.2.2" target="_blank" rel="external">ciphers</a>，这个直到Java8才被引入到JDK中。在Java7中最好是使用原生的SSL provider。但在Java8中，原生SSL provider不再是必备的了,但可能还是有一些性能上的不足。</li> 
+</ol> 
+<p>通常来说，原生的SSL provider是满足HTTP/2对系统性能增强要求的最好方法，因为安装是相当简单的，并且它运行在Java 7以上版本通常能够提供比JDK的SSL provider更好的SSL执行性能。</p> 
+<h3>使用一个原生SSL provider</h3> 
+<p>在所有支持的Java版本中，通过netty-tcnative使用一个native SSL provider (比如<a href="https://www.openssl.org/" target="_blank" rel="external">OpenSSL</a>, <a href="https://boringssl.googlesource.com/boringssl/" target="_blank" rel="external">BoringSSL</a>, 或<a href="http://www.libressl.org/" target="_blank" rel="external">LibreSSL</a>)，就能够满足HTTP/2对于ALPN和cipher套件的系统要求。为了使用native SSL provider, 你只需要去添加一个<code>netty-tcnative</code>依赖到你的项目中。<code>netty-tcnative</code>的wiki提供了<a href="http://netty.io/wiki/forked-tomcat-native.html" target="_blank" rel="external">详细的说明</a>，但简单来说，你需要额外添加一个和平台特性相关的依赖到你的项目中；我们推荐使用静态的原生链接——“uber jar”，它可以支持大多数的操作系统和CPU架构(比如<code>linux-x86_64</code>, <code>osx-x86_64</code>, 和<code>windows-x86_64</code>)。这个方式将会满足大多数在Java 7和Java 8下对HTTP/2的要求。</p> 
+<p>如果你需要添加netty-tcnative的"uber jar"包，你只需要添加以下依赖(前提是你使用Maven):</p> 
+<pre>
+<code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.netty&lt;/groupId&gt;
+    &lt;artifactId&gt;netty-tcnative-boringssl-static&lt;/artifactId&gt;
+    &lt;version&gt;1.1.33.Fork22&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre> 
+<p>否则，你可能要根据你自己的选择添加相应的jar包到你的classpath中。</p> 
+<p>记得标注好Pushy是需要netty-tcnative 1.1.33.Fork22以上的版本。此外，你需要添加一个<a href="http://mvnrepository.com/artifact/org.eclipse.jetty.alpn/alpn-api" target="_blank" rel="external"><code>alpn-api</code></a>作为你项目的<code>运行时</code>依赖。如果你手动地管理项目依赖，你只需要确保最新版的<code>alpn-api</code>在你的classpath中可用。</p> 
+<h3>使用Jetty的ALPN实现</h3> 
+<p>Jetty的ALPN实现，是native SSL provider的一种选择。请注明如果你不是使用JDK 8以上版本(或者你使用Oracle以外的JDK)，你需要查看是否分别达到cipher套件的要求，你可能要使用native SSL provider (也是满足ALPN的一种实现)，或使用另一种密码的provider (这部分内容在本文档中不涉及)。</p> 
+<p>使用Jetty的ALPN实现是比使用native SSL provider稍微有点复杂。你需要去选择一个和你当前使用的JDK版本匹配的<code>alpn-boot</code>版本，然后把它添加到你的<em>boot</em> classpath中(请注意这和常规的classpath<em>不</em>是同一个概念)。<a href="http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html" target="_blank" rel="external">详细说明</a>在Jetty的官网中有。如果你选择使用<code>alpn-boot</code>的方式而不是用native SSL provider，我们强烈建议使用<a href="https://github.com/jetty-project/jetty-alpn-agent" target="_blank" rel="external"><code>jetty-alpn-agent</code></a>，原因是它会自动选择和你使用的JRE相匹配的正确版本的<code>alpn-boot</code>。</p> 
+<h2>指标</h2> 
+<p>Pushy提供了一个监控指标的接口，赋予客户端对行为和性能的洞察力，你可以编写你自己的<code>ApnsClientMetricsListener</code>接口的实现来记录和报告指标。我们也提供了一个<a href="https://github.com/relayrides/pushy/tree/master/dropwizard-metrics-listener" target="_blank" rel="external">使用了Dropwizard指标类库的指标监听器</a>作为一个分离的模块。若想要开始监控接收指标数据，在你创建client对象的时候设置一个监听器即可：</p> 
+<pre>
+<code class="java">final ApnsClient apnsClient = new ApnsClientBuilder()
+        .setClientCredentials(new File("/path/to/certificate.p12"), "p12-file-password")
+        .setMetricsListener(new MyCustomMetricsListener())
+        .build();
+</code></pre> 
+<p>请注意，在你的监听器中实现的指标处理的method中，<em>绝不</em>能调用到阻塞代码。直接在handler方法中直接增加一个计数器是比较恰当的，但是调用数据库或者远程监控端点必须被转发到分离的其他线程当中。</p> 
+<h2>使用代理</h2> 
+<p>如果你需要使用一个代理通过国外服务器进行连接，你最好在你创建ApnsClient对象实例的时候，提供一个<a href="http://relayrides.github.io/pushy/apidocs/0.8/com/relayrides/pushy/apns/proxy/ProxyHandlerFactory.html" target="_blank" rel="external"><code>ProxyHandlerFactory</code></a>对象。我们提供了HTTP，SOCKS4，和SOCKS5代理的<code>ProxyHandlerFactory</code>的具体实现。</p> 
+<p>举个例子:</p> 
+<pre>
+<code class="java">final ApnsClient apnsClient = new ApnsClientBuilder()
+        .setClientCredentials(new File("/path/to/certificate.p12"), "p12-file-password")
+        .setProxyHandlerFactory(new Socks5ProxyHandlerFactory(
+            new InetSocketAddress("my.proxy.com", 1080), "username", "password"))
+        .build();
+
+final Future&lt;Void&gt; connectFuture = apnsClient.connect(ApnsClient.DEVELOPMENT_APNS_HOST);
+connectFuture.await();
+</code></pre> 
+<h2>日志</h2> 
+<p>Pushy使用<a href="http://www.slf4j.org/" target="_blank" rel="external">SLF4J</a>来记录日志。如果你还不熟悉它，SLF4J只提供了外观接口，允许用户在系统部署的时候添加一个专门的"绑定"到classpath中来选择要使用的具体日志类库。为了避免让你进行选择，Pushy<em>不</em>依赖任何SLF4J绑定；你需要添加一个你自己的绑定（要么添加到项目依赖中，或者直接安装绑定）。如果你没有在你的classpath中绑定SLF4J，你可能会看到如下的警告信息：</p> 
+<pre>
+<code>SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+</code></pre> 
+<p>更多详细信息，请看<a href="http://www.slf4j.org/manual.html" target="_blank" rel="external">SLF4J用户指南</a>。</p> 
+<p>Pushy使用的日记级别如下所示：</p> 
+<table border="1" cellpadding="1" cellspacing="1" style="width:750px;"> 
+ <tbody> 
+  <tr> 
+   <td>级别</td> 
+   <td>事件日志</td> 
+  </tr> 
+  <tr> 
+   <td><code>error</code></td> 
+   <td>严重、不可恢复的错误；如果是可恢复的错误出现这个级别的日志信息这说明Pushy有bug</td> 
+  </tr> 
+  <tr> 
+   <td><code>warn</code></td> 
+   <td>严重但可恢复的错误；错误可能可以表明调用者的代码有一定的错误，并指定错误信息</td> 
+  </tr> 
+  <tr> 
+   <td><code>info</code></td> 
+   <td>重要的生命周期事件</td> 
+  </tr> 
+  <tr> 
+   <td><code>debug</code></td> 
+   <td>较小的生命周期事件；期待可能出现的异常信息</td> 
+  </tr> 
+  <tr> 
+   <td><code>trace</code></td> 
+   <td>个别IO操作</td> 
+  </tr> 
+ </tbody> 
+</table> 
+<h2>在应用容器中使用Pushy</h2> 
+<p>如果你计划在一个应用容器中使用Pushy(比如Tomcat)，你可能必须去进行一些额外的步骤，并且要知道一些具体的限制详情——<a href="https://github.com/relayrides/pushy/wiki/Using-Pushy-in-an-application-container" target="_blank" rel="external">“在应用容器中使用Pushy"的wiki页</a>。</p> 
+<h2>许可和状态</h2> 
+<p>Pushy基于<a href="http://opensource.org/licenses/MIT" target="_blank" rel="external">MIT License</a>开源协议。</p> 
+<p>Pushy的当前最新版本为0.8.1。我们还在日臻完善它的功能（已经把它用在实际产品当中），在未来的1.0 发布版当中，对外提供的API和现在的版本相比，可能会有明显的差别。</p>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-12-01/-1843124274.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-12-01/-1843124274.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 23 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=179')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 4 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','Pushy入门文档中文翻译','179')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2016-11-17/249864828.html" title="上一篇">
+                            &laquo;macOS入门认识与折腾
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2016-12-01/APNs-study-and-use.html" title="下一篇">
+                            APNs入门学习和使用&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2016-12-15/IntelliJ-IDEA-license-server-build.html">IntelliJ IDEA license server服务器搭建</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2016-12-15 20:28</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2016-12-01/APNs-study-and-use.html">APNs入门学习和使用</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2016-12-01 04:29</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2016-12-01/-1843124274.html">Pushy入门文档中文翻译</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2016-12-01 04:14</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(8)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(5)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(1)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=179');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

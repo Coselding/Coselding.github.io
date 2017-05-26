@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java、分布式、大数据、微服务、机器学习"><title> | Coselding</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Coselding</h1><a id="logo" href="/.">Coselding</a><p class="description">非淡泊无以明志，非宁静无以致远。</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tags"> 标签</i></a><a href="/links/"><i class="fa fa-link"> 链接</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title"></h1><div class="post-content"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>25种设计模式笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="http://bootswatch.com/cerulean/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand"></div>
+        <img src="/logo.jpg" style="border-radius:25px;" width="50px" height="50px">&nbsp;&nbsp;
+        <a class="title-text nav-title" style="color: #FFFFFF" href="/public/contact.html">Coselding</a>
+    </div>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menu-click">
+            <li class="active"><a href="/Coselding-old/">旧版入口>></a></li>
+            <li><a href="/list">所有文章</a></li>
+            <li><a href="https://github.com/Coselding" target="_blank" rel="external">Github</a></li>
+            <li><a href="http://blog.csdn.net/u014394255" target="_blank" rel="external">CSDN博客</a></li>
+            <li><a href="/comment/">留言板</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Menu<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/s/">短网址</a></li>
+                    <li><a href="/WordUpload/">作业提交系统</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/public/contact.html">关于我</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="container-fluid">
+        <h1 class="collection-header" id="sub-title"><span>非淡泊无以明志，非宁静无以致远。</span></h1>
+        <div class="collection-info">
+            <span class="meta-info mobile-hidden">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                福建漳州
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-tag"></span>
+                Java Developer
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-user"></span>
+                <a href="/public/contact.html" target="_blank">林宇强</a>
+            </span>&nbsp;&nbsp;
+            <span class="meta-info">
+                <span class="glyphicon glyphicon-link"></span>
+                <a href="https://github.com/Coselding" target="_blank">Github</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="clearfix">
+        <div class="col-md-8 column">
+            <h3 class="text-left text-primary"></h3>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="panel-title text-left">
+                        <a href="/list?cid=4" title="项目相关">
+                        项目相关
+                        </a>
+                        &gt;&gt;
+                        25种设计模式笔记
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <h2 class="panel-title text-center">25种设计模式笔记</h2>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <a href="/list?cid=4" title="查看该标签文章">
+                            <span class="glyphicon glyphicon-tags"></span> 项目相关
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Coselding
+                        </a>
+                        &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-time"></span> 2016-02-05 09:04
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-02-05/-58412233.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-02-05/-58412233.html</a></p>
+                <h1><span style="font-family:微软雅黑;">创建型模式</span></h1> 
+<ol> 
+ <li><span style="font-family:微软雅黑;">工厂模式：（建议使用泛型工厂——优雅）</span> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">工厂单例；</span></li> 
+   <li><span style="font-family:微软雅黑;">配置文件只读一遍，静态代码块或私有构造方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">通过配置文件获取对应加载类限定名，加载类并创建实例；</span></li> 
+   <li><span style="font-family:微软雅黑;">一个对外方法返回实例，达成工厂模式；</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">注：三层架构层与层之间使用工厂模式进行解耦；</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">抽象工厂模式（Abstract Factory）</span> <p><span style="font-family:微软雅黑;">对工厂也提取接口，增加一个产品时，也相应增加一个生产该产品的实现了工厂接口工厂，避免了增加产品后要对原工厂代码进行修改的问题。</span></p> <p><span style="font-family:微软雅黑;">缺点：增加产品也增加了一个工厂，类数量增长较快。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">单例模式：</span> <p><span style="font-family:微软雅黑;">步骤:</span></p> <p><span style="font-family:微软雅黑;">A、构造方法私有；</span></p> <p><span style="font-family:微软雅黑;">B、在类中构造一个静态私有的唯一实例；</span></p> <p><span style="font-family:微软雅黑;">C、提供一个公有的静态方法返回该唯一实例</span></p> <p><span style="font-family:微软雅黑;">注：实例化方式有饿汉加载和懒汉加载两种方式，若工厂占用内存较大，考虑用懒汉式提升性能。</span></p> <p><span style="font-family:微软雅黑;">单例模式的几种情形：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">线程不安全懒汉式；</span></li> 
+   <li><span style="font-family:微软雅黑;">线程安全懒汉式，在初始化单例的代码处加synchronized；</span></li> 
+   <li><span style="font-family:微软雅黑;">饿汉式，线程安全；</span></li> 
+   <li><span style="font-family:微软雅黑;">双重校验锁，volatile和synchronized；</span></li> 
+   <li><span style="font-family:微软雅黑;">内部静态类维护单例，类似于饿汉式。</span></li> 
+  </ul> </li> 
+ <li><span style="font-family:微软雅黑;">建造者模式：(Builder内部类方式构建对象)</span> <p><span style="font-family:微软雅黑;">用于创建复杂类对象，该对象中的模块是固定的，比如各种汉堡，饮料来组合成各种套餐。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">复杂类，成员属性包括多个固定的子模块类，可以实现相同接口方便维护；</span></li> 
+   <li><span style="font-family:微软雅黑;">Builder中实现了建造各种类型的复杂类对象的相应建造方法，相当于建造各种套餐的对应方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">在建造方法中对应该套餐对复杂类对象进行初始化，并进行返回，完成复杂对象的构建。</span></li> 
+  </ul> </li> 
+ <li><span style="font-family:微软雅黑;">原型模式：(Spring的IoC容器)</span> <p><span style="font-family:微软雅黑;">当一个类创建一个对象的构造方法执行时需要繁琐的数据库操作或者消耗资源的操作时，可以使用原型模式，在创建一个实例之后，后面需要创建的实例直接通过clone进行对象复制。</span></p> <p><span style="font-family:微软雅黑;">浅拷贝和深拷贝：</span></p> <p><span style="font-family:微软雅黑;">浅拷贝指实例中的基本数据类型进行复制，但是其中的引用类型指向的内存空间不进行拷贝，直接使用Cloneable接口的clone方法即可实现；</span></p> <p><span style="font-family:微软雅黑;">深拷贝这是整个实例的整个内存空间全部拷贝，要用ByteArrayOutputStream，ObjectOutputStream，ByteArrayInputStream，ObjectInputStream对原型占用的内存块进行全复制。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">构造存放原型的Map，用来存放所有创建的原型；</span></li> 
+   <li><span style="font-family:微软雅黑;">创建一个初始化方法，用户实例化每个原型，并存放到Map中；</span></li> 
+   <li><span style="font-family:微软雅黑;">创建一个根据Map的key得到实例的方法，从Map中查询到相应的原型，再根据原型复制一份进行返回。</span></li> 
+  </ul> </li> 
+</ol> 
+<h1><span style="font-family:微软雅黑;">结构型模式</span></h1> 
+<ol> 
+ <li><span style="font-family:微软雅黑;">适配器模式：</span> <p><span style="font-family:微软雅黑;">当一个A类的接口不满足需要用他的B类的接口时，需要一个适配器C来将A类中的数据适配到B类的各个接口中，实现将A类使用到原本不认识他的B类中，比如Android中ListView的适配器。</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">分类：类的适配器模式、对象的适配器模式、接口的适配器模式</span></li> 
+   <li><span style="font-family:微软雅黑;">Adapter类继承Source类，实现Targetable接口；</span></li> 
+   <li><span style="font-family:微软雅黑;">Adapter中维护Source的实例，并实现Targetable接口，在接口方法中使用Source对象进行相应操作；</span></li> 
+   <li><span style="font-family:微软雅黑;">接口的适配器模式：Source的接口编写Adapter的抽象类，实现所有方法（空方法），再编写Adapter的子类覆盖需要覆盖的方法即可。（相当于写了一个接口的默认实现类）；</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">应用场景：</span></p> <p><span style="font-family:微软雅黑;">（1）类的适配器模式：当希望将一个类转换成满足另一个新接口的类时，可以使用类的适配器模式，创建一个新类，继承原有的类，实现新的接口即可。</span></p> <p><span style="font-family:微软雅黑;">（2）对象的适配器模式：当希望将一个对象转换成满足另一个新接口的对象时，可以创建一个Wrapper类，持有原类的一个实例，在Wrapper类的方法中，调用实例的方法就行。</span></p> <p><span style="font-family:微软雅黑;">（3）接口的适配器模式：当不希望实现一个接口中所有的方法时，可以创建一个抽象类Wrapper，实现所有方法，我们写别的类的时候，继承抽象类即可。</span></p> <p><span style="font-family:微软雅黑;">弊端：适配器模式使用太多会使代码的可维护性降低。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">包装设计模式——对某个对象进行增强</span> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">写一个类，实现与被增强对象的相同的接口</span></li> 
+   <li><span style="font-family:微软雅黑;">定义一个变量，接收被增强对象</span></li> 
+   <li><span style="font-family:微软雅黑;">定义一个构造方法，接收被增强对象</span></li> 
+   <li><span style="font-family:微软雅黑;">覆盖想增强的方法</span></li> 
+   <li><span style="font-family:微软雅黑;">对于不想增强的方法，直接调用被增强对象的方法</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">缺点：产生过多相似的对象，不易排错！</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">代理模式：(对象代理)</span> <p><span style="font-family:微软雅黑;">对一个类的功能加以拓展或者进行访问控制。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">写一个类，实现与被代理对象的相同的接口</span></li> 
+   <li><span style="font-family:微软雅黑;">定义一个变量，接收被代理对象</span></li> 
+   <li><span style="font-family:微软雅黑;">定义一个构造方法，接收被代理对象</span></li> 
+   <li><span style="font-family:微软雅黑;">覆盖想代理的方法</span></li> 
+   <li><span style="font-family:微软雅黑;">对于不想代理的方法，直接调用被代理对象的方法</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">以上和包装设计模式雷同，为静态代理方式。</span></p> <p><span style="font-family:微软雅黑;">动态代理参考Java的动态代理相关技术知识点。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">外观模式：(表层封装，屏蔽复杂接口，常用)</span> <p><span style="font-family:微软雅黑;">屏蔽调用者和复杂系统之间的交互，在复杂系统外面加一层外观类，在该类中处理好复杂系统的调用关系、调用顺序和依赖关系，只对外面的调用者提供一个简易的调用接口，实际即是封装！</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">桥接模式：（将抽象化和实现化解耦）</span> <p><span style="font-family:微软雅黑;">对一个相同接口I的多个不同实现，利用桥接模式来有条不紊地控制对不同实现类的调用。比如JDBC的DriverManager就桥接了多个不同的数据库驱动，在访问不同的数据库之间进行驱动切换不出现错误。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">编写抽象桥接类Bridge&nbsp;，维护一个相同接口I的引用；</span></li> 
+   <li><span style="font-family:微软雅黑;">实现该相同接口I引用的set和get方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写其他相关方法对相同接口I进行执行调用，此处常用抽象方法，再去继承Bridge以实现具体的执行过程；</span></li> 
+   <li><span style="font-family:微软雅黑;">使用Bridge执行时，先调用set方法设置接口引用，再调用相关执行方法执行，即可正确选择接口的实现类来进行执行。</span></li> 
+  </ul> </li> 
+ <li><span style="font-family:微软雅黑;">组合模式：</span> <p><span style="font-family:微软雅黑;">处理部分和整体关系，实现将处理简单元素和复杂元素的处理统一性，比如二叉树的数据结构。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">设置一个类的节点属性，构造方法，set和get方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">维护一个该节点的下级节点集合，并维护集合的增删方法，集合的获取方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">这样通过根节点去找其子节点，以此类推可遍历所有节点，树的结构和遍历。</span></li> 
+  </ul> </li> 
+ <li><span style="font-family:微软雅黑;">享元模式：(连接池，线程池)</span> <p><span style="font-family:微软雅黑;">FlyWeightFactory（维护一个享元单元集合）负责创建和管理享元单元，当一个客户端请求时，工厂需要检查当前对象池中是否有符合条件的对象，如果有，就返回已经存在的对象，如果没有，则创建一个新对象，加入对象池中。这样就节省了空间，减少了实例的数量。</span></p> <p><span style="font-family:微软雅黑;">举例：JDBC连接池。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">过滤器模式：</span> <p><span style="font-family:微软雅黑;">使用过滤器模式形成类对象的过滤策略。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">过滤器接口，实现过滤的抽象方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">实现过滤器接口，覆盖具体该过滤器的过滤代码和相应的构造方法，可以包括And和Or过滤器；</span></li> 
+   <li><span style="font-family:微软雅黑;">调用过滤器的过滤方法对对象集合进行过滤。</span></li> 
+  </ul> </li> 
+</ol> 
+<h1><span style="font-family:微软雅黑;">行为型模式</span></h1> 
+<h2><span style="font-family:微软雅黑;">父类与子类</span></h2> 
+<ol> 
+ <li><span style="font-family:微软雅黑;">策略模式：(Handler算法、策略处理对象)</span> <p><span style="font-family:微软雅黑;">将实现一个抽象类的功能的具体算法写在一个抽象方法中，类内部的执行流程不变，对算法的调用过程不变，再由他的子类来具体实现算法的抽象方法的具体过程，保证了系统内部的逻辑不变，但是可以改变算法策略。（例如Java的事件监听机制）</span></p> <p><span style="font-family:微软雅黑;">简单讲即是：一个方法是在一个策略类中实现的，但是调用由执行类去调用。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">设计一个抽象方法或者接口方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">在执行类中维护一个抽象接口引用；</span></li> 
+   <li><span style="font-family:微软雅黑;">在执行类中抽象地调用接口抽象方法执行系统流程；</span></li> 
+   <li><span style="font-family:微软雅黑;">继承抽象类，复写抽象方法，实现算法策略的具体过程；</span></li> 
+   <li><span style="font-family:微软雅黑;">用继承的子类去赋值给执行类中的接口引用。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">注：系统中可对算法进行多种具体实现，从而在实现过程中可以动态地替换算法策略。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">模板方法模式：(具体实现延迟)</span> <p><span style="font-family:微软雅黑;">和策略模式类似，只是策略模式的执行类中维护了一个策略接口的引用，通过对这个引用的不同赋值实现策略替换；模板模式指的是执行类就是一个抽象类，定义一个抽象方法，而类中的其他主流程抽象地调用抽象方法来实现自己的功能，接着编写执行类的子类，在子类中才具体实现抽象方法的具体过程（例如JavaIO流中的读写抽象方法）。</span></p> <p><span style="font-family:微软雅黑;">简单讲即是：一个方法是在子类中写的，但是调用由父类去调用。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">设计一个抽象类和抽象方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">在类中抽象地调用抽象方法执行系统流程；</span></li> 
+   <li><span style="font-family:微软雅黑;">继承抽象类，复写抽象方法，实现算法的具体过程；</span></li> 
+   <li><span style="font-family:微软雅黑;">该继承的子类就是实现了完整功能的具体实现类。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">注：（1）模板模式延迟了一个类的其中一个具体实现过程，封装了类功能的逻辑流程，将其中的子功能的实现交给子类，实现了子功能的多样化，保证了该类的主流程的不变性和代码重用性。</span></p> <p><span style="font-family:微软雅黑;">（2）父类中的主流程方法一般为final。</span></p> <p><span style="font-family:微软雅黑;">（3）封装不变部分，拓展可变部分，行为由父类控制，子类实现。</span></p> </li> 
+</ol> 
+<h2><span style="font-family:微软雅黑;">两个类之间</span></h2> 
+<ol> 
+ <li><span style="font-family:微软雅黑;">观察者设计模式（Observer）：</span> <p><span style="font-family:微软雅黑;">将一个主对象和多个观察者对象关联起来，对主对象进行某些操作时，观察者对象可以收到主对象的执行信息，来进行相关操作。（类似广播操作，Android内容观察者）</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">编写观察者抽象类和接收执行抽象方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">主对象类中维护一个观察者集合，增删观察者方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写遍历观察者集合进行通知的notify方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">在主对象需要监视的方法中，调用notify方法，通知所有观察者。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：观察者与被观察者抽象耦合；</span></p> <p><span style="font-family:微软雅黑;">缺点：（1）被观察者执行时需要通知多个观察者，影响效率；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp; （2）观察者和被观察者如果存在互相循环依赖的话，循环调用，堆栈崩溃。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">迭代器模式（Iterator）：</span> <p><span style="font-family:微软雅黑;">顺序访问集合中的对象，不需要知道集合对象的底层表示。（Java容器的Iterator迭代器）</span></p> <p><span style="font-family:微软雅黑;">Iterator迭代器接口一般有的方法：hasNext，next，previous，first</span></p> <p><span style="font-family:微软雅黑;">场景：不暴露集合的内部结构，又能对集合进行透明地访问。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">责任链模式：(Tomcat的Filter)</span> <p><span style="font-family:微软雅黑;">事件发出者发出一个事件交给处理者处理，不需要考虑给哪个处理者才能正确处理，各个处理者持有下一个处理者的引用，连成一个处理者责任链，接收到事件时判断当前处理者是否是正确处理者，若是，则进行处理，若不是则交给下一个处理者。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">编写一个处理接口和处理方法，是正确处理者才执行；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写一个处理者抽象类，维护一个处理接口引用，指向下一个处理者；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写处理者抽象类的子类，并实现处理接口，在接口处理方法中实现处理者的选择判断、选中处理过程、不选中交给下一个处理者。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：发出者和处理者解耦；增删处理者和发出者很方便。</span></p> <p><span style="font-family:微软雅黑;">缺点：不一定被接收到；影响性能。</span></p> <p><span style="font-family:微软雅黑;">注：链接上的请求可以是一条链，可以是一个树，还可以是一个环，模式本身不约束这个，需要我们自己去实现，同时，在一个时刻，命令只允许由一个对象传给另一个对象，而不允许传给多个对象。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">命令模式：(Struts2动态方法调用)</span> <p><span style="font-family:微软雅黑;">将一个动作的发出者和执行者进行解耦，中间使用命令将发出者和执行者隔开实现解耦。（Struts）</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ol style="list-style-type:upper-alpha"> 
+   <li><span style="font-family:微软雅黑;">编写执行类Receiver和接口，编写一个接口执行方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写命令类Command和接口，维护一个执行类接口引用和命令执行接口方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写发出者类Invoker，维护一个Command集合（增删），以及对命令的调用执行。</span></li> 
+  </ol> <p><span style="font-family:微软雅黑;">优点：降低系统耦合度，分离了发出者和执行者的耦合；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 很方便添加命令类和执行者类，便于拓展；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 请求和执行分开。</span></p> </li> 
+</ol> 
+<h2><span style="font-family:微软雅黑;">类的状态</span></h2> 
+<ol> 
+ <li><span style="font-family:微软雅黑;">备忘录模式：</span> <p><span style="font-family:微软雅黑;">用来保存某个对象的状态，并能在必要的时候恢复这个状态。（游戏存档，事务回滚）</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">编写一个备忘录条目类Memento，用来存储待备份对象中需要存储的属性；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写一个存储类Storage，维护Memento的引用或集合，达到保存对象状态的目的；</span></li> 
+   <li><span style="font-family:微软雅黑;">待备份对象中添加一个生成Memento的方法和一个通过Memento恢复状态的方法。</span></li> 
+  </ul> </li> 
+ <li><span style="font-family:微软雅黑;">状态模式：(将具体状态的操作方法封装在状态对象中)</span> <p><span style="font-family:微软雅黑;">核心思想就是：当对象的状态改变时，同时改变其行为。（QQ在线状态）</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">编写状态接口State，和具体的状态切换方法、状态对应的执行方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">实现状态接口，编写该状态具体的执行行为；</span></li> 
+   <li><span style="font-family:微软雅黑;">编写执行类Context，执行方法依赖State来执行，通过切换不同的State，来控制执行不同的行为。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：封装转换原则，避免大量的if…else语句；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 方便增加新的状态。</span></p> </li> 
+</ol> 
+<h2><span style="font-family:微软雅黑;">通过中间类</span></h2> 
+<ol> 
+ <li><span style="font-family:微软雅黑;">访问者模式：(数据结构和对应的Handler)</span> <p><span style="font-family:微软雅黑;">访问者模式把数据结构和作用于结构上的操作解耦合，使得操作集合可相对自由地演化。访问者模式适用于数据结构相对稳定算法又易变化的系统。因为访问者模式使得算法操作增加变得容易。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">被访问的数据结构实现一个接收访问者的方法，向访问者传入自身引用；</span></li> 
+   <li><span style="font-family:微软雅黑;">访问者接口有接收数据结构的接口方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">访问者接口实现类实现具体的访问接口方法，执行具体的操作算法。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：实现了稳定的数据结构和易变的操作的解耦；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 很方便为数据结构添加新的操作，拓展性强。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">中介者模式：(p2p转成C/S模式)</span> <p><span style="font-family:微软雅黑;">当系统中有多个对象之间有复杂的关联关系时，每个对象内部都需要维护其他与之关联对象的引用，耦合度太高。使用中介者模式，由中介者维护对象间的引用和对象之间的具体操作流程，当一个对象改变时，只需要维护好该对象和中介者之间的关系即可，不需要考虑和其他关联对象之间的关系。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">创建一个中介者类，维护有关联关系的所有对象的引用；</span></li> 
+   <li><span style="font-family:微软雅黑;">实现一个执行方法，对这些对象根据逻辑关联关系进行正确的处理。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：将网状的关系网变成星形关系网，降低代码改变引起的修改代价，增强可维护性；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 降低复杂度，各类之间解耦。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">解释器模式：（不常用）</span> <p><span style="font-family:微软雅黑;">用于一些规律性的语言解析，如正则表达式，SQL语句解析。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">编写解释器接口，和一个解释方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">实现解释器接口，完成该解释器的相应的解释过程和构造方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">根据构造方法构造出解释器，并传参执行相应的解释过程。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：拓展性好，易于实现；</span></p> <p><span style="font-family:微软雅黑;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 能够简单实现规律性文法的解释。</span></p> </li> 
+ <li><span style="font-family:微软雅黑;">空对象模式：(对null和非null对象统一化处理)</span> <p><span style="font-family:微软雅黑;">设计一个表示空null的对象，在各种需要检查空值的地方使用该对象进行使用。</span></p> <p><span style="font-family:微软雅黑;">步骤：</span></p> 
+  <ul> 
+   <li><span style="font-family:微软雅黑;">提取正常对象和空对象的公有接口，并提供一个判断空对象的抽象方法；</span></li> 
+   <li><span style="font-family:微软雅黑;">空对象实现和正常对象相同的接口，并在相应的方法返回空对象相应的参数值。</span></li> 
+  </ul> <p><span style="font-family:微软雅黑;">优点：统一化了正常对象和空对象的操作方法，并且用户交互信息可以直接封装在空对象中，调用和正常对象相同的方法便可在相应的界面处显示。</span></p> </li> 
+</ol>
+                <p>本文为博主原创，允许转载，但请声明原文地址：<a href="http://www.coselding.cn/article/2016-02-05/-58412233.html" target="_blank" rel="external">http://www.coselding.cn/article/2016-02-05/-58412233.html</a></p>
+                </div>
+
+                <div class="panel-body">
+                    <div>
+                        <a id="looked" href="#"><span class="glyphicon glyphicon-eye-open"></span> 250 已阅</a>
+                        &nbsp;&nbsp;
+                        <a id="likes" href="javascript:like('/like?artid=116')" target="_blank" rel="external">
+                            <span class="glyphicon glyphicon-heart-empty"></span> 21 喜爱
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="comment-btn" href="javascript:onComment('/comment','25种设计模式笔记','116')" target="_blank" rel="external"><span class="glyphicon glyphicon-comment"></span> 给我留言</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="text-left">
+                        <a href="/article/2016-02-05/-1626302667.html" title="上一篇">
+                            &laquo;设计模式与实际开发
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="/article/2016-02-07/825528689.html" title="下一篇">
+                            权限系统&raquo;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 column">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp; 最近更新</h3>
+                </div>
+
+                <ul id="last3" class="list-group">
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-03-12/which-knowledgeAndGTD-app-to-use.html">知识、任务管理软件个人测评</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-03-12 20:19</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/dubbo-study-record.html">Dubbo入门学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 22:57</em>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="list-group-item-heading text-left">
+                            <h5><a href="/article/2017-01-02/zookeeper-study-record.html">ZooKeeper配置和学习笔记</a></h5>
+                        </div>
+                        <div class="list-group-item-text text-right">
+                            <em>2017-01-02 17:21</em>
+                        </div>
+                    </li>
+
+                    <li class="list-group-item text-center">
+                        <a href="/list">more</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="text-left"><span class="glyphicon glyphicon-search"></span> &nbsp;搜索文章</h5>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/search">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="key" value="输入关键字搜索博客..." onfocus="this.value=''" onblur="this.value='输入关键字搜索博客...'">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> &nbsp;标签</h3>
+                </div>
+
+                <ul id="categories" class="list-group">
+                    <li class="list-group-item"><a href="/list?cid=2">Android(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=11">Hadoop和云计算(10)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=12">iOS相关(2)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=5">JavaEE(12)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=3">JavaSE(3)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=9">个人心得(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=7">前端(4)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=6">基础知识(6)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=10">数据库(1)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=8">框架相关(16)</a></li>
+                    <li class="list-group-item"><a href="/list?cid=4">项目相关(5)</a></li>
+                </ul>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-link"></span> &nbsp;友情链接</h3>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="https://www.zning.net.cn" target="_blank" rel="external">张宁网</a></li>
+                    <li class="list-group-item"><a href="https://cloudups.github.io" target="_blank" rel="external">凌云阁</a></li>
+                    <li class="list-group-item"><a href="https://noahzu.github.io" target="_blank" rel="external">Android资源开发小栈</a></li>
+                    <li class="list-group-item"><a href="https://heinika.github.io/" target="_blank" rel="external">陈利津</a></li>
+                    <li class="list-group-item"><a href="http://www.itfenghui.com/" title="SEO" target="_blank" rel="external">SEO</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="panel-footer">
+    <div class="container">
+        <div class="row clearfix text-center">
+            <a href="/s/">短网址</a>&nbsp;&nbsp;
+            <a href="/WorkUpload/">作业提交系统</a>&nbsp;&nbsp;
+            <!--<a href="/uShare/">uShare</a>&nbsp;&nbsp;-->
+            <!--<a href="/smartor/">Smartor</a>&nbsp;&nbsp;-->
+            <!--<a href="/PlaneWar/">飞机大战</a>-->
+        </div>
+        <div class="row clearfix text-center">
+            <div class="copyright">
+                Copyright &copy;2016.Coselding &nbsp; All rights reserved.<a href="http://www.miitbeian.gov.cn" target="_blank" rel="external">鲁ICP备15036981号-2</a>
+            </div>
+
+            <div class="netsupervisor-div">
+                <a class="netsupervisor-a" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37021002000115">
+                    <img src="/images/beian.png" class="netsupervisor-image">
+                    <p class="netsupervisor-text">鲁公网安备
+                        37021002000115号</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="/js/scripts.js"></script>
+<script type="text/javascript">
+    $(function(){//网页加载完成执行
+        refreshLookedAndLikes('/refresh?artid=116');
+        refreshLast3Articles('/last3','');
+        refreshCategories('/categories','');
+    });
+</script>
+</html></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script>var cloudTieConfig = {
+  url: document.location.href,
+  productKey: "8c4e8416431747c595ded338559ffe2e",
+  target: "cloud-tie-wrapper"
+};</script><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script></div></div><div class="pure-u-1 pure-u-md-1-4"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/校招之路/">校招之路</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/Solr6.5.1集群部署和后台管理/">Solr 6.5.1集群部署和后台管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016-12-05/hello-world/">Hello World</a></li></ul></div><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hello/">Hello</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/个人心得/">个人心得</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/个人心得/" style="font-size: 15px;">个人心得</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a> <a href="/tags/校招/" style="font-size: 15px;">校招</a> <a href="/tags/hello/" style="font-size: 15px;">hello</a> <a href="/tags/init/" style="font-size: 15px;">init</a> <a href="/tags/搜索引擎/" style="font-size: 15px;">搜索引擎</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/solr/" style="font-size: 15px;">solr</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.zning.net.cn" title="张宁网" target="_blank">张宁网</a><ul></ul><a href="https://cloudups.github.io" title="凌云阁" target="_blank">凌云阁</a><ul></ul><a href="https://noahzu.github.io" title="Android资源开发小栈" target="_blank">Android资源开发小栈</a><ul></ul><a href="https://heinika.github.io/" title="陈利津" target="_blank">陈利津</a><ul></ul><a href="http://www.itfenghui.com/" title="SEO" target="_blank">SEO</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">Coselding.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5f2780e77f78ddb4e621d840e6d71d90";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+  })();
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
