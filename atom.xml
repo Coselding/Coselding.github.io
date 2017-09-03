@@ -22,9 +22,13 @@
     <published>2017-09-03T13:44:48.000Z</published>
     <updated>2017-09-03T13:44:48.000Z</updated>
     
-    <content type="html"><![CDATA[<pre><code>这是一个JStorm使用教程，不包含环境搭建教程，直接在公司现有集群上跑任务，关于JStorm集群环境搭建，后续研究完会考虑额外写一篇博客。
-你如果想了解JStorm是什么，有多牛逼什么什么的，请看最后的参考博客链接，里面有各种版本的介绍，我就不在这里总结这种东西了，我相信这些东西你第一次接触的时候会看，等学了JStorm之后也不会再去看这些东西了。。。
-</code></pre><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+    <content type="html"><![CDATA[<blockquote>
+<ul>
+<li>这是一个JStorm使用教程，不包含环境搭建教程，直接在公司现有集群上跑任务，关于JStorm集群环境搭建，后续研究完会考虑额外写一篇博客。</li>
+<li>你如果想了解JStorm是什么，有多牛逼什么什么的，请看最后的参考博客链接，里面有各种版本的介绍，我就不在这里总结这种东西了，我相信这些东西你第一次接触的时候会看，等学了JStorm之后也不会再去看这些东西了。。。</li>
+</ul>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
 <li>JStorm和MapReduce的一些对比<br>| MapReduce | JStorm |<br>|——–|——–|<br>| JobTracker | Nimbus |<br>| TaskTracker | Supervisor |<br>| Child | Worker |<br>| Job | Topology |<br>| Mapper/Reducer | Spout/Bolt |<h3 id="一些关键概念"><a href="#一些关键概念" class="headerlink" title="一些关键概念"></a>一些关键概念</h3></li>
 </ul>
 <ol>
@@ -228,17 +232,19 @@
     
     <summary type="html">
     
-      &lt;pre&gt;&lt;code&gt;这是一个JStorm使用教程，不包含环境搭建教程，直接在公司现有集群上跑任务，关于JStorm集群环境搭建，后续研究完会考虑额外写一篇博客。
-你如果想了解JStorm是什么，有多牛逼什么什么的，请看最后的参考博客链接，里面有各种版本的介绍，我就不在这里总结这
+      &lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;这是一个JStorm使用教程，不包含环境搭建教程，直接在公司现有集群上跑任务，关于JStorm集群环境搭建，后续研究完会考虑额外写一篇博客。&lt;/li&gt;
+&lt;li&gt;你如果想了解JStorm是什么，有多牛逼什么什么的，请看最后的参考博客链接，
     
     </summary>
     
       <category term="实时计算" scheme="http://www.coselding.cn/categories/%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/"/>
     
     
-      <category term="java" scheme="http://www.coselding.cn/tags/java/"/>
-    
       <category term="实时计算" scheme="http://www.coselding.cn/tags/%E5%AE%9E%E6%97%B6%E8%AE%A1%E7%AE%97/"/>
+    
+      <category term="java" scheme="http://www.coselding.cn/tags/java/"/>
     
       <category term="JStorm" scheme="http://www.coselding.cn/tags/JStorm/"/>
     
@@ -451,9 +457,9 @@
       <category term="微服务" scheme="http://www.coselding.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
     
     
-      <category term="搜索引擎" scheme="http://www.coselding.cn/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
-    
       <category term="java" scheme="http://www.coselding.cn/tags/java/"/>
+    
+      <category term="搜索引擎" scheme="http://www.coselding.cn/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
     
       <category term="solr" scheme="http://www.coselding.cn/tags/solr/"/>
     
