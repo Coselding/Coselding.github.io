@@ -12,9 +12,9 @@
 </ul>
 </blockquote>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
-<li>JStorm和MapReduce的一些对比<br>| MapReduce | JStorm |<br>|——–|——–|<br>| JobTracker | Nimbus |<br>| TaskTracker | Supervisor |<br>| Child | Worker |<br>| Job | Topology |<br>| Mapper/Reducer | Spout/Bolt |<h3 id="一些关键概念"><a href="#一些关键概念" class="headerlink" title="一些关键概念"></a>一些关键概念</h3></li>
+<li>JStorm和MapReduce的一些对比<br><img src="/2017/09/03/JStorm实时计算框架学习 —— 博客/compare-table.png" alt="compare-table.png"></li>
 </ul>
-<ol>
+<h3 id="一些关键概念"><a href="#一些关键概念" class="headerlink" title="一些关键概念"></a>一些关键概念</h3><ol>
 <li>nimbus：主控节点运行Nimbus守护进程，类似于Hadoop中的ResourceManager，负责在集群中分发代码，对节点分配任务，并监视主机故障。</li>
 <li>supervisor：每个工作节点运行Supervisor守护进程，负责监听工作节点上已经分配的主机作业，启动和停止Nimbus已经分配的工作进程，类似于Hadoop中的NodeManager。<br>supervisor会定时从zookeeper获取拓补信息topologies、任务分配信息assignments及各类心跳信息，以此为依据进行任务分配。<br>在supervisor同步时，会根据新的任务分配情况来启动新的worker或者关闭旧的worker并进行负载均衡。</li>
 <li>worker：Worker是具体处理Spout/Bolt逻辑的进程，根据提交的拓扑中conf.setNumWorkers(3);定义分配每个拓扑对应的worker数量，Storm会在每个Worker上均匀分配任务，一个Worker只能执行一个topology，但是可以执行其中的多个任务线程。</li>
