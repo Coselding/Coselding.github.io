@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.coselding.cn/"/>
-  <updated>2017-09-03T13:44:48.000Z</updated>
+  <updated>2018-08-01T09:49:32.000Z</updated>
   <id>http://www.coselding.cn/</id>
   
   <author>
@@ -14,6 +14,104 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>tomcat插件类加载一个“坑”问题排查</title>
+    <link href="http://www.coselding.cn/2018/08/01/tomcat%E6%8F%92%E4%BB%B6%E7%B1%BB%E5%8A%A0%E8%BD%BD%E4%B8%80%E4%B8%AA%E2%80%9C%E5%9D%91%E2%80%9D%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5/"/>
+    <id>http://www.coselding.cn/2018/08/01/tomcat插件类加载一个“坑”问题排查/</id>
+    <published>2018-08-01T09:49:32.000Z</published>
+    <updated>2018-08-01T09:49:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>昨天遇到一个诡异但是很有趣的类加载问题，虽然很快解决了，但是我还是打算剖根问底，分析内部问题出现的原因，毕竟类加载机制虽然说都知道怎么回事，但是还没在实战中实践过，也考虑到有个项目可能需要用到自定义类加载器，趁此机会先初步了解一下。</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><ol>
+<li>我采用了Servlet3.0，新增加了SPI加载机制，会自动扫描<code>classpath:META-INF/services/javax.servlet.ServletContainerInitializer</code>中的所有这个文件，并加载其中的所有<code>javax.servlet.ServletContainerInitializer</code>的实现类，实现替换web.xml的功能，让你的项目war可以不需要web.xml也能正常在tomcat运行。</li>
+<li>然后呢，日志我采用了logback，很可爱的是这个jar中<code>ch.qos.logback.classic.servlet.LogbackServletContainerInitializer</code>就实现了<code>javax.servlet.ServletContainerInitializer</code>，因此呢，tomcat在启动时就会自动加载这个类初始化一些配置。</li>
+<li><code>LogbackServletContainerInitializer</code>是在logback-classic包中的，<code>javax.servlet.ServletContainerInitializer</code>是在javax.servlet-api包中的。</li>
+</ol>
+<blockquote>
+<ul>
+<li>有了这些前提信息，我们来说下我遇到的问题，在这样的背景下，我采用tomcat7-maven-plugin进行启动测试</li>
+</ul>
+</blockquote>
+<p>以下tomcat:run…命令为tomcat7-maven-plugin的命令，scope为javax.servlet-api包在maven中的scope。</p>
+<ol>
+<li>tomcat:run + scope=provided：正常启动</li>
+<li>tomcat:run + scope=compile：启动失败</li>
+<li>tomcat:run-war + scope=provided：正常启动</li>
+<li>tomcat:run-war + scope=compile：正常启动</li>
+</ol>
+<blockquote>
+<ul>
+<li>诡异了吧，如果是2和4一起启动失败，那我也没什么探索的欲望了，合乎情理，虽然其中还有很多细节模棱两可。</li>
+<li><p>另外提前贴下2报错的核心信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java.lang.ClassCastException: ch.qos.logback.classic.servlet.LogbackServletContainerInitializer cannot be cast to javax.servlet.ServletContainerInitializer</div></pre></td></tr></table></figure>
+</li>
+<li><p>可以明确LogbackServletContainerInitializer是实现了<code>javax.servlet.ServletContainerInitializer</code>接口的，这边类型转换失败只有一个原因：类加载器不对！！！</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><h3 id="先看看这两个类的类加载器"><a href="#先看看这两个类的类加载器" class="headerlink" title="先看看这两个类的类加载器"></a>先看看这两个类的类加载器</h3><p>写个Servlet监听器，在启动时打出加载器和jar包信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Callback</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doCallback</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"查看看类加载器 ... "</span>);</div><div class="line">        System.out.println(<span class="string">"LogbackServletContainerInitializer = "</span> + LogbackServletContainerInitializer.class.getClassLoader());</div><div class="line">        System.out.println(<span class="string">"ServletContainerInitializer = "</span> + ServletContainerInitializer.class.getClassLoader());</div><div class="line">        </div><div class="line">        System.out.println(<span class="string">"查看加载类所在jar包路径 ... "</span>);</div><div class="line">        System.out.println(<span class="string">"LogbackServletContainerInitializer = "</span> + LogbackServletContainerInitializer.class.getProtectionDomain().getCodeSource().getLocation());</div><div class="line">        System.out.println(<span class="string">"ServletContainerInitializer = "</span> + ServletContainerInitializer.class.getProtectionDomain().getCodeSource().getLocation());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent servletContextEvent)</span> </span>&#123;</div><div class="line">        doCallback();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent servletContextEvent)</span> </span>&#123;</div><div class="line">        doCallback();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在web.xml中配置好，启动，发现：<br>tomcat:run + scope=compile启动失败，无法打印出类加载信息。。。<br>tomcat:run + scope=provided<br>tomcat:run-war + scope=provided<br>tomcat:run-war + scope=compile<br>这三个的类加载信息是一致的，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">查看看类加载器 ... </div><div class="line">LogbackServletContainerInitializer = WebappClassLoader</div><div class="line">  context: </div><div class="line">  delegate: <span class="literal">false</span></div><div class="line">  repositories:</div><div class="line">----------&gt; Parent Classloader:</div><div class="line">ClassRealm[plugin&gt;org.apache.tomcat.maven:tomcat7-maven-plugin:2.2, parent: sun.misc.Launcher<span class="variable">$AppClassLoader</span>@18b4aac2]</div><div class="line"></div><div class="line">ServletContainerInitializer = ClassRealm[plugin&gt;org.apache.tomcat.maven:tomcat7-maven-plugin:2.2, parent: sun.misc.Launcher<span class="variable">$AppClassLoader</span>@18b4aac2]</div><div class="line">查看加载类所在jar包路径 ... </div><div class="line">LogbackServletContainerInitializer = file:/Users/coselding/.m2/repository-weidian/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar</div><div class="line">ServletContainerInitializer = file:/Users/coselding/.m2/repository-weidian/org/apache/tomcat/embed/tomcat-embed-core/7.0.47/tomcat-embed-core-7.0.47.jar</div></pre></td></tr></table></figure></p>
+<p><a href="https://blog.csdn.net/fuzhongmin05/article/details/57404890" target="_blank" rel="external">Tomcat类加载器架构</a><br><img src="/2018/08/01/tomcat插件类加载一个“坑”问题排查/tomcat类加载器架构.jpg" alt="tomcat类加载器架构.jpg"><br>结合Tomcat的类加载器架构，ServletContainerInitializer的类加载器ClassRealm应该就是对应的Common ClassLoader，而LogbackServletContainerInitializer就是WebappClassLoader，是Common ClassLoader的子加载器。和上面的场景结合起来就是，如果javax.servlet-api scope=compile，那么javax.servlet-api这个包就会在tomcat/lib下和应用WEB-INF/lib下各有一份，加载器分别是Common ClassLoader和WebappClassLoader。<br>我们知道JavaEE的规范中在应用间依赖隔离作了规定：<strong><em>tomcat/lib下和应用WEB-INF/lib如果有相同的依赖，WEB-INF/lib是优先于tomcat/lib的，这个逻辑是为了支持tomcat部署多应用时应用间依赖隔离，打破了双亲委派原则 </em></strong>，如下图：<br><img src="/2018/08/01/tomcat插件类加载一个“坑”问题排查/WebAppClassLoader加载逻辑.jpg" alt="WebAppClassLoader加载逻辑.jpg"></p>
+<p>因此你的WEB-INF/lib目录下的javax.servlet-api会被会在LogbackServletContainerInitializer加载时加载WebappClassLoader，而Tomcat启动自己加载自己lib目录下的那份WebappClassLoader，导致了ClassCastException。这个过程用图示如下：<br><img src="/2018/08/01/tomcat插件类加载一个“坑”问题排查/ServletContainerInitializer类加载.jpg" alt="ServletContainerInitializer类加载.jpg"><br>因此LogbackServletContainerInitializer实现的ServletContainerInitializer接口和tomcat识别的ServletContainerInitializer不是同一个类加载器加载的，故报错。</p>
+<blockquote>
+<ul>
+<li>到这里解决了scope=compile和scope=provided所造成的区别。</li>
+<li>但是很遗憾，场景2由于类加载失败，程序直接无法启动，我无法查看其类加载器的情况。</li>
+</ul>
+</blockquote>
+<h3 id="tomcat-run和tomcat-run-war的区别"><a href="#tomcat-run和tomcat-run-war的区别" class="headerlink" title="tomcat:run和tomcat:run-war的区别"></a>tomcat:run和tomcat:run-war的区别</h3><p>我们用<code>ServletContainerInitializer.class.getProtectionDomain().getCodeSource().getLocation()</code>打出类加载所在jar包的路径，来确认下，tomcat:run-war加载的到底是哪个类，这段代码由于是放在webapp中的，如果WEB-INF/lib目录下存在javax.servlet-api的话应该优先加载的。</p>
+<ol>
+<li>启动信息分析（tomcat:run-war + scope=compile）<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">查看加载类所在jar包路径 ... </div><div class="line">LogbackServletContainerInitializer = file:/Users/coselding/Projects/vweex/<span class="built_in">test</span>/target/<span class="built_in">test</span>-1.0.0-SNAPSHOT/WEB-INF/lib/logback-classic-1.2.3.jar</div><div class="line">ServletContainerInitializer = file:/Users/coselding/.m2/repository-weidian/org/apache/tomcat/embed/tomcat-embed-core/7.0.47/tomcat-embed-core-7.0.47.jar</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>加载的确实是tomcat内部自带的javax.servlet-api，那我们放在WEB-INF/lib下的javax.servlet-api被忽略了？答案是的！！！我们看更完整的日志：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">七月 24, 2018 3:36:57 下午 org.apache.catalina.loader.WebappClassLoader validateJarFile</div><div class="line">信息: validateJarFile(/Users/coselding/Projects/vweex/<span class="built_in">test</span>/target/<span class="built_in">test</span>-1.0.0-SNAPSHOT/WEB-INF/lib/javax.servlet-api-3.0.1.jar) - jar not loaded. See Servlet Spec 2.3, section 9.7.2. Offending class: javax/servlet/Servlet.class</div><div class="line">查看加载类所在jar包路径 ... </div><div class="line">LogbackServletContainerInitializer = file:/Users/coselding/Projects/vweex/<span class="built_in">test</span>/target/<span class="built_in">test</span>-1.0.0-SNAPSHOT/WEB-INF/lib/logback-classic-1.2.3.jar</div><div class="line">ServletContainerInitializer = file:/Users/coselding/.m2/repository-weidian/org/apache/tomcat/embed/tomcat-embed-core/7.0.47/tomcat-embed-core-7.0.47.jar</div></pre></td></tr></table></figure></p>
+<p>看见了吗？我们WEB-INF/lib目录下的jar被忽略了，WebappClassLoader在加载时做了校验，给出了警告，但是tomcat自己仍然会加载自身的javax.servlet-api，确保程序正常，这也是我们平时在项目中不太在意这个细节，但是程序仍然能正确执行的原因</p>
+<blockquote>
+<ul>
+<li>我们先区分下这两种启动方式的差别：</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>tomcat:run + scope=compile<br>是以你的项目源文件目录作为执行目录的，不会在target目录下生成war文件，如下图：<br><img src="/2018/08/01/tomcat插件类加载一个“坑”问题排查/tomcat-run目录结构.png" alt="tomcat-run目录结构.png"><br>他的好处是什么呢？这是一个开发时工具，你修改代码会自动进行热部署，避免每次改代码都需要重新启动！那么我们可以了解下热部署的原理：<a href="https://blog.csdn.net/zhoudaxia/article/details/35897057" target="_blank" rel="external">深入理解Java类加载器(2)：线程上下文类加载器</a>，这是为了开发方便而把类加载过程复杂化了，这个过程暂时不做了解，但是可以大致定位是这个复杂的类加载过程中有bug，导致了加载javax.servlet-api时没像正式部署时WebAppClassLoader正确过滤。</p>
+</li>
+<li><p>tomcat:run-war + scope=compile<br>会先把你的项目打包成war，再启动tomcat容器加载这个war，所以tomcat:run-war方式和我们在发布系统打包发布的流程是类似的，缺点是这种启动方式你更改代码是不会运行时生效的，需要重新启动，因为代码改动不会影响target/{projectName}目录下的文件，目录结构如下图：<br><img src="/2018/08/01/tomcat插件类加载一个“坑”问题排查/tomcat-run-war目录结构.png" alt="tomcat-run-war目录结构.png"></p>
+</li>
+</ol>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>主要你保证你的项目依赖中<code>mvn dependency:tree</code>查到的所有servlet-api依赖都是provided，就能从根源上避免这个问题，这里有个坑：<br>Servlet2.0依赖坐标<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>Servlet3.0依赖坐标<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>呵呵。。。我们的dubbo中这两个包都依赖了，需要全部exclude。。。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/fuzhongmin05/article/details/57404890" target="_blank" rel="external">Java类加载机制</a></li>
+<li><a href="https://blog.csdn.net/zhoudaxia/article/details/35897057" target="_blank" rel="external">深入理解Java类加载器(2)：线程上下文类加载器</a></li>
+<li><a href="https://www.cnblogs.com/wxd0108/p/6681618.html" target="_blank" rel="external">Java自定义类加载器与双亲委派模型</a></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在符合双亲委派原则的基础上，我们通常不会遇到上述问题，那为什么要打破双亲委派原则呢？目前来看主要两种情形：</p>
+<ol>
+<li>Tomcat遵循JavaEE标准，需要支持多应用部署时的依赖隔离问题，这就需要子加载器加载类优先于父加载器，否则两个不同的webapp如果依赖了两个不同版本的Spring，可能就出问题了，也如上文所说，Tomcat特做了一些兼容，针对servlet-api等一些特殊的包进行了过滤。</li>
+<li>SPI、JNDI等情形，接口定义在框架层（父加载器），但是实现类却在应用层jar（子加载器），框架启动时却需要去扫描加载子加载器管理范畴内的类，这种情况下采用线程上下文加载器来打破双亲委派原则，帮助实现框架层功能。<br>因此如果你开发的是应用层程序，这部分内容通常不需要考虑，如果开发的是框架层程序，那用到类加载器时就要心存敬畏之心了！</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;昨天遇到一个诡异但是很有趣的类加载问题，虽然很快解决了，但是我还是打算剖根问底，分析内部问题出现的原因，毕竟类加载机制虽然说都知道怎么回事，但是还没在实战中实践过，也考虑到有个项目可能需要用到自定义类加载器，趁此机会先初步了解一下。&lt;/p&gt;
+&lt;h2 id=&quot;问题描述&quot;&gt;&lt;a
+    
+    </summary>
+    
+      <category term="JavaEE" scheme="http://www.coselding.cn/categories/JavaEE/"/>
+    
+    
+      <category term="java" scheme="http://www.coselding.cn/tags/java/"/>
+    
+      <category term="JavaEE" scheme="http://www.coselding.cn/tags/JavaEE/"/>
+    
+      <category term="Tomcat" scheme="http://www.coselding.cn/tags/Tomcat/"/>
+    
+      <category term="类加载器" scheme="http://www.coselding.cn/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>JStorm实时计算框架学习</title>
